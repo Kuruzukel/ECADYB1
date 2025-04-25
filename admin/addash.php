@@ -7,7 +7,7 @@
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css" rel="stylesheet">
-    <link href="./assets/addash/addash.css" rel="stylesheet">
+    <link href="./assets/addash.css" rel="stylesheet">
 </head>
 
 <body>
@@ -44,9 +44,8 @@
                     <span class="chevron">
                         <i id="dashboard-chevron" class="fas fa-chevron-down transition-transform duration-300"></i>
                     </span>
-
-
                 </a>
+
                 <div id="dashboard-submenu" class="submenu">
 
                     <a href="addash.php?page=student-list" class="tab sub-tab">
@@ -69,6 +68,7 @@
                         <i class="fas fa-chevron-down transition-transform duration-300"></i>
                     </span>
                 </a>
+
                 <div id="announcement-submenu" class="submenu">
 
                     <a href="addash.php?page=event-schedule" class="tab sub-tab">
@@ -82,6 +82,7 @@
                         <i class="fas fa-chevron-down transition-transform duration-300"></i>
                     </span>
                 </a>
+
                 <div id="yearbook-submenu" class="submenu">
                     <a href="addash.php?page=maritime" class="tab sub-tab">
                         <i class="fas fa-anchor" style="margin-right: 8px;"></i>Maritime Education
@@ -110,29 +111,25 @@
                     <a href="Studdash.php?page=Business" class="tab sub-tab">
                         <i class="fas fa-chart-bar" style="margin-right: 8px;"></i>Business Administration
                     </a>
-
-
                 </div>
+
                 <a href="addash.php?page=batchupload" class="tab" id="batchupload-tab"
                     onclick="setTabActive('batchupload-tab');">
                     <i class="fas fa-cloud-upload-alt"></i> Batch Upload
                 </a>
-                <a href="addash.php?page=password" class="tab" id="password-tab"
-                    onclick="setTabActive('password-tab');">
+
+                <a href="addash.php?page=changepassword" class="tab" id="changepassword-tab"
+                    onclick="setTabActive('changepassword-tab');">
                     <i class="fas fa-key"></i> Change my password
                 </a>
 
-                <a href="student_logout.php" class="tab" id="logout"><i class="fas fa-sign-out-alt"></i> Logout </a>
-                <div id="faculty&staff-submenu" class="submenu">
-                    </a>
-                    <a href="Studdash.php?page=password" class="tab" id="password-tab"><i class="fas fa-key"></i> Change
-                        my password</a>
-                    <a href="student_logout.php" class="tab" id="logout-tab">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </a>
-                </div>
+                <a href="student_logout.php" class="tab" id="logout-tab">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
 
             </div>
+
+        </div>
 
         </div>
 
@@ -160,8 +157,11 @@
                     case 'event-schedule':
                         include('eventschedules.php');
                         break;
-                    case 'batchupload':
+                    case 'batchupload': 
                         include('batchupload.php');
+                        break;
+                    case 'changepassword':
+                        include('changepass.php');
                         break;
                     case 'maritime':
                         include('maritime.php');
@@ -177,7 +177,7 @@
         </div>
 
     </main>
-    <script src="./assets/addash/addash.js">
+    <script src="./assets/addash.js">
 
     </script>
 </body>

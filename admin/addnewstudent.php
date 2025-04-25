@@ -9,7 +9,7 @@
     .container {
         width: 90%;
         max-width: 1000px;
-        margin: 35px auto;
+        margin: 18px auto;
         background-color: #000042;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -204,6 +204,10 @@
 
                 <div class="section">
                     <div class="section-header">Academic Information</div>
+
+                    <label for="academic-year">Academic Year:</label>
+                    <input type="text" id="academic-year" placeholder="Academic Year">
+
                     <label for="first-name">Course:</label>
                     <input type="text" id="course" placeholder="Course">
 
@@ -213,12 +217,13 @@
 
                     <label for="student-id">Student ID:</label>
                     <input type="text" id="student-id" placeholder="Student ID">
+
                 </div>
 
                 <div class="section">
                     <div class="section-header">Additional Information</div>
-                    <label for="motto">Motto in life / Philosophy / Principle:</label>
-                    <input type="text" id="motto" placeholder="Motto">
+                    <label for="motto">Personal Philosophy:</label>
+                    <input type="text" id="personal-philosopjy" placeholder="Personal Philosophy">
 
                     <label for="latin-awards">Latin Awards:</label>
                     <input type="text" id="latin-awards" placeholder="Latin Awards">

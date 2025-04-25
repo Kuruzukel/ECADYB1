@@ -8,7 +8,10 @@
 
 
 
-    <h1>STUDENT LIST</h1>
+    <h1 style="color:rgb(21, 252, 175);text-align: center; font-family: 'Oxygen', sans-serif;">
+        STUDENT LIST
+    </h1>
+
 
 
 </body>
