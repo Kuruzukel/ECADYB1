@@ -19,12 +19,13 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         height: auto;
         min-height: 600px;
+        margin: 35px auto;
     }
 
     .header-container {
         width: 100%;
         height: 50px;
-        background-color: #1c1c84;
+        background-color: #0928c6;
         padding: 20px;
         border-radius: 10px 10px 0 0;
         text-align: center;
@@ -32,7 +33,7 @@
         align-items: center;
         justify-content: center;
         margin-top: -15px;
-        border-bottom: 2px solid rgb(246, 255, 70);
+        border-bottom: 2px solid #fcda15;
     }
 
     h1 {
@@ -79,7 +80,7 @@
     .section-header {
         width: calc(100% + 40px);
         height: 50px;
-        background-color: #3498db;
+        background-color: #217ff7;
         color: white;
         padding: 12px;
         margin: -20px -20px 20px -20px;

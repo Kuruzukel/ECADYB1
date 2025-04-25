@@ -29,7 +29,8 @@
                 </div>
             </div>
 
-            <h3 style="margin-left: 1rem; text-wrap: nowrap; transition: 300ms,;">DIGITAL YEAR BOOK</h3>
+            <h3 style="margin-left: 1rem; text-wrap: nowrap; transition: 300ms; font-family: 'Oxygen', sans-serif;">
+                Admin Dashboard</h3>
         </div>
     </header>
     <main>
@@ -37,7 +38,7 @@
             <img src="../P1.png" alt="Logo" class="logoadmin">
             <div class="line"></div>
 
-            <div class="menu-items">
+            <div class="menu-items" style="font-family: 'Oxygen', sans-serif;">
                 <a class="tab" id="addash-tab" onclick="toggleSubmenu('dashboard-submenu')">
                     <i class="fas fa-home"></i> Dashboard
                     <span class="chevron">
@@ -116,6 +117,11 @@
                     onclick="setTabActive('batchupload-tab');">
                     <i class="fas fa-cloud-upload-alt"></i> Batch Upload
                 </a>
+                <a href="addash.php?page=password" class="tab" id="password-tab"
+                    onclick="setTabActive('password-tab');">
+                    <i class="fas fa-key"></i> Change my password
+                </a>
+
                 <a href="student_logout.php" class="tab" id="logout"><i class="fas fa-sign-out-alt"></i> Logout </a>
                 <div id="faculty&staff-submenu" class="submenu">
                     </a>

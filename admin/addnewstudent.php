@@ -9,7 +9,7 @@
     .container {
         width: 90%;
         max-width: 1000px;
-        margin: 20px auto;
+        margin: 35px auto;
         background-color: #000042;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -19,7 +19,7 @@
     .header-container {
         width: 100%;
         height: 65px;
-        background-color: #1c1c84;
+        background-color: #0928c6;
         padding: 20px;
         border-radius: 10px 10px 0 0;
         text-align: center;
@@ -27,7 +27,7 @@
         align-items: center;
         justify-content: center;
         margin-top: -15px;
-        border-bottom: 2px solid rgb(246, 255, 70);
+        border-bottom: 2px solid #fcda15;
     }
 
     h1 {
@@ -63,7 +63,7 @@
     .section-header {
         width: calc(100% + 40px);
         height: 50px;
-        background-color: #3498db;
+        background-color: #217ff7;
         color: white;
         padding: 12px;
         margin: -20px -20px 20px -20px;
@@ -204,18 +204,12 @@
 
                 <div class="section">
                     <div class="section-header">Academic Information</div>
-                    <label for="course-section">Course and Section</label>
-                    <select id="course-section">
-                        <option value="" disabled selected>Select a course</option>
-                        <option value="Maritime Education">Maritime Education</option>
-                        <option value="Criminology">Criminology</option>
-                        <option value="Tourism Management">Tourism Management</option>
-                        <option value="Teacher Education">Teacher Education</option>
-                        <option value="Nursing">Nursing</option>
-                        <option value="Information System">Information System</option>
-                        <option value="Entrepreneurship">Entrepreneurship</option>
-                        <option value="Management Accounting">Management Accounting</option>
-                    </select>
+                    <label for="first-name">Course:</label>
+                    <input type="text" id="course" placeholder="Course">
+
+                    <label for="middle-name">Section:</label>
+                    <input type="text" id="section" placeholder="Section">
+
 
                     <label for="student-id">Student ID:</label>
                     <input type="text" id="student-id" placeholder="Student ID">
@@ -223,11 +217,15 @@
 
                 <div class="section">
                     <div class="section-header">Additional Information</div>
-                    <label for="personal-quote">Personal Quote:</label>
-                    <input type="text" id="personal-quote" placeholder="Personal Quote">
+                    <label for="motto">Motto in life / Philosophy / Principle:</label>
+                    <input type="text" id="motto" placeholder="Motto">
 
-                    <label for="career-aspirations">Future Career Aspirations:</label>
-                    <input type="text" id="career-aspirations" placeholder="Future Career Aspirations">
+                    <label for="latin-awards">Latin Awards:</label>
+                    <input type="text" id="latin-awards" placeholder="Latin Awards">
+
+                    <label for="career-highlights">Career Highlights:</label>
+                    <input type="text" id="career-highlights" placeholder="Career Highlights">
+
                 </div>
             </div>
             <button class="submit-btn" id="add-student-btn">Add Student</button>

@@ -10,19 +10,19 @@
     .announcement-container {
         width: 90%;
         max-width: 1000px;
-        margin: 50px auto;
+        margin: 35px auto;
         background-color: #000042;
         border-radius: 10px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
         overflow: hidden;
-        margin-top: 14px;
+        margin-top: 20px;
     }
 
     .announcement-header {
-        background-color: #1c1c84;
+        background-color: #0928c6;
         padding: 20px;
         text-align: center;
-        border-bottom: 2px solid rgb(246, 255, 70);
+        border-bottom: 2px solid #fcda15;
     }
 
     .announcement-header h2 {
