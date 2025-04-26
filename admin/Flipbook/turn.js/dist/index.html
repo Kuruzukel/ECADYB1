@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <title>Flipbook (Turn.JS 5)</title>
   <link rel="stylesheet" href="./style.css">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  
 </head>
 <body>
 <!-- partial:index.partial.html -->
@@ -20,7 +21,6 @@
   <!-- controls -->
   <div id="controls">
     <div class="all">
-        <div class="ui-slider" id="page-slider">
         <div class="bar">
           <div class="progress-width">
             <div class="progress">
@@ -37,12 +37,6 @@
         <a class="ui-icon show-hint" title="Miniatures" id="ui-icon-miniature">
           <i class="fa fa-th"></i>
         </a>
-        <a class="ui-icon" id="ui-icon-zoom">
-          <i class="fa fa-file-o"></i>
-        </a>
-        <a class="ui-icon show-hint" title="Share" id="ui-icon-share">
-          <i class="fa fa-share"></i>
-        </a>
         <a class="ui-icon show-hint" title="Full Screen" id="ui-icon-full-screen">
           <i class="fa fa-expand"></i>
         </a>
@@ -50,23 +44,6 @@
           <i class="fa fa-ellipsis-v"></i>
         </a>
       </div>
-
-      <!-- zoom slider -->
-      <div id="zoom-slider-view" class="zoom-slider">
-          <div class="bg">
-             <div class="ui-slider" id="zoom-slider">
-              <div class="bar">
-                <div class="progress-width">
-                  <div class="progress">
-                    <div class="handler"></div>
-                  </div>
-                </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- / zoom slider -->
-    </div>
     
     <div id="ui-icon-expand-options">
       <a class="ui-icon show-hint">

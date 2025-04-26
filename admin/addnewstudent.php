@@ -208,21 +208,21 @@
                     <label for="academic-year">Academic Year:</label>
                     <input type="text" id="academic-year" placeholder="Academic Year">
 
-                    <label for="first-name">Course:</label>
-                    <input type="text" id="course" placeholder="Course">
+                    <label for="Program">Program:</label>
+                    <input type="text" id="program" placeholder="Program">
 
-                    <label for="middle-name">Section:</label>
-                    <input type="text" id="section" placeholder="Section">
+                    <label for="section">Section:</label>
+                    <input type=" text" id="section" placeholder="Section">
 
 
-                    <label for="student-id">Student ID:</label>
+                    <label for="section">Student ID:</label>
                     <input type="text" id="student-id" placeholder="Student ID">
 
                 </div>
 
                 <div class="section">
                     <div class="section-header">Additional Information</div>
-                    <label for="motto">Personal Philosophy:</label>
+                    <label for="personal-philosophy">Personal Philosophy:</label>
                     <input type="text" id="personal-philosopjy" placeholder="Personal Philosophy">
 
                     <label for="latin-awards">Latin Awards:</label>
