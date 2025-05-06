@@ -62,7 +62,7 @@
 
                 </div>
 
-                <a class="tab" id="addash-tab" onclick="toggleSubmenu('announcement-submenu')">
+                <a class="tab" id="announcement-tab" onclick="toggleSubmenu('announcement-submenu')">
                     <i class="fas fa-bullhorn"></i> Announcement
                     <span class="chevron">
                         <i class="fas fa-chevron-down transition-transform duration-300"></i>
@@ -173,8 +173,6 @@
                 ?>
 
             </div>
-
-        </div>
 
     </main>
     <script src="./assets/addash.js">

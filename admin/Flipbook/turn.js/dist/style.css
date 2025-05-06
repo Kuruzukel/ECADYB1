@@ -633,10 +633,10 @@ html:-webkit-full-screen #viewer,
 html:-webkit-full-screen #flipbook {
   width: 100%;
   height: 100%;
-  max-width: 100vw; /* Maximum width */
-  max-height: 100vh; /* Maximum height */
-  min-width: 1000px; /* Minimum width */
-  min-height: 800px; /* Minimum height */
+  max-width: 100vw;
+  max-height: 100vh;
+  min-width: 1300px;
+  min-height: 780px; /* Increased from 800px to 1000px */
 }
 
 .zoom-slider {
