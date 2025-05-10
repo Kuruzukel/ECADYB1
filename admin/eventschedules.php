@@ -31,6 +31,7 @@
     }
 
     .announcement-body {
+        height: 100%;
         padding: 30px;
     }
 
@@ -156,12 +157,12 @@
 </head>
 
 <body>
-    <div class="announcement-container">
+    <div class="announcement-container" style="max-width: 1500px; margin: 0 auto;">
         <div style="font-family: Arial, sans-serif;">
             <div class="announcement-header">
                 <h2>Create Announcement</h2>
             </div>
-            <div class="announcement-body">
+            <div class="announcement-body" style="min-height: 570px;">
                 <form id="announcementForm" action="submit_announcement.php" method="post">
                     <label for="title">Title</label>
                     <input type="text" id="title" name="title" placeholder="Enter announcement title" required />

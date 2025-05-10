@@ -184,39 +184,56 @@
 </head>
 
 <body>
-    <div class="container" style="font-family: Arial, sans-serif;">
-        <div class="header-container">
+    <div class="container" style="font-family: Arial, sans-serif; max-width: 1500px;">
+        <div class="header-container" style="width: 100%;">
             <h1>Add Student Details</h1>
         </div>
-        <div class="form-content">
+        <div class="form-content" style="width: 100%;">
             <div class="form-group">
                 <div class="section">
                     <div class="section-header">Personal Information</div>
+
                     <label for="first-name">First Name:</label>
-                    <input type="text" id="first-name" placeholder="First Name">
+                    <input type="text" id="first-name" placeholder="First Name" oninput="allowOnlyLetters(this)">
 
                     <label for="middle-name">Middle Name:</label>
-                    <input type="text" id="middle-name" placeholder="Middle Name">
+                    <input type="text" id="middle-name" placeholder="Middle Name" oninput="allowOnlyLetters(this)">
 
                     <label for="last-name">Last Name:</label>
-                    <input type="text" id="last-name" placeholder="Last Name">
+                    <input type="text" id="last-name" placeholder="Last Name" oninput="allowOnlyLetters(this)">
+
                 </div>
 
                 <div class="section">
                     <div class="section-header">Academic Information</div>
 
                     <label for="academic-year">Academic Year:</label>
-                    <input type="text" id="academic-year" placeholder="Academic Year">
+                    <select id="academic-year">
+                        <option value="" disabled selected>Select Aacademic Year</option>
+                        <option value="2023-2024">2023-2024</option>
+                        <option value="2024-2025">2024-2025</option>
+                    </select>
 
-                    <label for="Program">Program:</label>
-                    <input type="text" id="program" placeholder="Program">
+
+                    <label for="program">Program:</label>
+                    <select id="program">
+                        <option value="" disabled selected>Select a program</option>
+                        <option value="Maritime Education">Maritime Education</option>
+                        <option value="Criminology">Criminology</option>
+                        <option value="Tourism Managements">Tourism Management</option>
+                        <option value="College of Education">College of Education</option>
+                        <option value="Nursing">Nursing</option>
+                        <option value="Information System">Information System</option>
+                        <option value="Business Administration">Business Administration</option>
+                    </select>
+
 
                     <label for="section">Section:</label>
-                    <input type=" text" id="section" placeholder="Section">
-
+                    <input type="text" id="section" placeholder="Section" oninput="allowOnlyLetters(this)">
 
                     <label for="section">Student ID:</label>
-                    <input type="text" id="student-id" placeholder="Student ID">
+                    <input type="text" id="academic-year" placeholder="2024-000000" maxlength="11"
+                        oninput="formatStudentID(this)">
 
                 </div>
 
@@ -226,10 +243,11 @@
                     <input type="text" id="personal-philosopjy" placeholder="Personal Philosophy">
 
                     <label for="latin-awards">Latin Awards:</label>
-                    <input type="text" id="latin-awards" placeholder="Latin Awards">
+                    <input type="text" id="latin-awards" placeholder="Latin Awards" oninput="allowOnlyLetters(this)">
 
                     <label for="career-highlights">Career Highlights:</label>
-                    <input type="text" id="career-highlights" placeholder="Career Highlights">
+                    <input type="text" id="career-highlights" placeholder="Career Highlights"
+                        oninput="allowOnlyLetters(this)">
 
                 </div>
             </div>
@@ -249,6 +267,20 @@
     </div>
 
     <script>
+    function allowOnlyLetters(input) {
+        const sanitized = input.value.replace(/[^a-zA-Z\s]/g, '');
+        if (input.value !== sanitized) {
+            input.value = sanitized;
+        }
+    }
+
+    function formatStudentID(input) {
+        let value = input.value.replace(/\D/g, ''); // Remove non-digit characters
+        if (value.length > 4) {
+            value = value.slice(0, 4) + '-' + value.slice(4, 10); // Insert dash after year
+        }
+        input.value = value;
+    }
     const addBtn = document.getElementById('add-student-btn');
     const modalOverlay = document.getElementById('modal-overlay');
     const confirmBtn = document.getElementById('confirm-btn');
