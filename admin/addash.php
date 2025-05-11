@@ -71,9 +71,14 @@
 
                 <div id="announcement-submenu" class="submenu">
 
+                    <a href="addash.php?page=create-announcement" class="tab sub-tab">
+                        <i class="fas fa-mail-bulk" style="margin-right: 8px;"></i> Create Announcement
+                    </a>
+
                     <a href="addash.php?page=event-schedule" class="tab sub-tab">
                         <i class="fas fa-calendar-alt" style="margin-right: 8px;"></i> Event Schedules
                     </a>
+
                 </div>
 
                 <a class="tab" id="yearbook-tab" onclick="toggleSubmenu('yearbook-submenu')">
@@ -89,15 +94,15 @@
                     </a>
 
                     <a href="addash.php?page=criminology" class="tab sub-tab">
-                        <i class="fas fa-user-shield" style="margin-right: 8px;"></i>Criminology
+                        <i class="fa fa-balance-scale" style="margin-right: 8px;"></i>Criminology
                     </a>
 
                     <a href="addash.php?page=tourism" class="tab sub-tab">
-                        <i class="fas fa-plane-departure" style="margin-right: 8px;"></i>Tourism Management
+                        <i class="fa fa-plane" style="margin-right: 8px;"></i>Tourism Management
                     </a>
 
                     <a href="addash.php?page=education" class="tab sub-tab">
-                        <i class="fas fa-book-open" style="margin-right: 8px;"></i>College of Education
+                        <i class="fas fa-chalkboard" style="margin-right: 8px;"></i>College of Education
                     </a>
 
                     <a href="addash.php?page=nursing" class="tab sub-tab">
@@ -109,7 +114,7 @@
                     </a>
 
                     <a href="addash.php?page=businessad" class="tab sub-tab">
-                        <i class="fas fa-chart-bar" style="margin-right: 8px;"></i>Business Administration
+                        <i class="fa fa-suitcase" style="margin-right: 8px;"></i>Business Administration
                     </a>
                 </div>
 
@@ -117,6 +122,24 @@
                     onclick="setTabActive('batchupload-tab');">
                     <i class="fas fa-cloud-upload-alt"></i> Uploading Section
                 </a>
+
+                <a class="tab" id="customize-tab" onclick="toggleSubmenu('customize-submenu')">
+                    <i class="fas fa-sliders-h"></i> Customize
+                    <span class="chevron">
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </span>
+                </a>
+
+                <div id="customize-submenu" class="submenu">
+                    <a href="addash.php?page=themes" class="tab sub-tab">
+                        <i class="fas fa-palette" style="margin-right: 8px;"></i>Themes
+                    </a>
+
+                    <a href="addash.php?page=template" class="tab sub-tab">
+                        <i class="fas fa-clone" style="margin-right: 8px;"></i>Templates
+                    </a>
+
+                </div>
 
                 <a href="addash.php?page=changepassword" class="tab" id="changepassword-tab"
                     onclick="setTabActive('changepassword-tab');">
@@ -155,18 +178,27 @@
                     case 'event-schedule':
                         include('eventschedules.php');
                         break;
+                    case 'create-announcement':
+                        include('createannouncement.php');
+                        break;
                     case 'batchupload': 
                         include('batchupload.php');
                         break;
+                    case 'themes':
+                        include('themes.php');
+                        break;    
+                    case 'template':
+                        include('template.php');
+                        break;        
                     case 'changepassword':
                         include('changepassword.php');
                         break;
                     case 'maritime':
                         include('./components/maritime.php');
                         break;
-                        case 'criminology':
-                            include('./components/criminology.php');
-                            break;
+                    case 'criminology':
+                        include('./components/criminology.php');
+                        break;
                     case 'tourism':
                         include('./components/tourism.php');
                         break;  

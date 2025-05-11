@@ -191,7 +191,7 @@
                     <div class="section-header">Top Management Message</div>
                     <div class="section-content">
                         <div class="file-card">
-                            <label class="custom-upload" for="top-message"><i class="fas fa-comments"></i> Upload
+                            <label class="custom-upload" for="top-message"><i class="fas fa-file-csv"></i> Upload
                                 CSV File</label>
                             <input type="file" id="top-message" class="upload-input">
                         </div>
@@ -202,17 +202,17 @@
                     <div class="section-header">Student Information</div>
                     <div class="section-content">
                         <div class="file-card">
-                            <label class="custom-upload" for="student-info"><i class="fas fa-user-graduate"></i>
+                            <label class="custom-upload" for="student-info"><i class="fas fa-file-csv"></i>
                                 Upload CSV File</label>
                             <input type="file" id="student-info" class="upload-input">
                         </div>
                     </div>
                 </div>
                 <div class="section">
-                    <div class="section-header">Student Photos & Templates</div>
+                    <div class="section-header">Student Photo, Template, and Logos</div>
                     <div class="section-content">
                         <div class="file-card">
-                            <label class="custom-upload" for="image-upload"><i class="fas fa-image"></i> Upload
+                            <label class="custom-upload" for="image-upload"><i class="fa fa-file-image"></i> Upload
                                 Image Folder</label>
                             <input type="file" id="image-upload" class="upload-input" accept="image/*">
                         </div>

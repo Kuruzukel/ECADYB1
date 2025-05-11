@@ -17,7 +17,7 @@
         background-color: #000042;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        min-height: 635px;
+        min-height: 600px;
     }
 
     .header-container {
@@ -122,15 +122,42 @@
 </head>
 
 <body>
-
     <div class="container" style="font-family: Arial, sans-serif; max-width: 1500px;">
         <div class="header-container" style="width: 100%;">
-            <h1>Student List</h1>
+            <h1>Choose Template</h1>
         </div>
         <div class="form-content" style="width: 100%;">
 
+            <div class="form-group">
+                <div class="section">
+                    <div class="section-header">Template 1</div>
+                    <div class="section-content">
+                        <div class="file-card">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">Template 2</div>
+                    <div class="section-content">
+                        <div class="file-card">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">Template 3</div>
+                    <div class="section-content">
+                        <div class="file-card">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </div>
     </div>
     </div>
 </body>
