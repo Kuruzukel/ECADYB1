@@ -4,17 +4,28 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add Student Details</title>
+    <title>Dashboard Theme Selector</title>
     <style>
-    .body {
+    :root {
+        --primary-bg: #000042;
+        --header-bg: #0928c6;
+        --accent: #1d2db2;
+        --section-bg: #34495e;
+        --section-header: #217ff7;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
         width: 100%;
     }
 
     .container {
         width: 90%;
-        max-width: 1000px;
+        max-width: 1380px;
         margin: 18px auto;
-        background-color: #000042;
+        background-color: var(--primary-bg);
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         min-height: 600px;
@@ -23,7 +34,7 @@
     .header-container {
         width: 100%;
         height: 65px;
-        background-color: #0928c6;
+        background-color: var(--header-bg);
         padding: 20px;
         border-radius: 10px 10px 0 0;
         text-align: center;
@@ -31,7 +42,7 @@
         align-items: center;
         justify-content: center;
         margin-top: -15px;
-        border-bottom: 2px solid #fcda15;
+        border-bottom: 2px solid var(--accent);
     }
 
     h1 {
@@ -55,7 +66,7 @@
     .section {
         width: 50%;
         min-width: 250px;
-        background-color: #34495e;
+        background-color: var(--section-bg);
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -69,7 +80,7 @@
     .section-header {
         width: calc(100% + 40px);
         height: 50px;
-        background-color: #217ff7;
+        background-color: var(--section-header);
         color: white;
         padding: 12px;
         margin: -20px -20px 20px -20px;
@@ -89,7 +100,7 @@
 
     .color-selector {
         display: flex;
-        justify-content: center;/ align-items: center;
+        justify-content: center;
         flex-wrap: wrap;
         gap: 1rem;
         width: 100%;
@@ -108,7 +119,6 @@
         display: flex;
         flex-direction: row;
     }
-
 
     .color-bar {
         flex: 1;
@@ -140,91 +150,90 @@
         opacity: 1;
     }
 
-    /* RED THEME */
-    .color-red .color-bar:nth-child(1) {
-        background-color: #ff6b6b;
+    .color-theme1 .color-bar:nth-child(1) {
+        background-color: #470a0a;
     }
 
-    .color-red .color-bar:nth-child(2) {
-        background-color: #e74c3c;
+    .color-theme1 .color-bar:nth-child(2) {
+        background-color: #b21c0e;
     }
 
-    .color-red .color-bar:nth-child(3) {
-        background-color: #c0392b;
+    .color-theme1 .color-bar:nth-child(3) {
+        background-color: #cb0e40;
     }
 
-    .color-red .color-bar:nth-child(4) {
-        background-color: #a93226;
+    .color-theme1 .color-bar:nth-child(4) {
+        background-color: #bc4f5e;
     }
 
-    .color-red .color-bar:nth-child(5) {
-        background-color: #7b241c;
+    .color-theme1 .color-bar:nth-child(5) {
+        background-color: #cb5382;
     }
 
-    /* BLUE THEME */
-    .color-blue .color-bar:nth-child(1) {
-        background-color: #3498db;
+
+    .color-theme2 .color-bar:nth-child(1) {
+        background-color: #12086F;
     }
 
-    .color-blue .color-bar:nth-child(2) {
-        background-color: #2980b9;
+    .color-theme2 .color-bar:nth-child(2) {
+        background-color: #2B35AF;
     }
 
-    .color-blue .color-bar:nth-child(3) {
-        background-color: #2471a3;
+    .color-theme2 .color-bar:nth-child(3) {
+        background-color: #4361EE;
     }
 
-    .color-blue .color-bar:nth-child(4) {
-        background-color: #1f618d;
+    .color-theme2 .color-bar:nth-child(4) {
+        background-color: #4895EF;
     }
 
-    .color-blue .color-bar:nth-child(5) {
-        background-color: #154360;
+    .color-theme2 .color-bar:nth-child(5) {
+        background-color: #4CC9F0;
     }
 
-    /* GREEN THEME */
-    .color-green .color-bar:nth-child(1) {
-        background-color: #2ecc71;
+
+    .color-theme3 .color-bar:nth-child(1) {
+        background-color: #0d381e;
     }
 
-    .color-green .color-bar:nth-child(2) {
-        background-color: #27ae60;
+    .color-theme3 .color-bar:nth-child(2) {
+        background-color: #164f2c;
     }
 
-    .color-green .color-bar:nth-child(3) {
-        background-color: #229954;
+    .color-theme3 .color-bar:nth-child(3) {
+        background-color: #1f693c;
     }
 
-    .color-green .color-bar:nth-child(4) {
-        background-color: #1e8449;
+    .color-theme3 .color-bar:nth-child(4) {
+        background-color: #2a834d;
     }
 
-    .color-green .color-bar:nth-child(5) {
-        background-color: #145a32;
+    .color-theme3 .color-bar:nth-child(5) {
+        background-color: #349e5e;
     }
 
-    /* YELLOW THEME */
-    .color-yellow .color-bar:nth-child(1) {
-        background-color: #f9e79f;
+
+    .color-theme4 .color-bar:nth-child(1) {
+        background-color: #281E18;
     }
 
-    .color-yellow .color-bar:nth-child(2) {
-        background-color: #f7dc6f;
+    .color-theme4 .color-bar:nth-child(2) {
+        background-color: #572D0C;
     }
 
-    .color-yellow .color-bar:nth-child(3) {
-        background-color: #f1c40f;
+    .color-theme4 .color-bar:nth-child(3) {
+        background-color: #C78E3A;
     }
 
-    .color-yellow .color-bar:nth-child(4) {
-        background-color: #d4ac0d;
+    .color-theme4 .color-bar:nth-child(4) {
+        background-color: #E3B76A;
     }
 
-    .color-yellow .color-bar:nth-child(5) {
-        background-color: #b7950b;
+    .color-theme4 .color-bar:nth-child(5) {
+        background-color: #FDFCD4;
     }
 
-    /* DEFAULT THEME (screenshot-like) */
+
     .color-default .color-bar:nth-child(1) {
         background-color: #1d2db2;
     }
@@ -279,52 +288,50 @@
 </head>
 
 <body>
-    <div class="container" style="font-family: Arial, sans-serif; max-width: 1500px;">
-        <div class="header-container" style="width: 100%;">
+    <div class="container">
+        <div class="header-container">
             <h1>Appearance</h1>
         </div>
-        <div class="form-content" style="width: 100%;">
+        <div class="form-content">
             <div class="form-group">
                 <div class="section">
                     <div class="section-header">Themes</div>
                     <div class="section-content">
-                        <div class="file-card">
-                            <div class="color-selector">
-                                <div class="color-box color-red" data-label="Red" onclick="selectColor(this)">
-                                    <div class="color-bar"></div>
-                                    <div class="color-bar"></div>
-                                    <div class="color-bar"></div>
-                                    <div class="color-bar"></div>
-                                    <div class="color-bar"></div>
-                                </div>
-                                <div class="color-box color-blue" data-label="Blue" onclick="selectColor(this)">
-                                    <div class="color-bar"></div>
-                                    <div class="color-bar"></div>
-                                    <div class="color-bar"></div>
-                                    <div class="color-bar"></div>
-                                    <div class="color-bar"></div>
-                                </div>
-                                <div class="color-box color-green" data-label="Green" onclick="selectColor(this)">
-                                    <div class="color-bar"></div>
-                                    <div class="color-bar"></div>
-                                    <div class="color-bar"></div>
-                                    <div class="color-bar"></div>
-                                    <div class="color-bar"></div>
-                                </div>
-                                <div class="color-box color-yellow" data-label="Yellow" onclick="selectColor(this)">
-                                    <div class="color-bar"></div>
-                                    <div class="color-bar"></div>
-                                    <div class="color-bar"></div>
-                                    <div class="color-bar"></div>
-                                    <div class="color-bar"></div>
-                                </div>
-                                <div class="color-box color-default" data-label="Default" onclick="selectColor(this)">
-                                    <div class="color-bar"></div>
-                                    <div class="color-bar"></div>
-                                    <div class="color-bar"></div>
-                                    <div class="color-bar"></div>
-                                    <div class="color-bar"></div>
-                                </div>
+                        <div class="color-selector">
+                            <div class="color-box color-theme1" data-label="Theme 1" onclick="selectColor(this)">
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                            </div>
+                            <div class="color-box color-theme2" data-label="Theme 2" onclick="selectColor(this)">
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                            </div>
+                            <div class="color-box color-theme3" data-label="Theme 3" onclick="selectColor(this)">
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                            </div>
+                            <div class="color-box color-theme4" data-label="Theme 4" onclick="selectColor(this)">
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                            </div>
+                            <div class="color-box color-default" data-label="Default" onclick="selectColor(this)">
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
                             </div>
                         </div>
                     </div>
@@ -334,7 +341,7 @@
                     <div class="section-header">Logo Container</div>
                     <div class="section-content">
                         <div class="file-card">
-                            <!-- Logo upload or preview goes here -->
+                            <!-- Upload Logo or Logo Preview Here -->
                         </div>
                     </div>
                 </div>
@@ -343,12 +350,70 @@
     </div>
 
     <script>
+    const themes = {
+        "Theme 1": {
+            '--primary-bg': '#470a0a',
+            '--header-bg': '#b21c0e',
+            '--accent': '#cb0e40',
+            '--section-bg': '#bc4f5e',
+            '--section-header': '#cb5382'
+        },
+        "Theme 2": {
+            "--primary-bg": "#12086F",
+            "--header-bg": "#2B35AF",
+            "--accent": "#4361EE",
+            "--section-bg": "#4895EF",
+            "--section-header": "#4CC9F0"
+        },
+        "Theme 3": {
+            "--primary-bg": "#0d381e",
+            "--header-bg": "#164f2c",
+            "--accent": "#1f693c",
+            "--section-bg": "#2a834d",
+            "--section-header": "#349e5e"
+        },
+        "Theme 4": {
+            "--primary-bg": "#281E18",
+            "--header-bg": "#572D0C",
+            "--accent": "#C78E3A",
+            "--section-bg": "#E3B76A",
+            "--section-header": "#FDFCD4"
+        },
+        "Default": {
+            "--primary-bg": "#000042",
+            "--header-bg": "#0928c6",
+            "--accent": "#fcda15",
+            "--section-bg": "#34495e",
+            "--section-header": "#217ff7"
+        }
+    };
+
     function selectColor(el) {
         document.querySelectorAll('.color-box').forEach(box => {
             box.classList.remove('selected');
         });
         el.classList.add('selected');
+
+        const themeLabel = el.getAttribute('data-label');
+        applyTheme(themeLabel);
     }
+
+    function applyTheme(theme) {
+        const root = document.documentElement;
+        const selectedTheme = themes[theme] || themes["Default"];
+        for (const [varName, color] of Object.entries(selectedTheme)) {
+            root.style.setProperty(varName, color);
+        }
+
+        localStorage.setItem('dashboard-theme', theme);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('dashboard-theme') || 'Default';
+        applyTheme(savedTheme);
+        const selectedBox = document.querySelector(`.color-box[data-label="${savedTheme}"]`);
+        if (selectedBox) selectedBox.classList.add('selected');
+    });
     </script>
 </body>
 
