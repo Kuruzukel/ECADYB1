@@ -6,22 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create Announcement</title>
     <style>
-    /* Your existing styles */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        width: 100%;
+        background-color: var(--body-bg);
+    }
+
+    .container {
+        height: 100%;
+        background-color: var(--content-bg);
+        border-radius: 10px 10px 0 0;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
     .announcement-container {
-        width: 90%;
-        max-width: 1000px;
-        margin: 35px auto;
-        background-color: #000042;
-        border-radius: 10px;
+        height: 100%;
+        width: 100%;
+        background-color: var(--content-bg);
+        border-radius: 8px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
         overflow: hidden;
         margin-top: 20px;
     }
 
     .announcement-header {
-        background-color: #0928c6;
+        width: 100%;
+        height: 70px;
+        background-color: var(--header-bg);
         padding: 20px;
+        border-radius: 8px 8px 0 0;
         text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         border-bottom: 2px solid #fcda15;
     }
 
@@ -34,6 +53,8 @@
         height: 100%;
         padding: 30px;
     }
+
+
 
     h2 {
         margin: 0;
@@ -71,7 +92,7 @@
         width: 200px;
         height: 45px;
         display: block;
-        margin: 35px auto 0;
+        margin: 60px auto 0;
         padding: 12px 25px;
         background-color: #4caf50;
         color: white;
@@ -157,7 +178,7 @@
 </head>
 
 <body>
-    <div class="announcement-container" style="max-width: 1500px; margin: 0 auto;">
+    <div class="announcement-container" style=" margin: 0 auto;">
         <div style="font-family: Arial, sans-serif;">
             <div class="announcement-header">
                 <h2>Create Announcement</h2>
@@ -166,7 +187,6 @@
                 <form id="announcementForm" action="submit_announcement.php" method="post">
                     <label for="title">Title</label>
                     <input type="text" id="title" name="title" placeholder="Enter announcement title" required />
-
                     <label for="message">Message</label>
                     <textarea id="message" name="message" placeholder="Write your announcement here..."
                         required></textarea>
@@ -181,19 +201,18 @@
                 </form>
             </div>
         </div>
-    </div>
 
-    <!-- Modal -->
-    <div class="modal-overlay" id="modal-overlay">
-        <div class="modal" style="font-family: Arial, sans-serif;">
-            <h3>Are you sure you want to post this announcement?</h3>
-            <div class="modal-buttons">
-                <button class="modal-btn confirm" id="confirm-btn">Yes, Post</button>
-                <button class="modal-btn cancel" id="cancel-btn">Cancel</button>
+        <!-- Modal -->
+        <div class="modal-overlay" id="modal-overlay">
+            <div class="modal" style="font-family: Arial, sans-serif;">
+                <h3>Are you sure you want to post this announcement?</h3>
+                <div class="modal-buttons">
+                    <button class="modal-btn confirm" id="confirm-btn">Yes, Post</button>
+                    <button class="modal-btn cancel" id="cancel-btn">Cancel</button>
+                </div>
             </div>
         </div>
     </div>
-
     <script>
     // References to elements
     const postBtn = document.getElementById('post-announcement-btn'); // Corrected the ID

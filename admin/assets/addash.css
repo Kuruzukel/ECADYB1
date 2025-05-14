@@ -3,6 +3,16 @@
   margin: 0;
 }
 
+:root {
+  --body-bg: #000042;
+  --header-bg: #0928c6;
+  --sidebar-bg: #0928c6;
+  --content-bg: #112d4e;
+  --menu-bg-active: #000042;
+  --menu-border-active: #fcda15;
+  --menu-hover-bg: #1c1c84;
+}
+
 html,
 body {
   height: 100%;
@@ -10,18 +20,18 @@ body {
 }
 
 body {
-  background-color: #000042;
+  background-color: var(--body-bg);
   display: flex;
   flex-direction: column;
 }
 
 header {
   margin-top: 8px;
-  background: #0928c6;
+  background: var(--header-bg);
   height: 8rem;
   width: calc(100% - 1rem);
   align-self: center;
-  border-radius: 12px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   padding-inline-start: 1.5rem;
@@ -35,7 +45,7 @@ header {
   height: 2rem;
   width: 3rem;
   padding-inline: 12px;
-  background-color: #000042;
+  background-color: var(--menu-bg-active);
   border-radius: 8px;
   fill: rgb(209, 209, 209);
   cursor: pointer;
@@ -71,16 +81,16 @@ main {
 
 .sidebar {
   height: 100vh;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   overflow-y: auto;
   overflow-x: hidden;
   flex-shrink: 0;
   min-height: 100%;
   min-width: 15rem;
   width: 15rem;
-  background: #0928c6;
-  border-radius: 12px;
+  background: var(--sidebar-bg);
+  border-radius: 8px;
   transition: 300ms;
   margin-right: 10px;
   display: flex;
@@ -89,7 +99,7 @@ main {
   position: relative;
 }
 .sidebar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari and Opera */
+  display: none;
 }
 
 .sidebar.closed {
@@ -107,15 +117,14 @@ main {
   margin-top: 1rem;
   transition: margin-top 0.3s ease;
   min-height: 100%;
-  height: 100vh; /* Replace 2000px with 100vh to fit the viewport */
+  height: 100vh;
   min-width: 15rem;
   width: 15rem;
-  background: #0928c6;
   border-radius: 12px;
   margin-right: 10px;
   display: flex;
   flex-direction: column;
-  align-items: right; /* Use flex-end for better alignment */
+  align-items: right;
   overflow: hidden;
   position: relative;
 }
@@ -159,14 +168,12 @@ main {
   border-left: 3px solid transparent;
 }
 
-/* Active tab style */
 .tab.active {
-  background-color: #000042;
-  border-left: 3px solid #fcda15;
+  background-color: var(--menu-bg-active);
+  border-left: 3px solid var(--menu-border-active);
   z-index: 10;
 }
 
-/* Active tab indicators */
 .tab.active::before {
   content: "";
   position: absolute;
@@ -189,7 +196,6 @@ main {
   box-shadow: 4px -4px 0 -2px #585e69;
 }
 
-/* Submenu styles */
 .submenu {
   display: none;
   padding-left: -6rem;
@@ -206,11 +212,10 @@ main {
 }
 
 .sub-tab.active {
-  background-color: #000042;
-  border-left: 3px solid#fcda15;
+  background-color: var(--menu-bg-active);
+  border-left: 3px solid var(--menu-border-active);
 }
 
-/* Icon spacing */
 .tab i {
   margin-right: 10px;
   width: 20px;
@@ -218,12 +223,10 @@ main {
 }
 
 .contents {
-  height: 100vh; /* Make it fit the viewport height */
+  height: 100vh;
   width: 100%;
-  background-color: #112d4e;
-  border-radius: 12px;
-  padding-block-start: 1rem;
-  overflow: hidden; /* Remove scrollbars */
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .scroll-container {
@@ -234,14 +237,12 @@ main {
 .scroll-container::-webkit-scrollbar {
   width: 0px;
   background: transparent;
-  /* Optional: transparent background */
 }
 
 header h3 {
   font-size: 2rem;
 }
 
-/* Search bar styling */
 .search-bar {
   position: absolute;
   top: 6.5rem;
@@ -255,19 +256,16 @@ header h3 {
   transition: all 0.3s ease;
 }
 
-/* Hover effect */
 .search-bar:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px);
 }
 
-/* Focus effect */
 .search-bar:focus-within {
   background: #fff;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Input field styling */
 .search-input {
   flex: 1;
   border: none;
@@ -278,16 +276,14 @@ header h3 {
   color: #333;
 }
 
-/* Search icon styling */
 .search-icon {
   color: #888;
   margin-right: 10px;
   transition: color 0.3s;
 }
 
-/* Search button styling */
 .search-button {
-  background: #1c1c84;
+  background: var(--menu-hover-bg);
   color: white;
   border: none;
   border-radius: 20px;
@@ -297,12 +293,10 @@ header h3 {
   transition: background 0.3s;
 }
 
-/* Button hover effect */
 .search-button:hover {
-  background: #000042;
+  background: var(--menu-bg-active);
 }
 
-/* Optional: Animation when focused */
 @keyframes pulse {
   0% {
     box-shadow: 0 0 0 0 rgba(0, 30, 1, 0.4);
@@ -324,25 +318,20 @@ header h3 {
 @media screen and (max-width: 500px) {
   header h3 {
     font-size: 1.4rem;
-    background: #1c1c84;
+    background: var(--menu-hover-bg);
   }
 
   .sidebar {
     min-width: min(100rem, 90vw);
     width: 100rem;
     height: 688px;
-    background: #1c1c84;
+    background: var(--menu-hover-bg);
   }
 
   .sidebar.closed {
     min-width: 0;
     width: 0;
-    background: #1c1c84;
-  }
-
-  .contents {
-    min-width: -100px;
-    width: 100%;
+    background: var(--menu-hover-bg);
   }
 
   .logoadmin {
@@ -383,12 +372,11 @@ header h3 {
 
   .scroll-container {
     height: 688px;
-    /* Adjust height for smaller screens */
   }
 
   header {
     margin-top: 8px;
-    background: #1c1c84;
+    background: var(--menu-hover-bg);
     width: calc(100% - 1rem);
     align-self: center;
     border-radius: 12px;
@@ -400,7 +388,7 @@ header h3 {
 
 @media screen and (max-width: 1120px) and (orientation: portrait) {
   body {
-    background-color: #000042;
+    background-color: var(--body-bg);
     margin: 0;
     padding: 0;
     overflow: hidden;

@@ -9,14 +9,10 @@
     <style>
     /* Container */
     .changepass-container {
-        width: 90%;
-        max-width: 1000px;
-        margin: 35px auto;
-        background-color: #000042;
-        border-radius: 10px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-        overflow: hidden;
-        margin-top: 20px;
+        height: 100%;
+        background-color: var(--content-bg);
+        border-radius: 10px 10px 0 0;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
 
     /* Header */
@@ -237,7 +233,7 @@
 
 <body>
 
-    <div class="changepass-container" style="max-width: 1500px; margin: 0 auto;">
+    <div class="changepass-container" style=" margin: 0 auto;">
         <div style="font-family: Arial, sans-serif;">
             <div class="changepass-header">
                 <h2>Change Password</h2>

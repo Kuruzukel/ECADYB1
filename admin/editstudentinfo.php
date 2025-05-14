@@ -11,26 +11,22 @@
     }
 
     .container {
-        width: 90%;
-        max-width: 1000px;
-        margin: 18px auto;
-        background-color: #000042;
-        border-radius: 10px;
+        height: 100%;
+        background-color: var(--content-bg);
+        border-radius: 10px 10px 0 0;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        min-height: 635px;
     }
 
     .header-container {
         width: 100%;
-        height: 65px;
-        background-color: #0928c6;
+        height: 70px;
+        background-color: var(--header-bg);
         padding: 20px;
-        border-radius: 10px 10px 0 0;
+        border-radius: 8px 8px 0 0;
         text-align: center;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-top: -15px;
         border-bottom: 2px solid #fcda15;
     }
 
@@ -123,7 +119,7 @@
 
 <body>
 
-    <div class="container" style="font-family: Arial, sans-serif; max-width: 1500px;">
+    <div class="container" style="font-family: Arial, sans-serif;">
         <div class="header-container" style="width: 100%;">
             <h1>Edit Student Info</h1>
         </div>
