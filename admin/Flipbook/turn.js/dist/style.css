@@ -111,7 +111,7 @@
   position: absolute;
   overflow: hidden;
   z-index: 1;
-  background-color: rgba(0, 102, 255, 0.15);
+  background-color: rgba(137, 137, 137, 0.15);
   border-radius: 5px;
   cursor: pointer;
 }
@@ -209,6 +209,7 @@
   font: 10px arial;
   color: white;
   letter-spacing: 1px;
+
   white-space: nowrap;
   z-index: 1000;
   opacity: 0;
@@ -322,14 +323,14 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: #dcdcdc;
 }
 .catalog-app {
   width: 100%;
   height: 100%;
   overflow: hidden;
   position: relative;
-  background-color: #112d4e;
+  border-radius: 8px;
+  background-color: var(--content-bg);
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
   .catalog-app {
@@ -346,7 +347,6 @@ body {
   bottom: 54px;
   width: 100%;
   height: 126px;
-  background-color: #112d4e;
 }
 .touch-device.display-single .ui-arrow-next-page,
 .touch-device.display-single .ui-arrow-previous-page {
@@ -422,7 +422,7 @@ body {
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
 }
-@-webkit-keyframes next-page /* Safari and Chrome */ {
+@-webkit-keyframes next-page {
   0% {
     -webkit-transform: translateX(0px);
     -moz-transform: translateX(0px);
@@ -445,7 +445,7 @@ body {
     transform: translateX(0px);
   }
 }
-@keyframes next-page /* Safari and Chrome */ {
+@keyframes next-page {
   0% {
     -webkit-transform: translateX(0px);
     -moz-transform: translateX(0px);
@@ -586,9 +586,6 @@ body {
     transition: all 0.2s;
   }
   #controls.extend-ui-options {
-    /*#ui-icon-expand-options{
-      display: none;
-    }*/
   }
   #controls.extend-ui-options #page-slider {
     -webkit-transform: translate3d(-250px, 0px, 0px);
@@ -636,7 +633,7 @@ html:-webkit-full-screen #flipbook {
   max-width: 100vw;
   max-height: 100vh;
   min-width: 1300px;
-  min-height: 780px; /* Increased from 800px to 1000px */
+  min-height: 780px;
 }
 
 .zoom-slider {

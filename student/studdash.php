@@ -7,7 +7,7 @@
     <title>Student Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css" rel="stylesheet">
-    <link href="./assets/studdash.css" rel="stylesheet">
+    <link href="../student/assets/studdash.css" rel="stylesheet">
 </head>
 
 <body>
@@ -71,9 +71,14 @@
 
                 <div id="announcement-submenu" class="submenu">
 
+                    <a href="addash.php?page=create-announcement" class="tab sub-tab">
+                        <i class="fas fa-mail-bulk" style="margin-right: 8px;"></i> Create Announcement
+                    </a>
+
                     <a href="addash.php?page=event-schedule" class="tab sub-tab">
                         <i class="fas fa-calendar-alt" style="margin-right: 8px;"></i> Event Schedules
                     </a>
+
                 </div>
 
                 <a class="tab" id="yearbook-tab" onclick="toggleSubmenu('yearbook-submenu')">
@@ -88,31 +93,30 @@
                         <i class="fas fa-anchor" style="margin-right: 8px;"></i>Maritime Education
                     </a>
 
-                    <a href="Studdash.php?page=Criminology" class="tab sub-tab">
-                        <i class="fas fa-user-shield" style="margin-right: 8px;"></i>Criminology
+                    <a href="addash.php?page=criminology" class="tab sub-tab">
+                        <i class="fa fa-balance-scale" style="margin-right: 8px;"></i>Criminology
                     </a>
 
-                    <a href="Studdash.php?page=Tourism" class="tab sub-tab">
-                        <i class="fas fa-plane-departure" style="margin-right: 8px;"></i>Tourism Management
+                    <a href="addash.php?page=tourism" class="tab sub-tab">
+                        <i class="fa fa-plane" style="margin-right: 8px;"></i>Tourism Management
                     </a>
 
-                    <a href="Studdash.php?page=Education" class="tab sub-tab">
-                        <i class="fas fa-book-open" style="margin-right: 8px;"></i>College of Education
+                    <a href="addash.php?page=education" class="tab sub-tab">
+                        <i class="fas fa-chalkboard" style="margin-right: 8px;"></i>College of Education
                     </a>
 
-                    <a href="Studdash.php?page=Nursing" class="tab sub-tab">
+                    <a href="addash.php?page=nursing" class="tab sub-tab">
                         <i class="fas fa-first-aid" style="margin-right: 8px;"></i>Nursing
                     </a>
 
-                    <a href="Studdash.php?page=Information System" class="tab sub-tab">
+                    <a href="addash.php?page=informationsys" class="tab sub-tab">
                         <i class="fas fa-laptop-code" style="margin-right: 8px;"></i>Information System
                     </a>
 
-                    <a href="Studdash.php?page=Business" class="tab sub-tab">
-                        <i class="fas fa-chart-bar" style="margin-right: 8px;"></i>Business Administration
+                    <a href="addash.php?page=businessad" class="tab sub-tab">
+                        <i class="fa fa-suitcase" style="margin-right: 8px;"></i>Business Administration
                     </a>
                 </div>
-
 
 
                 <a href="addash.php?page=changepassword" class="tab" id="changepassword-tab"
@@ -133,8 +137,6 @@
         <div class="scroll-container" id="scrollContainer">
             <div class="contents" id="content">
 
-
-
                 <?php
                 $page = isset($_GET['page']) ? $_GET['page'] : 'studentlist';
                 switch ($page) {
@@ -154,12 +156,42 @@
                     case 'event-schedule':
                         include('eventschedules.php');
                         break;
+                    case 'create-announcement':
+                        include('createannouncement.php');
+                        break;
+                    case 'batchupload': 
+                        include('batchupload.php');
+                        break;
+                    case 'themes':
+                        include('themes.php');
+                        break;    
+                    case 'template':
+                        include('template.php');
+                        break;        
                     case 'changepassword':
-                        include('changepass.php');
+                        include('changepassword.php');
                         break;
                     case 'maritime':
-                        include('maritime.php');
+                        include('./components/maritime.php');
                         break;
+                    case 'criminology':
+                        include('./components/criminology.php');
+                        break;
+                    case 'tourism':
+                        include('./components/tourism.php');
+                        break;  
+                   case 'education':
+                        include('./components/education.php');
+                        break; 
+                    case 'nursing':
+                        include('./components/nursing.php');
+                        break;   
+                    case 'informationsys':
+                        include('./components/informationsys.php');
+                        break;  
+                    case 'businessad':
+                        include('./components/businessad.php');
+                        break;                    
                     default:
                         include('studentlist.php');
                         break;
@@ -168,10 +200,8 @@
 
             </div>
 
-        </div>
-
     </main>
-    <script src="./assets/studdash.js">
+    <script src="../student/assets/studdash.js">
 
     </script>
 </body>

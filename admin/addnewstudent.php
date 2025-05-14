@@ -6,6 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Student Details</title>
     <style>
+    :root {
+        --primary-bg: #000042;
+        --header-bg: #1d2db2;
+        --accent: #1d2db2;
+        --section-bg: #34495e;
+        --section-header: #217ff7;
+
+        --body-bg: #000042;
+        --sidebar-bg: #0928c6;
+        --content-bg: #112d4e;
+        --menu-bg-active: #000042;
+        --menu-border-active: #fcda15;
+        --menu-hover-bg: #1c1c84;
+    }
+
     .container {
         height: 100%;
         background-color: var(--content-bg);
@@ -15,8 +30,8 @@
 
     .header-container {
         width: 100%;
-        height: 70px;
-        background-color: #0928c6;
+        height: 50px;
+        background-color: var(--header-bg);
         padding: 20px;
         border-radius: 8px 8px 0 0;
         text-align: center;
@@ -46,7 +61,7 @@
     .section {
         width: 32%;
         min-width: 250px;
-        background-color: #34495e;
+        background-color: var(--section-bg);
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -59,7 +74,7 @@
     .section-header {
         width: calc(100% + 40px);
         height: 50px;
-        background-color: #217ff7;
+        background-color: var(--section-header);
         color: white;
         padding: 12px;
         margin: -20px -20px 20px -20px;
@@ -119,7 +134,6 @@
         }
     }
 
-    /* MODAL STYLES */
     .modal-overlay {
         position: fixed;
         top: 0;
@@ -251,7 +265,6 @@
         </div>
     </div>
 
-    <!-- Modal -->
     <div class="modal-overlay" id="modal-overlay">
         <div class="modal" style="font-family: Arial, sans-serif;">
             <h2>Are you sure you want to add this student?</h2>
@@ -263,6 +276,87 @@
     </div>
 
     <script>
+    const themes = {
+        "Theme 1": {
+            "--primary-bg": "#470a0a",
+            "--header-bg": "#b21c0e",
+            "--accent": "#fcda15",
+            "--section-bg": "#bc4f5e",
+            "--section-header": "#cb5382",
+            "--body-bg": "#470a0a",
+            "--sidebar-bg": "#cb0e40",
+            "--content-bg": "#bc4f5e",
+            "--menu-bg-active": "#cb5382",
+            "--menu-border-active": "#fff176",
+            "--menu-hover-bg": "#cb5382"
+        },
+        "Theme 2": {
+            "--primary-bg": "#12086F",
+            "--header-bg": "#2B35AF",
+            "--accent": "#fcda15",
+            "--section-bg": "#4895EF",
+            "--section-header": "#4CC9F0",
+            "--body-bg": "#12086F",
+            "--sidebar-bg": "#2B35AF",
+            "--content-bg": "#4895EF",
+            "--menu-bg-active": "#4CC9F0",
+            "--menu-border-active": "#ffffff",
+            "--menu-hover-bg": "#4361EE"
+        },
+        "Theme 3": {
+            "--primary-bg": "#0d381e",
+            "--header-bg": "#164f2c",
+            "--accent": "#fcda15",
+            "--section-bg": "#2a834d",
+            "--section-header": "#349e5e",
+            "--body-bg": "#0d381e",
+            "--sidebar-bg": "#1f693c",
+            "--content-bg": "#2a834d",
+            "--menu-bg-active": "#349e5e",
+            "--menu-border-active": "#ffffff",
+            "--menu-hover-bg": "#1f693c"
+        },
+        "Theme 4": {
+            "--primary-bg": "#281E18",
+            "--header-bg": "#572D0C",
+            "--accent": "#fcda15",
+            "--section-bg": "#E3B76A",
+            "--section-header": "#9D9C75",
+            "--body-bg": "#281E18",
+            "--sidebar-bg": "#572D0C",
+            "--content-bg": "#E3B76A",
+            "--menu-bg-active": "#9D9C75",
+            "--menu-border-active": "#ffffff",
+            "--menu-hover-bg": "#C78E3A"
+        },
+        "Default": {
+            "--primary-bg": "#112d4e",
+            "--header-bg": "#0928c6",
+            "--accent": "#fcda15",
+            "--section-bg": "#34495e",
+            "--section-header": "#217ff7",
+            "--body-bg": "#000042",
+            "--sidebar-bg": "#0928c6",
+            "--content-bg": "#112d4e",
+            "--menu-bg-active": "#000042",
+            "--menu-border-active": "#fcda15",
+            "--menu-hover-bg": "#1c1c84"
+        }
+    };
+
+    function applyTheme(themeName) {
+        const theme = themes[themeName] || themes["Default"];
+        const root = document.documentElement;
+        for (const [key, value] of Object.entries(theme)) {
+            root.style.setProperty(key, value);
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('dashboard-theme') || 'Default';
+        applyTheme(savedTheme);
+    });
+
     function allowOnlyLetters(input) {
         const sanitized = input.value.replace(/[^a-zA-Z\s]/g, '');
         if (input.value !== sanitized) {
@@ -271,9 +365,9 @@
     }
 
     function formatStudentID(input) {
-        let value = input.value.replace(/\D/g, ''); // Remove non-digit characters
+        let value = input.value.replace(/\D/g, '');
         if (value.length > 4) {
-            value = value.slice(0, 4) + '-' + value.slice(4, 10); // Insert dash after year
+            value = value.slice(0, 4) + '-' + value.slice(4, 10);
         }
         input.value = value;
     }
@@ -294,7 +388,7 @@
     confirmBtn.addEventListener('click', () => {
         modalOverlay.style.display = 'none';
         alert("Student successfully added!");
-        // Here, you can submit the form or process the data.
+
     });
     </script>
 </body>

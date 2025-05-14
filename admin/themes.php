@@ -38,7 +38,7 @@
 
     .header-container {
         width: 100%;
-        height: 70px;
+        height: 50px;
         background-color: var(--header-bg);
         padding: 20px;
         border-radius: 8px 8px 0 0;
@@ -147,7 +147,6 @@
         opacity: 1;
     }
 
-    /* Theme Previews */
     .color-theme1 .color-bar:nth-child(1) {
         background-color: #470a0a;
     }
@@ -321,7 +320,6 @@
                     <div class="section-header">Logo Container</div>
                     <div class="section-content">
                         <div class="file-card">
-                            <!-- Upload Logo or Logo Preview Here -->
                         </div>
                     </div>
                 </div>

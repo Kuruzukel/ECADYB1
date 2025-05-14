@@ -28,7 +28,7 @@ body {
 header {
   margin-top: 8px;
   background: var(--header-bg);
-  height: 8rem;
+  height: 10rem;
   width: calc(100% - 1rem);
   align-self: center;
   border-radius: 8px;
@@ -295,24 +295,6 @@ header h3 {
 
 .search-button:hover {
   background: var(--menu-bg-active);
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(0, 30, 1, 0.4);
-  }
-
-  70% {
-    box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
-  }
-
-  100% {
-    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
-  }
-}
-
-.search-button:focus {
-  animation: pulse 1s;
 }
 
 @media screen and (max-width: 500px) {

@@ -15,13 +15,11 @@ menuBtn.addEventListener("click", () => {
   }
 });
 
-// Toggle submenu function (still useful for other tabs if needed)
 function toggleSubmenu(menuId) {
   const menu = document.getElementById(menuId);
   if (menu) {
     menu.classList.toggle("show");
 
-    // Close other submenus
     document.querySelectorAll(".submenu").forEach((submenu) => {
       if (submenu.id !== menuId && submenu.classList.contains("show")) {
         submenu.classList.remove("show");
@@ -30,7 +28,6 @@ function toggleSubmenu(menuId) {
   }
 }
 
-// Set active tab on load
 document.addEventListener("DOMContentLoaded", function () {
   const urlParams = new URLSearchParams(window.location.search);
   const currentPage =
@@ -39,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
   expandParentMenuIfActive();
 });
 
-// Set active tab based on current page or URL param
 function setActiveTab(currentPage) {
   document.querySelectorAll(".tab, .sub-tab").forEach((tab) => {
     tab.classList.remove("active");
@@ -60,7 +56,6 @@ function setActiveTab(currentPage) {
   });
 }
 
-// Expand submenu only if its child sub-tab is active
 function expandParentMenuIfActive() {
   document.querySelectorAll(".sub-tab.active").forEach((activeSubTab) => {
     const submenu = activeSubTab.closest(".submenu");
@@ -70,7 +65,6 @@ function expandParentMenuIfActive() {
   });
 }
 
-// Set tab click events (non-link tabs)
 document.querySelectorAll(".tab[onclick]").forEach((tab) => {
   tab.addEventListener("click", function (e) {
     if (this.getAttribute("href")) return;
@@ -82,7 +76,6 @@ document.querySelectorAll(".tab[onclick]").forEach((tab) => {
   });
 });
 
-// Set sub-tab click events
 document.querySelectorAll(".sub-tab").forEach((tab) => {
   tab.addEventListener("click", function () {
     document
@@ -92,13 +85,11 @@ document.querySelectorAll(".sub-tab").forEach((tab) => {
   });
 });
 
-// Set current tab active based on page param
 const urlParams = new URLSearchParams(window.location.search);
 const page = urlParams.get("page") || "dashboard";
 const currentTab = document.querySelector(`#${page}-tab`);
 if (currentTab) currentTab.classList.add("active");
 
-// Helper to set tab active programmatically
 function setTabActive(tabId) {
   document
     .querySelectorAll(".tab, .sub-tab")
@@ -107,11 +98,8 @@ function setTabActive(tabId) {
   if (tab) {
     tab.classList.add("active");
   }
-  // Optionally redirect:
-  // window.location.href = 'batchupload.php';
 }
 
-// Scroll to bottom utility
 function scrollToBottom() {
   const container = document.getElementById("scrollContainer");
   if (container) {

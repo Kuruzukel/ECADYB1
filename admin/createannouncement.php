@@ -6,6 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create Announcement</title>
     <style>
+    :root {
+        --primary-bg: #000042;
+        --header-bg: #1d2db2;
+        --accent: #1d2db2;
+        --section-bg: #34495e;
+        --section-header: #217ff7;
+
+        --body-bg: #000042;
+        --sidebar-bg: #0928c6;
+        --content-bg: #112d4e;
+        --menu-bg-active: #000042;
+        --menu-border-active: #fcda15;
+        --menu-hover-bg: #1c1c84;
+    }
+
     body {
         margin: 0;
         padding: 0;
@@ -33,7 +48,7 @@
 
     .announcement-header {
         width: 100%;
-        height: 70px;
+        height: 50px;
         background-color: var(--header-bg);
         padding: 20px;
         border-radius: 8px 8px 0 0;
@@ -53,8 +68,6 @@
         height: 100%;
         padding: 30px;
     }
-
-
 
     h2 {
         margin: 0;
@@ -107,7 +120,6 @@
         background-color: #45a049;
     }
 
-    /* MODAL STYLES */
     .modal-overlay {
         position: fixed;
         top: 0;
@@ -214,28 +226,109 @@
         </div>
     </div>
     <script>
-    // References to elements
-    const postBtn = document.getElementById('post-announcement-btn'); // Corrected the ID
+    const themes = {
+        "Theme 1": {
+            "--primary-bg": "#470a0a",
+            "--header-bg": "#b21c0e",
+            "--accent": "#fcda15",
+            "--section-bg": "#bc4f5e",
+            "--section-header": "#cb5382",
+            "--body-bg": "#470a0a",
+            "--sidebar-bg": "#cb0e40",
+            "--content-bg": "#bc4f5e",
+            "--menu-bg-active": "#cb5382",
+            "--menu-border-active": "#fff176",
+            "--menu-hover-bg": "#cb5382"
+        },
+        "Theme 2": {
+            "--primary-bg": "#12086F",
+            "--header-bg": "#2B35AF",
+            "--accent": "#fcda15",
+            "--section-bg": "#4895EF",
+            "--section-header": "#4CC9F0",
+            "--body-bg": "#12086F",
+            "--sidebar-bg": "#2B35AF",
+            "--content-bg": "#4895EF",
+            "--menu-bg-active": "#4CC9F0",
+            "--menu-border-active": "#ffffff",
+            "--menu-hover-bg": "#4361EE"
+        },
+        "Theme 3": {
+            "--primary-bg": "#0d381e",
+            "--header-bg": "#164f2c",
+            "--accent": "#fcda15",
+            "--section-bg": "#2a834d",
+            "--section-header": "#349e5e",
+            "--body-bg": "#0d381e",
+            "--sidebar-bg": "#1f693c",
+            "--content-bg": "#2a834d",
+            "--menu-bg-active": "#349e5e",
+            "--menu-border-active": "#ffffff",
+            "--menu-hover-bg": "#1f693c"
+        },
+        "Theme 4": {
+            "--primary-bg": "#281E18",
+            "--header-bg": "#572D0C",
+            "--accent": "#fcda15",
+            "--section-bg": "#E3B76A",
+            "--section-header": "#9D9C75",
+            "--body-bg": "#281E18",
+            "--sidebar-bg": "#572D0C",
+            "--content-bg": "#E3B76A",
+            "--menu-bg-active": "#9D9C75",
+            "--menu-border-active": "#ffffff",
+            "--menu-hover-bg": "#C78E3A"
+        },
+        "Default": {
+            "--primary-bg": "#112d4e",
+            "--header-bg": "#0928c6",
+            "--accent": "#fcda15",
+            "--section-bg": "#34495e",
+            "--section-header": "#217ff7",
+            "--body-bg": "#000042",
+            "--sidebar-bg": "#0928c6",
+            "--content-bg": "#112d4e",
+            "--menu-bg-active": "#000042",
+            "--menu-border-active": "#fcda15",
+            "--menu-hover-bg": "#1c1c84"
+        }
+    };
+
+    function applyTheme(themeName) {
+        const theme = themes[themeName] || themes["Default"];
+        const root = document.documentElement;
+        for (const [key, value] of Object.entries(theme)) {
+            root.style.setProperty(key, value);
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('dashboard-theme') || 'Default';
+        applyTheme(savedTheme);
+    });
+
+
+    const postBtn = document.getElementById('post-announcement-btn');
     const modalOverlay = document.getElementById('modal-overlay');
     const confirmBtn = document.getElementById('confirm-btn');
     const cancelBtn = document.getElementById('cancel-btn');
     const form = document.getElementById('announcementForm');
 
-    // Show the modal when the "Post Announcement" button is clicked
+
     postBtn.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevent form submission to show the modal first
+        e.preventDefault();
         modalOverlay.style.display = 'flex';
     });
 
-    // Hide the modal when the "Cancel" button is clicked
+
     cancelBtn.addEventListener('click', () => {
         modalOverlay.style.display = 'none';
     });
 
-    // Submit the form when the "Yes" button is clicked
+
     confirmBtn.addEventListener('click', () => {
         modalOverlay.style.display = 'none';
-        form.submit(); // Submit the form
+        form.submit();
     });
     </script>
 </body>
