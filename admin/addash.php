@@ -34,16 +34,14 @@
         </div>
     </header>
     <main>
-        <div class="sidebar closed">
+        <div class="sidebar">
             <img src="../P1.png" alt="Logo" class="logoadmin">
             <div class="line"></div>
 
             <div class="menu-items" style="font-family: 'Oxygen', sans-serif;">
                 <a class="tab" id="addash-tab" onclick="toggleSubmenu('dashboard-submenu')">
                     <i class="fas fa-home"></i> Dashboard
-                    <span class="chevron">
-                        <i id="dashboard-chevron" class="fas fa-chevron-down transition-transform duration-300"></i>
-                    </span>
+                    <span class="chevron"><i class="fas fa-chevron-down"></i></span>
                 </a>
 
                 <div id="dashboard-submenu" class="submenu">
@@ -64,9 +62,7 @@
 
                 <a class="tab" id="announcement-tab" onclick="toggleSubmenu('announcement-submenu')">
                     <i class="fas fa-bullhorn"></i> Announcement
-                    <span class="chevron">
-                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
-                    </span>
+                    <span class="chevron"><i class="fas fa-chevron-down"></i></span>
                 </a>
 
                 <div id="announcement-submenu" class="submenu">
@@ -83,9 +79,7 @@
 
                 <a class="tab" id="yearbook-tab" onclick="toggleSubmenu('yearbook-submenu')">
                     <i class="fas fa-book"></i> Digital Year Book
-                    <span class="chevron">
-                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
-                    </span>
+                    <span class="chevron"><i class="fas fa-chevron-down"></i></span>
                 </a>
 
                 <div id="yearbook-submenu" class="submenu">
@@ -125,9 +119,8 @@
 
                 <a class="tab" id="customize-tab" onclick="toggleSubmenu('customize-submenu')">
                     <i class="fas fa-sliders-h"></i> Customize
-                    <span class="chevron">
-                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
-                    </span>
+                    <span class="chevron"><i class="fas fa-chevron-down"></i></span>
+
                 </a>
 
                 <div id="customize-submenu" class="submenu">
