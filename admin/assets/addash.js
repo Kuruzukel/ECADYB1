@@ -25,9 +25,14 @@ function toggleSubmenu(menuId) {
   const isShown = currentMenu.classList.contains("show");
   currentMenu.classList.toggle("show", !isShown);
 
-  const currentChevron = document.querySelector(
-    `[onclick="toggleSubmenu('${menuId}')"] .chevron i`
+  const currentTab = document.querySelector(
+    `[onclick="toggleSubmenu('${menuId}')"]`
   );
+  if (currentTab) {
+    currentTab.setAttribute("aria-expanded", !isShown);
+  }
+
+  const currentChevron = currentTab.querySelector(".chevron i");
   if (currentChevron) {
     currentChevron.classList.toggle("rotate-180", !isShown);
   }
@@ -35,12 +40,17 @@ function toggleSubmenu(menuId) {
   document.querySelectorAll(".submenu").forEach((submenu) => {
     if (submenu.id !== menuId) {
       submenu.classList.remove("show");
-
       const chevron = document.querySelector(
         `[onclick="toggleSubmenu('${submenu.id}')"] .chevron i`
       );
       if (chevron) {
         chevron.classList.remove("rotate-180");
+        const tab = document.querySelector(
+          `[onclick="toggleSubmenu('${submenu.id}')"]`
+        );
+        if (tab) {
+          tab.setAttribute("aria-expanded", "false");
+        }
       }
     }
   });
@@ -72,7 +82,6 @@ function expandParentMenuIfActive() {
 
   document.querySelectorAll(".submenu").forEach((submenu) => {
     submenu.classList.remove("show");
-
     const chevron = document.querySelector(
       `[onclick="toggleSubmenu('${submenu.id}')"] .chevron i`
     );
@@ -92,6 +101,12 @@ function expandParentMenuIfActive() {
       );
       if (chevron) {
         chevron.classList.add("rotate-180");
+        const tab = document.querySelector(
+          `[onclick="toggleSubmenu('${submenu.id}')"]`
+        );
+        if (tab) {
+          tab.setAttribute("aria-expanded", "true");
+        }
       }
     }
   });

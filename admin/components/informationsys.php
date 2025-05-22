@@ -88,7 +88,7 @@
             "Theme 1": {
                 "--header-bg": "#b21c0e",
                 "--body-bg": "#470a0a",
-                "--sidebar-bg": "#cb0e40",
+                "--sidebar-bg": "#b21c0e",
                 "--content-bg": "#bc4f5e",
                 "--menu-bg-active": "#cb5382",
                 "--menu-border-active": "#fff176",
@@ -106,7 +106,7 @@
             "Theme 3": {
                 "--header-bg": "#164f2c",
                 "--body-bg": "#0d381e",
-                "--sidebar-bg": "#1f693c",
+                "--sidebar-bg": "#164f2c",
                 "--content-bg": "#2a834d",
                 "--menu-bg-active": "#349e5e",
                 "--menu-border-active": "#ffffff",
