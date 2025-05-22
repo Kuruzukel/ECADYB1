@@ -147,7 +147,7 @@
 
         </div>
 
-        </div>
+
 
         <div class="scroll-container" id="scrollContainer">
             <div class="contents" id="content">

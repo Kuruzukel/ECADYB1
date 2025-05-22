@@ -1,14 +1,20 @@
-// Sidebar toggle
-const menuBtn = document.querySelector(".menu-btn");
+// Sidebar toggle buttons
 const hamburgerIcon = document.querySelector(".hamburger-menu-ico");
 const closeIcon = document.querySelector(".close-ico");
 const sidebar = document.querySelector(".sidebar");
 
-menuBtn.addEventListener("click", () => {
-  const isOpen = !hamburgerIcon.classList.contains("hidden");
-  hamburgerIcon.classList.toggle("hidden", isOpen);
-  closeIcon.classList.toggle("hidden", !isOpen);
-  sidebar.classList.toggle("closed", isOpen);
+// Open sidebar when hamburger clicked
+hamburgerIcon.addEventListener("click", () => {
+  sidebar.classList.remove("closed");
+  hamburgerIcon.classList.add("hidden");
+  closeIcon.classList.remove("hidden");
+});
+
+// Close sidebar when close icon clicked
+closeIcon.addEventListener("click", () => {
+  sidebar.classList.add("closed");
+  hamburgerIcon.classList.remove("hidden");
+  closeIcon.classList.add("hidden");
 });
 
 // Toggle submenu and chevron rotation
@@ -40,7 +46,7 @@ function toggleSubmenu(menuId) {
   });
 }
 
-// ✅ Only activate the first matching tab or sub-tab
+// Activate matching tab/sub-tab
 function setActiveTab(currentPage) {
   let activated = false;
 
@@ -60,7 +66,7 @@ function setActiveTab(currentPage) {
   });
 }
 
-// ✅ Expand ONLY the submenu of the one active tab
+// Expand parent menu if a sub-tab is active
 function expandParentMenuIfActive() {
   let submenuOpened = false;
 
@@ -91,7 +97,7 @@ function expandParentMenuIfActive() {
   });
 }
 
-// Click behavior for main tabs
+// Handle main tab clicks
 document.querySelectorAll(".tab[onclick]").forEach((tab) => {
   tab.addEventListener("click", function (e) {
     if (this.getAttribute("href")) return;
@@ -104,7 +110,7 @@ document.querySelectorAll(".tab[onclick]").forEach((tab) => {
   });
 });
 
-// Click behavior for sub-tabs
+// Handle sub-tab clicks
 document.querySelectorAll(".sub-tab").forEach((tab) => {
   tab.addEventListener("click", function () {
     document
@@ -114,7 +120,7 @@ document.querySelectorAll(".sub-tab").forEach((tab) => {
   });
 });
 
-// Get page param or fallback
+// Get current page from URL
 const urlParams = new URLSearchParams(window.location.search);
 const page = urlParams.get("page") || "dashboard";
 
@@ -127,7 +133,7 @@ function setTabActive(tabId) {
   if (tab) tab.classList.add("active");
 }
 
-// Utility scroll
+// Scroll to bottom helper
 function scrollToBottom() {
   const container = document.getElementById("scrollContainer");
   if (container) {
@@ -135,10 +141,15 @@ function scrollToBottom() {
   }
 }
 
-// ✅ On load: enforce only one tab + submenu active
+// On DOM ready
 document.addEventListener("DOMContentLoaded", () => {
   const currentPage =
     urlParams.get("page") || window.location.pathname.split("/").pop();
   setActiveTab(currentPage);
   expandParentMenuIfActive();
+
+  // Set icon visibility based on sidebar state
+  const isSidebarClosed = sidebar.classList.contains("closed");
+  hamburgerIcon.classList.toggle("hidden", !isSidebarClosed);
+  closeIcon.classList.toggle("hidden", isSidebarClosed);
 });
