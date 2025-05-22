@@ -11,7 +11,7 @@
     :root {
         --header-bg: #1d2db2;
         --body-bg: #000042;
-        --sidebar-bg: #0928c6;
+        --sidebar-bg: #0c27be;
         --content-bg: #112d4e;
         --menu-bg-active: #000042;
         --menu-border-active: #fcda15;
@@ -122,9 +122,9 @@
                 "--menu-hover-bg": "#C78E3A"
             },
             "Default": {
-                "--header-bg": "#0928c6",
+                "--header-bg": "#0c27be",
                 "--body-bg": "#000042",
-                "--sidebar-bg": "#0928c6",
+                "--sidebar-bg": "#0c27be",
                 "--content-bg": "#112d4e",
                 "--menu-bg-active": "#000042",
                 "--menu-border-active": "#fcda15",

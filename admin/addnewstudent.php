@@ -8,13 +8,13 @@
     <style>
     :root {
         --primary-bg: #000042;
-        --header-bg: #1d2db2;
-        --accent: #1d2db2;
+        --header-bg: #0c27be;
+        --accent: #0c27be;
         --section-bg: #34495e;
         --section-header: #217ff7;
 
         --body-bg: #000042;
-        --sidebar-bg: #0928c6;
+        --sidebar-bg: #0c27be;
         --content-bg: #112d4e;
         --menu-bg-active: #000042;
         --menu-border-active: #fcda15;
@@ -331,12 +331,12 @@
         },
         "Default": {
             "--primary-bg": "#112d4e",
-            "--header-bg": "#0928c6",
-            "--accent": "#fcda15",
+            "--header-bg": "#0c27be",
+            "--accent": "#0c27be",
             "--section-bg": "#34495e",
             "--section-header": "#217ff7",
             "--body-bg": "#000042",
-            "--sidebar-bg": "#0928c6",
+            "--sidebar-bg": "#0c27be",
             "--content-bg": "#112d4e",
             "--menu-bg-active": "#000042",
             "--menu-border-active": "#fcda15",
