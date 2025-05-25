@@ -190,7 +190,7 @@ form {
     max-height: 55%;
     margin-bottom: 0rem;
     /* Move it closer to the top */
-    background: url('P1.png');
+    background: url('../img/ECALOGO.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
