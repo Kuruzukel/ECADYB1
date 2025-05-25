@@ -1,9 +1,90 @@
+<?php
+require '../vendor/autoload.php';
+use MongoDB\Client;
+
+$uploadStatus = [
+    'top_management_message' => null,
+    'student_info' => null
+];
+
+function isValidCSV($fileTmpName) {
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mimeType = finfo_file($finfo, $fileTmpName);
+    finfo_close($finfo);
+    return in_array($mimeType, [
+        'text/plain',
+        'text/csv',
+        'application/csv',
+        'application/vnd.ms-excel',
+        'application/octet-stream'
+    ]);
+}
+
+function importCSVToMongo($tmpName, $collection) {
+    if (!isValidCSV($tmpName)) return false;
+
+    $header = null;
+    $data = [];
+    if (($handle = fopen($tmpName, 'r')) !== false) {
+        while (($row = fgetcsv($handle, 1000, ',')) !== false) {
+            $row = array_map('trim', $row);
+            if (!$header) {
+                $header = array_map(function($col) {
+                    return match(strtolower($col)) {
+                        'id' => 'id',
+                        'academic year' => 'academic year',
+                        'departament section' => 'department section',
+                        'student id' => 'student id',
+                        'last name' => 'last name',
+                        'first name' => 'first name',
+                        'middle name' => 'middle name',
+                        'motto' => 'motto',
+                        'honors' => 'honors',
+                        default => strtolower($col)
+                    };
+                }, $row);
+            } elseif (count($row) === count($header)) {
+                $data[] = array_combine($header, $row);
+            }
+        }
+        fclose($handle);
+    }
+
+    if (!empty($data)) {
+        $collection->drop();
+        $collection->insertMany($data);
+        return true;
+    }
+    return false;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $client = new Client("mongodb://localhost:27017");
+    $database = $client->Info;
+
+    if (!empty($_FILES['top_management_message']['tmp_name'])) {
+        $uploadStatus['top_management_message'] = importCSVToMongo($_FILES['top_management_message']['tmp_name'], $database->top_management_messages);
+    }
+
+    if (!empty($_FILES['student_info']['tmp_name'])) {
+        $uploadStatus['student_info'] = importCSVToMongo($_FILES['student_info']['tmp_name'], $database->students);
+    }
+
+    $resultMsg = null;
+    if ($uploadStatus['top_management_message'] || $uploadStatus['student_info']) {
+        $resultMsg = "Upload successful!";
+    } elseif ($uploadStatus['top_management_message'] === false || $uploadStatus['student_info'] === false) {
+        $resultMsg = "One or more uploads failed. Please ensure you're using valid CSV files.";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Student Details</title>
     <style>
     :root {
@@ -12,7 +93,6 @@
         --accent: #0c27be;
         --section-bg: #34495e;
         --section-header: #217ff7;
-
         --body-bg: #000042;
         --sidebar-bg: #0c27be;
         --content-bg: #112d4e;
@@ -25,7 +105,6 @@
         margin: 0;
         padding: 0;
         font-family: Arial, sans-serif;
-        width: 100%;
         background-color: var(--body-bg);
     }
 
@@ -53,12 +132,10 @@
         margin: 0;
         color: #ffffff;
         font-size: 24px;
-        width: 100%;
     }
 
     .form-content {
         padding: 25px;
-        box-sizing: border-box;
     }
 
     .form-group {
@@ -95,35 +172,21 @@
         justify-content: center;
     }
 
-    label {
-        display: block;
-        margin: 12px 0 6px;
-        color: #e0e0e0;
-    }
-
     .file-card {
         border-radius: 10px;
         padding: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 100%;
-        margin: 10px auto;
-        min-height: 200px;
         background-color: #34495e;
         border: 2px dashed #cbd5e0;
-        transition: all 0.3s ease;
+        min-height: 200px;
+        transition: border-color 0.3s ease, background-color 0.3s ease;
+        text-align: center;
     }
 
     .file-card:hover {
         border-color: #2196f3;
-        background-color: #34495e;
-    }
-
-    .file-card label {
-        margin: 0;
-        color: #fff;
-        font-size: 16px;
     }
 
     .custom-upload {
@@ -139,126 +202,119 @@
         transition: all 0.3s ease;
         font-size: 16px;
         font-weight: 500;
-        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2);
     }
 
     .custom-upload:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
     }
-
-    .custom-upload i {
-        font-size: 20px;
-    }
-
 
     .upload-input {
         display: none;
     }
 
-    .file-card i {
+    .upload-success {
+        border-color: #2ecc71;
+        background-color: #14532d;
+        color: white;
+    }
+
+    .upload-failed {
+        border-color: #e74c3c;
+        background-color: #7f1d1d;
+        color: white;
+    }
+
+    .popup-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 25px 40px;
+        border-radius: 10px;
         font-size: 18px;
-        color: #fff;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        z-index: 9999;
+        animation: fadeOut 3s forwards;
+    }
+
+    .popup-success {
+        background-color: #2ecc71;
+        color: white;
+    }
+
+    .popup-failure {
+        background-color: #e74c3c;
+        color: white;
+    }
+
+    @keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+
+        80% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+            display: none;
+        }
     }
     </style>
 </head>
 
 <body>
-    <div class="container" style="font-family: Arial, sans-serif;">
-        <div class="header-container" style="width: 100%;">
+    <div class="container">
+        <div class="header-container">
             <h1>Uploading Section</h1>
         </div>
-        <div class="form-content" style="width: 100%;">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-content">
+                <div class="form-group">
+                    <!-- Top Message Upload -->
+                    <div class="section">
+                        <div class="section-header">Top Management Message</div>
+                        <div
+                            class="file-card <?= $uploadStatus['top_management_message'] === false ? 'upload-failed' : ($uploadStatus['top_management_message'] === true ? 'upload-success' : '') ?>">
+                            <label class="custom-upload" for="top_management_message">Upload CSV File</label>
+                            <input type="file" name="top_management_message" id="top_management_message"
+                                class="upload-input" accept=".csv">
+                        </div>
+                    </div>
 
-            <div class="form-group">
-                <div class="section">
-                    <div class="section-header">Top Management Message</div>
-                    <div class="section-content">
+                    <!-- Student Info Upload -->
+                    <div class="section">
+                        <div class="section-header">Student Information</div>
+                        <div
+                            class="file-card <?= $uploadStatus['student_info'] === false ? 'upload-failed' : ($uploadStatus['student_info'] === true ? 'upload-success' : '') ?>">
+                            <label class="custom-upload" for="student-info">Upload CSV File</label>
+                            <input type="file" name="student_info" id="student-info" class="upload-input" accept=".csv">
+                        </div>
+                    </div>
+
+                    <!-- Image Upload (future use) -->
+                    <div class="section">
+                        <div class="section-header">Student Photo, Template, and Logos</div>
                         <div class="file-card">
-                            <label class="custom-upload" for="top-message"><i class="fas fa-file-csv"></i> Upload
-                                CSV File</label>
-                            <input type="file" id="top-message" class="upload-input">
+                            <label class="custom-upload" for="image-upload">Upload Image Folder</label>
+                            <input type="file" id="image-upload" class="upload-input" accept="image/*" multiple>
                         </div>
                     </div>
                 </div>
 
-                <div class="section">
-                    <div class="section-header">Student Information</div>
-                    <div class="section-content">
-                        <div class="file-card">
-                            <label class="custom-upload" for="student-info"><i class="fas fa-file-csv"></i>
-                                Upload CSV File</label>
-                            <input type="file" id="student-info" class="upload-input">
-                        </div>
-                    </div>
-                </div>
-                <div class="section">
-                    <div class="section-header">Student Photo, Template, and Logos</div>
-                    <div class="section-content">
-                        <div class="file-card">
-                            <label class="custom-upload" for="image-upload"><i class="fa fa-file-image"></i> Upload
-                                Image Folder</label>
-                            <input type="file" id="image-upload" class="upload-input" accept="image/*">
-                        </div>
-                    </div>
-                </div>
+                <?php if (!empty($resultMsg)): ?>
+                <?php
+                    $popupClass = in_array(true, $uploadStatus, true) ? 'popup-success' : 'popup-failure';
+                ?>
+                <div class="popup-message <?= $popupClass ?>"><?= $resultMsg ?></div>
+                <?php endif; ?>
             </div>
-        </div>
+        </form>
     </div>
+
     <script>
     const themes = {
-        "Theme 1": {
-            "--primary-bg": "#470a0a",
-            "--header-bg": "#b21c0e",
-            "--accent": "#fcda15",
-            "--section-bg": "#bc4f5e",
-            "--section-header": "#cb5382",
-            "--body-bg": "#470a0a",
-            "--sidebar-bg": "#b21c0e",
-            "--content-bg": "#bc4f5e",
-            "--menu-bg-active": "#cb5382",
-            "--menu-border-active": "#fff176",
-            "--menu-hover-bg": "#cb5382"
-        },
-        "Theme 2": {
-            "--primary-bg": "#12086F",
-            "--header-bg": "#2B35AF",
-            "--accent": "#fcda15",
-            "--section-bg": "#4895EF",
-            "--section-header": "#4CC9F0",
-            "--body-bg": "#12086F",
-            "--sidebar-bg": "#2B35AF",
-            "--content-bg": "#4895EF",
-            "--menu-bg-active": "#4CC9F0",
-            "--menu-border-active": "#ffffff",
-            "--menu-hover-bg": "#4361EE"
-        },
-        "Theme 3": {
-            "--primary-bg": "#0d381e",
-            "--header-bg": "#164f2c",
-            "--accent": "#fcda15",
-            "--section-bg": "#2a834d",
-            "--section-header": "#349e5e",
-            "--body-bg": "#0d381e",
-            "--sidebar-bg": "#164f2c",
-            "--content-bg": "#2a834d",
-            "--menu-bg-active": "#349e5e",
-            "--menu-border-active": "#ffffff",
-            "--menu-hover-bg": "#1f693c"
-        },
-        "Theme 4": {
-            "--primary-bg": "#281E18",
-            "--header-bg": "#572D0C",
-            "--accent": "#fcda15",
-            "--section-bg": "#E3B76A",
-            "--section-header": "#9D9C75",
-            "--body-bg": "#281E18",
-            "--sidebar-bg": "#572D0C",
-            "--content-bg": "#E3B76A",
-            "--menu-bg-active": "#9D9C75",
-            "--menu-border-active": "#ffffff",
-            "--menu-hover-bg": "#C78E3A"
-        },
         "Default": {
             "--primary-bg": "#112d4e",
             "--header-bg": "#0c27be",
@@ -285,6 +341,14 @@
     window.addEventListener('DOMContentLoaded', () => {
         const savedTheme = localStorage.getItem('dashboard-theme') || 'Default';
         applyTheme(savedTheme);
+
+        document.querySelectorAll('.upload-input').forEach(input => {
+            input.addEventListener('change', () => {
+                if (input.files.length > 0) {
+                    input.form.submit();
+                }
+            });
+        });
     });
     </script>
 </body>
