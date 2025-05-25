@@ -13,7 +13,7 @@
 }
 
 body {
-    background-image: url('ROR1.jpg');
+    background-image: url('../img/ECABG.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

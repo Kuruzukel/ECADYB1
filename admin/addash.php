@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css" rel="stylesheet">
     <link href="./assets/addash.css" rel="stylesheet">
 </head>
 
@@ -35,7 +34,7 @@
     </header>
     <main>
         <div class="sidebar">
-            <img src="../P1.png" alt="Logo" class="logoadmin">
+            <img src="../img/ECALOGO.png" alt="Logo" class="logoadmin">
             <div class="line"></div>
 
             <div class="menu-items" style="font-family: 'Oxygen', sans-serif;">

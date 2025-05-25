@@ -5,8 +5,8 @@
 
 :root {
   --body-bg: #000042;
-  --header-bg: #0928c6;
-  --sidebar-bg: #0928c6;
+  --header-bg: #0c27be;
+  --sidebar-bg: #0c27be;
   --content-bg: #112d4e;
   --menu-bg-active: #000042;
   --menu-border-active: #fcda15;
@@ -120,7 +120,6 @@ main {
   height: 100vh;
   min-width: 15rem;
   width: 15rem;
-  border-radius: 12px;
   margin-right: 10px;
   display: flex;
   flex-direction: column;
@@ -221,6 +220,15 @@ main {
   width: 20px;
   text-align: center;
 }
+/* Chevron transition */
+.chevron i {
+  transition: transform 0.3s ease;
+}
+
+/* When rotated */
+.rotate-180 {
+  transform: rotate(180deg);
+}
 
 .contents {
   height: 100vh;
@@ -241,60 +249,6 @@ main {
 
 header h3 {
   font-size: 2rem;
-}
-
-.search-bar {
-  position: absolute;
-  top: 6.5rem;
-  right: 2.5rem;
-  display: flex;
-  align-items: center;
-  background: #f5f5f5;
-  border-radius: 30px;
-  padding: 8px 15px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.search-bar:hover {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  transform: translateY(-2px);
-}
-
-.search-bar:focus-within {
-  background: #fff;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.search-input {
-  flex: 1;
-  border: none;
-  background: transparent;
-  padding: 10px;
-  font-size: 16px;
-  outline: none;
-  color: #333;
-}
-
-.search-icon {
-  color: #888;
-  margin-right: 10px;
-  transition: color 0.3s;
-}
-
-.search-button {
-  background: var(--menu-hover-bg);
-  color: white;
-  border: none;
-  border-radius: 20px;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.3s;
-}
-
-.search-button:hover {
-  background: var(--menu-bg-active);
 }
 
 @media screen and (max-width: 500px) {

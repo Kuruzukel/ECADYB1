@@ -7,7 +7,7 @@
     <title>Student Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css" rel="stylesheet">
-    <link href="../student/assets/studdash.css" rel="stylesheet">
+    <link href="./assets/studdash.css" rel="stylesheet">
 </head>
 
 <body>
@@ -34,16 +34,14 @@
         </div>
     </header>
     <main>
-        <div class="sidebar closed">
-            <img src="../P1.png" alt="Logo" class="logoadmin">
+        <div class="sidebar">
+            <img src="../img/ECALOGO.png" alt="Logo" class="logoadmin">
             <div class="line"></div>
 
             <div class="menu-items" style="font-family: 'Oxygen', sans-serif;">
                 <a class="tab" id="addash-tab" onclick="toggleSubmenu('dashboard-submenu')">
                     <i class="fas fa-home"></i> Dashboard
-                    <span class="chevron">
-                        <i id="dashboard-chevron" class="fas fa-chevron-down transition-transform duration-300"></i>
-                    </span>
+                    <span class="chevron"><i class="fas fa-chevron-down"></i></span>
                 </a>
 
                 <div id="dashboard-submenu" class="submenu">
@@ -64,9 +62,7 @@
 
                 <a class="tab" id="announcement-tab" onclick="toggleSubmenu('announcement-submenu')">
                     <i class="fas fa-bullhorn"></i> Announcement
-                    <span class="chevron">
-                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
-                    </span>
+                    <span class="chevron"><i class="fas fa-chevron-down"></i></span>
                 </a>
 
                 <div id="announcement-submenu" class="submenu">
@@ -83,9 +79,7 @@
 
                 <a class="tab" id="yearbook-tab" onclick="toggleSubmenu('yearbook-submenu')">
                     <i class="fas fa-book"></i> Digital Year Book
-                    <span class="chevron">
-                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
-                    </span>
+                    <span class="chevron"><i class="fas fa-chevron-down"></i></span>
                 </a>
 
                 <div id="yearbook-submenu" class="submenu">
@@ -118,6 +112,28 @@
                     </a>
                 </div>
 
+                <a href="addash.php?page=batchupload" class="tab" id="batchupload-tab"
+                    onclick="setTabActive('batchupload-tab');">
+                    <i class="fas fa-cloud-upload-alt"></i> Uploading Section
+                </a>
+
+                <a class="tab" id="customize-tab" onclick="toggleSubmenu('customize-submenu')">
+                    <i class="fas fa-sliders-h"></i> Customize
+                    <span class="chevron"><i class="fas fa-chevron-down"></i></span>
+
+                </a>
+
+                <div id="customize-submenu" class="submenu">
+                    <a href="addash.php?page=themes" class="tab sub-tab">
+                        <i class="fas fa-palette" style="margin-right: 8px;"></i>Themes
+                    </a>
+
+                    <a href="addash.php?page=template" class="tab sub-tab">
+                        <i class="fas fa-clone" style="margin-right: 8px;"></i>Templates
+                    </a>
+
+                </div>
+
                 <a href="addash.php?page=changepassword" class="tab" id="changepassword-tab"
                     onclick="setTabActive('changepassword-tab');">
                     <i class="fas fa-key"></i> Change my password
@@ -131,7 +147,7 @@
 
         </div>
 
-        </div>
+
 
         <div class="scroll-container" id="scrollContainer">
             <div class="contents" id="content">
@@ -200,7 +216,7 @@
             </div>
 
     </main>
-    <script src="../student/assets/studdash.js">
+    <script src="./assets/studdash.js">
 
     </script>
 </body>
