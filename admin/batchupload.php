@@ -33,7 +33,7 @@ function importCSVToMongo($tmpName, $collection) {
                     return match(strtolower($col)) {
                         'id' => 'id',
                         'academic year' => 'academic year',
-                        'departament section' => 'department section',
+                        'department section' => 'department section',
                         'student id' => 'student id',
                         'last name' => 'last name',
                         'first name' => 'first name',
@@ -58,16 +58,68 @@ function importCSVToMongo($tmpName, $collection) {
     return false;
 }
 
+function importCSVToMongoByDepartment($tmpName, $departmentsDB) {
+    if (!isValidCSV($tmpName)) return false;
+
+    $header = null;
+    $dataByDepartment = [];
+
+    if (($handle = fopen($tmpName, 'r')) !== false) {
+        while (($row = fgetcsv($handle, 1000, ',')) !== false) {
+            $row = array_map('trim', $row);
+            if (!$header) {
+                $header = array_map(function($col) {
+                 return match(strtolower(str_replace('_', ' ', $col))) {
+                    'id' => 'id',
+                    'academic year' => 'academic year',
+                    'departament section', 'department section' => 'department section',
+                    'student id' => 'student id',
+                    'last name' => 'last name',
+                    'first name' => 'first name',
+                    'middle name' => 'middle name',
+                    'motto' => 'motto',
+                    'honors' => 'honors',
+                 default => strtolower(str_replace('_', ' ', $col))
+                };
+            }, $row);
+
+            } elseif (count($row) === count($header)) {
+                $record = array_combine($header, $row);
+                if (!isset($record['department section'])) continue;
+
+                preg_match('/^[^\s-]+/', $record['department section'], $matches);
+                if (empty($matches)) continue;
+                $dept = strtolower($matches[0]);
+
+                $dataByDepartment[$dept][] = $record;
+            }
+        }
+        fclose($handle);
+    }
+
+    if (!empty($dataByDepartment)) {
+        foreach ($dataByDepartment as $dept => $records) {
+            $collection = $departmentsDB->$dept;
+            $collection->drop();
+            $collection->insertMany($records);
+        }
+        return true;
+    }
+
+    return false;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $client = new Client("mongodb://localhost:27017");
-    $database = $client->Info;
 
     if (!empty($_FILES['top_management_message']['tmp_name'])) {
-        $uploadStatus['top_management_message'] = importCSVToMongo($_FILES['top_management_message']['tmp_name'], $database->top_management_messages);
+        $topManagementDB = $client->Top_Management;
+        $uploadStatus['top_management_message'] = importCSVToMongo($_FILES['top_management_message']['tmp_name'], $topManagementDB->message);
     }
 
     if (!empty($_FILES['student_info']['tmp_name'])) {
-        $uploadStatus['student_info'] = importCSVToMongo($_FILES['student_info']['tmp_name'], $database->students);
+        $departmentsDB = $client->Departments;
+        $uploadStatus['student_info'] = importCSVToMongoByDepartment($_FILES['student_info']['tmp_name'], $departmentsDB);
     }
 
     $resultMsg = null;
@@ -77,7 +129,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $resultMsg = "One or more uploads failed. Please ensure you're using valid CSV files.";
     }
 }
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
