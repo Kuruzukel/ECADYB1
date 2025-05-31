@@ -5727,6 +5727,6 @@ FlipbookSettings = {
     pages: 12,
   },
   shareMessage: "Introducing turn.js 5 - HTML5 Library for Flipbooks.",
-  pageFolder: "content/magazine/",
+  pageFolder: "/YB COVER",
   loadRegions: true,
 };
