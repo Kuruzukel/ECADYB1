@@ -228,13 +228,16 @@
                     <label for="program">Program:</label>
                     <select id="program">
                         <option value="" disabled selected>Select a program</option>
-                        <option value="Maritime Education">Maritime Education</option>
-                        <option value="Criminology">Criminology</option>
-                        <option value="Tourism Managements">Tourism Management</option>
-                        <option value="College of Education">College of Education</option>
-                        <option value="Nursing">Nursing</option>
-                        <option value="Information System">Information System</option>
-                        <option value="Business Administration">Business Administration</option>
+                        <option value="Maritime Education">College of Marine Engineering</option>
+                        <option value="Maritime Education">College of Marine Transportation</option>
+                        <option value="Criminology">College of Criminal Justice Education</option>
+                        <option value="Tourism Managements">College of Tourism Management</option>
+                        <option value="College of Education">College of Technical-Vocational Teacher Education</option>
+                        <option value="College of Education">College of Early Childhood Education</option>
+                        <option value="Nursing">College of Nursing</option>
+                        <option value="Information System">College of Information System</option>
+                        <option value="Business Administration">College of Management Accounting</option>
+                        <option value="Business Administration">College of Entrepreneurship</option>
                     </select>
 
 

@@ -113,7 +113,7 @@
 
                 <a href="addash.php?page=batchupload" class="tab" id="batchupload-tab"
                     onclick="setTabActive('batchupload-tab');">
-                    <i class="fas fa-cloud-upload-alt"></i> Uploading Section
+                    <i class="fas fa-cloud-upload-alt"></i> Batch Upload
                 </a>
 
                 <a class="tab" id="customize-tab" onclick="toggleSubmenu('customize-submenu')">

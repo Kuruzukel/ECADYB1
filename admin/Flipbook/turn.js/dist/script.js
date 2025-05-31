@@ -5724,7 +5724,7 @@ FlipbookSettings = {
   options: {
     pageWidth: 500,
     pageHeight: 600,
-    pages: 12,
+    pages: 5,
   },
   shareMessage: "Introducing turn.js 5 - HTML5 Library for Flipbooks.",
   pageFolder: "/YB COVER",

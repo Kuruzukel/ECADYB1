@@ -321,7 +321,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="container">
         <div class="header-container">
-            <h1>Uploading Section</h1>
+            <h1>Upload Section</h1>
         </div>
         <form method="POST" enctype="multipart/form-data">
             <div class="form-content">
