@@ -10,28 +10,7 @@
 </head>
 
 <body>
-    <header>
 
-        <div class="menu-container">
-            <div class="menu-btn">
-                <div class="hamburger-menu-ico">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M3 18v-2h18v2zm0-5v-2h18v2zm0-5V6h18v2z" />
-                    </svg>
-
-                </div>
-                <div class="close-ico hidden">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path
-                            d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z" />
-                    </svg>
-                </div>
-            </div>
-
-            <h3 style="margin-left: 1rem; text-wrap: nowrap; transition: 300ms; font-family: 'Oxygen', sans-serif;">
-                Admin Dashboard</h3>
-        </div>
-    </header>
     <main>
         <div class="sidebar">
             <img src="../img/ECALOGO.png" alt="Logo" class="logoadmin">
@@ -150,7 +129,29 @@
 
         <div class="scroll-container" id="scrollContainer">
             <div class="contents" id="content">
+                <header>
 
+                    <div class="menu-container">
+                        <div class="menu-btn">
+                            <div class="hamburger-menu-ico">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M3 18v-2h18v2zm0-5v-2h18v2zm0-5V6h18v2z" />
+                                </svg>
+
+                            </div>
+                            <div class="close-ico hidden">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path
+                                        d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <h3
+                            style="margin-left: 1rem; text-wrap: nowrap; transition: 300ms; font-family: 'Oxygen', sans-serif;">
+                            Admin Dashboard</h3>
+                    </div>
+                </header>
                 <?php
                 $page = isset($_GET['page']) ? $_GET['page'] : 'studentlist';
                 switch ($page) {

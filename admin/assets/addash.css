@@ -26,11 +26,10 @@ body {
 }
 
 header {
-  margin-top: 8px;
+  margin-bottom: 10px; /* Adjust to match sidebar width */
   background: var(--header-bg);
-  height: 10rem;
-  width: calc(100% - 1rem);
-  align-self: center;
+  height: 3rem;
+  width: 100%; /* Subtract sidebar and side margin */
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -336,4 +335,5 @@ header h3 {
   margin-left: 160px;
   padding: 20px 100px;
   z-index: 0;
+  padding-top: 100px;
 }
