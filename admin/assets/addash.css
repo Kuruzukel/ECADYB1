@@ -26,15 +26,25 @@ body {
 }
 
 header {
-  margin-bottom: 10px; /* Adjust to match sidebar width */
+  margin-bottom: 10px;
   background: var(--header-bg);
   height: 3rem;
-  width: 100%; /* Subtract sidebar and side margin */
+  width: 100%;
   border-radius: 8px;
   display: flex;
   align-items: center;
   padding-inline-start: 1.5rem;
   overflow: hidden;
+}
+
+/* UPDATED: menu-container with flex layout & smaller font-size */
+.menu-container {
+  display: flex;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  font-size: 18px; /* Reduced from 35px for better fit */
+  gap: 1rem; /* space between menu button and search */
+  padding-right: 1rem;
 }
 
 .menu-btn {
@@ -48,6 +58,7 @@ header {
   border-radius: 8px;
   fill: rgb(209, 209, 209);
   cursor: pointer;
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
 .menu-btn div {
@@ -58,11 +69,43 @@ header {
   width: 100%;
 }
 
-.menu-container {
+/* UPDATED: search-container to flex-grow and min-width 0 to prevent overflow */
+.search-container {
   display: flex;
   align-items: center;
-  color: rgb(255, 255, 255);
-  font-size: 35px;
+  justify-content: space-between;
+  flex-grow: 1; /* Take remaining space */
+  margin: 0;
+  background-color: var(--body-bg);
+  border-radius: 8px;
+  padding: 0.3rem 0.5rem !important;
+  gap: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-sizing: border-box;
+  min-width: 0; /* Important for flexbox shrinking */
+}
+
+.search-input {
+  flex: 1;
+  background: var(--body-bg);
+  border: none;
+  color: white;
+  font-size: 1rem;
+  padding: 0.3rem 0.5rem;
+  outline: none;
+  min-width: 0; /* Prevent input overflow */
+}
+
+.search-button {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  padding: 0.3rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hidden {
@@ -97,6 +140,7 @@ main {
   align-items: right;
   position: relative;
 }
+
 .sidebar::-webkit-scrollbar {
   display: none;
 }
@@ -219,6 +263,7 @@ main {
   width: 20px;
   text-align: center;
 }
+
 /* Chevron transition */
 .chevron i {
   transition: transform 0.3s ease;
@@ -283,10 +328,7 @@ header h3 {
   }
 
   .menu-container {
-    display: flex;
-    align-items: center;
-    color: rgb(255, 255, 255);
-    font-size: 14px;
+    font-size: 14px; /* Adjusted font-size for small screen */
   }
 
   .menu-btn {

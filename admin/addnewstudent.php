@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add Student Details</title>
+    <title>Add New Student</title>
     <style>
     :root {
         --primary-bg: #000042;
@@ -218,26 +218,22 @@
                     <div class="section-header">Academic Information</div>
 
                     <label for="academic-year">Academic Year:</label>
-                    <select id="academic-year">
-                        <option value="" disabled selected>Select Aacademic Year</option>
-                        <option value="2023-2024">2023-2024</option>
-                        <option value="2024-2025">2024-2025</option>
-                    </select>
-
+                    <input type="text" id="academic-year" placeholder="0000-0000" maxlength="9"
+                        oninput="formatStudentID(this)">
 
                     <label for="program">Program:</label>
                     <select id="program">
                         <option value="" disabled selected>Select a program</option>
-                        <option value="Maritime Education">College of Marine Engineering</option>
-                        <option value="Maritime Education">College of Marine Transportation</option>
-                        <option value="Criminology">College of Criminal Justice Education</option>
-                        <option value="Tourism Managements">College of Tourism Management</option>
-                        <option value="College of Education">College of Technical-Vocational Teacher Education</option>
-                        <option value="College of Education">College of Early Childhood Education</option>
-                        <option value="Nursing">College of Nursing</option>
-                        <option value="Information System">College of Information System</option>
-                        <option value="Business Administration">College of Management Accounting</option>
-                        <option value="Business Administration">College of Entrepreneurship</option>
+                        <option value="Maritime Education">BS Marine Engineering</option>
+                        <option value="Maritime Education">BS Marine Transportation</option>
+                        <option value="Criminology">BS Criminal Justice Education</option>
+                        <option value="Tourism Managements">BS Tourism Management</option>
+                        <option value="College of Education">BS Technical-Vocational Teacher Education</option>
+                        <option value="College of Education">BS Early Childhood Education</option>
+                        <option value="Nursing">BS Nursing</option>
+                        <option value="Information System">BS Information System</option>
+                        <option value="Business Administration">BS Management Accounting</option>
+                        <option value="Business Administration">BS Entrepreneurship</option>
                     </select>
 
 
@@ -245,7 +241,7 @@
                     <input type="text" id="section" placeholder="Section" oninput="allowOnlyLetters(this)">
 
                     <label for="section">Student ID:</label>
-                    <input type="text" id="academic-year" placeholder="2024-000000" maxlength="11"
+                    <input type="text" id="academic-year" placeholder="0000-000000" maxlength="11"
                         oninput="formatStudentID(this)">
 
                 </div>

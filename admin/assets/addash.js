@@ -3,19 +3,38 @@ const hamburgerIcon = document.querySelector(".hamburger-menu-ico");
 const closeIcon = document.querySelector(".close-ico");
 const sidebar = document.querySelector(".sidebar");
 
-// Open sidebar when hamburger clicked
-hamburgerIcon.addEventListener("click", () => {
-  sidebar.classList.remove("closed");
-  hamburgerIcon.classList.add("hidden");
-  closeIcon.classList.remove("hidden");
-});
+// Search container toggle buttons
+const searchIcon = document.querySelector(".search-icon");
+const searchCloseIcon = document.querySelector(".search-close-ico");
+const searchContainer = document.querySelector(".search-container");
 
-// Close sidebar when close icon clicked
-closeIcon.addEventListener("click", () => {
-  sidebar.classList.add("closed");
-  hamburgerIcon.classList.remove("hidden");
-  closeIcon.classList.add("hidden");
-});
+if (hamburgerIcon && closeIcon && sidebar) {
+  hamburgerIcon.addEventListener("click", () => {
+    sidebar.classList.remove("closed");
+    hamburgerIcon.classList.add("hidden");
+    closeIcon.classList.remove("hidden");
+  });
+
+  closeIcon.addEventListener("click", () => {
+    sidebar.classList.add("closed");
+    hamburgerIcon.classList.remove("hidden");
+    closeIcon.classList.add("hidden");
+  });
+}
+
+if (searchIcon && searchCloseIcon && searchContainer) {
+  searchIcon.addEventListener("click", () => {
+    searchContainer.classList.remove("hidden");
+    searchIcon.classList.add("hidden");
+    searchCloseIcon.classList.remove("hidden");
+  });
+
+  searchCloseIcon.addEventListener("click", () => {
+    searchContainer.classList.add("hidden");
+    searchIcon.classList.remove("hidden");
+    searchCloseIcon.classList.add("hidden");
+  });
+}
 
 // Toggle submenu and chevron rotation
 function toggleSubmenu(menuId) {
@@ -32,11 +51,12 @@ function toggleSubmenu(menuId) {
     currentTab.setAttribute("aria-expanded", !isShown);
   }
 
-  const currentChevron = currentTab.querySelector(".chevron i");
+  const currentChevron = currentTab?.querySelector(".chevron i");
   if (currentChevron) {
     currentChevron.classList.toggle("rotate-180", !isShown);
   }
 
+  // Close other submenus
   document.querySelectorAll(".submenu").forEach((submenu) => {
     if (submenu.id !== menuId) {
       submenu.classList.remove("show");
@@ -56,7 +76,7 @@ function toggleSubmenu(menuId) {
   });
 }
 
-// Activate matching tab/sub-tab
+// Activate matching tab/sub-tab based on current page
 function setActiveTab(currentPage) {
   let activated = false;
 
@@ -80,6 +100,7 @@ function setActiveTab(currentPage) {
 function expandParentMenuIfActive() {
   let submenuOpened = false;
 
+  // Close all submenus first
   document.querySelectorAll(".submenu").forEach((submenu) => {
     submenu.classList.remove("show");
     const chevron = document.querySelector(
@@ -88,6 +109,7 @@ function expandParentMenuIfActive() {
     if (chevron) chevron.classList.remove("rotate-180");
   });
 
+  // Open submenu of the active sub-tab
   document.querySelectorAll(".sub-tab.active").forEach((activeSubTab) => {
     if (submenuOpened) return;
 
@@ -112,10 +134,10 @@ function expandParentMenuIfActive() {
   });
 }
 
-// Handle main tab clicks
+// Handle main tab clicks that have no href (toggle active)
 document.querySelectorAll(".tab[onclick]").forEach((tab) => {
   tab.addEventListener("click", function (e) {
-    if (this.getAttribute("href")) return;
+    if (this.getAttribute("href")) return; // If href exists, let link work
     e.preventDefault();
 
     document
@@ -135,11 +157,11 @@ document.querySelectorAll(".sub-tab").forEach((tab) => {
   });
 });
 
-// Get current page from URL
+// Get current page from URL params
 const urlParams = new URLSearchParams(window.location.search);
 const page = urlParams.get("page") || "dashboard";
 
-// Manual activation
+// Manual activation helper
 function setTabActive(tabId) {
   document
     .querySelectorAll(".tab, .sub-tab")
@@ -148,7 +170,7 @@ function setTabActive(tabId) {
   if (tab) tab.classList.add("active");
 }
 
-// Scroll to bottom helper
+// Scroll to bottom helper function
 function scrollToBottom() {
   const container = document.getElementById("scrollContainer");
   if (container) {
@@ -156,7 +178,7 @@ function scrollToBottom() {
   }
 }
 
-// On DOM ready
+// On DOM ready, setup active tab and menu
 document.addEventListener("DOMContentLoaded", () => {
   const currentPage =
     urlParams.get("page") || window.location.pathname.split("/").pop();
@@ -167,4 +189,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const isSidebarClosed = sidebar.classList.contains("closed");
   hamburgerIcon.classList.toggle("hidden", !isSidebarClosed);
   closeIcon.classList.toggle("hidden", isSidebarClosed);
+
+  // Set search icons initial visibility
+  if (searchContainer && searchIcon && searchCloseIcon) {
+    const isSearchHidden = searchContainer.classList.contains("hidden");
+    searchIcon.classList.toggle("hidden", !isSearchHidden);
+    searchCloseIcon.classList.toggle("hidden", isSearchHidden);
+  }
 });

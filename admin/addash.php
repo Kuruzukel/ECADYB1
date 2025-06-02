@@ -125,8 +125,6 @@
 
         </div>
 
-
-
         <div class="scroll-container" id="scrollContainer">
             <div class="contents" id="content">
                 <header>
@@ -146,12 +144,16 @@
                                 </svg>
                             </div>
                         </div>
+                        <div class="search-container">
+                            <input type="text" class="search-input" placeholder="Search..." />
+                            <button class="search-button">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
 
-                        <h3
-                            style="margin-left: 1rem; text-wrap: nowrap; transition: 300ms; font-family: 'Oxygen', sans-serif;">
-                            Admin Dashboard</h3>
                     </div>
                 </header>
+
                 <?php
                 $page = isset($_GET['page']) ? $_GET['page'] : 'studentlist';
                 switch ($page) {
