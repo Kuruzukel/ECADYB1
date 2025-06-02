@@ -21,8 +21,12 @@
         --menu-hover-bg: #1c1c84;
     }
 
-    .body {
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
         width: 100%;
+        background-color: var(--body-bg);
     }
 
     .container {
@@ -53,7 +57,7 @@
     }
 
     .form-content {
-        padding: 25px;
+        padding: 20px;
         box-sizing: border-box;
     }
 
@@ -95,39 +99,6 @@
         display: block;
         margin: 12px 0 6px;
         color: #e0e0e0;
-    }
-
-
-
-    @media (max-width: 1045px) {
-        .container {
-            width: 95%;
-        }
-
-        h1 {
-            font-size: 1.8rem;
-        }
-
-        input {
-            font-size: 1rem;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .form-group {
-            flex-direction: column;
-            height: auto;
-        }
-
-        .section {
-            width: 100%;
-            min-height: 350px;
-            margin-bottom: 20px;
-        }
-
-        .container {
-            min-height: auto;
-        }
     }
     </style>
 </head>

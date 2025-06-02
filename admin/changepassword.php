@@ -53,6 +53,10 @@
         position: relative;
     }
 
+    .changepass-body input {
+        height: 2.5rem;
+    }
+
     h2 {
         margin: 0;
         color: #ffffff;
@@ -126,7 +130,6 @@
         border: none;
         outline: none;
         width: 100%;
-        height: 2.5rem;
         border-radius: 5px;
         padding-inline: 1rem;
         font-size: 1rem;
@@ -143,9 +146,6 @@
         -moz-appearance: textfield;
     }
 
-    input::placeholder {
-        color: rgb(0, 0, 0);
-    }
 
     .submit-btn {
         position: absolute;

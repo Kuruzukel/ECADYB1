@@ -21,6 +21,14 @@
         --menu-hover-bg: #1c1c84;
     }
 
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        width: 100%;
+        background-color: var(--body-bg);
+    }
+
     .container {
         height: 100%;
         background-color: var(--content-bg);
@@ -92,6 +100,12 @@
         color: #e0e0e0;
     }
 
+    .section input,
+    .section select,
+    .section textarea {
+        margin-bottom: 16px;
+    }
+
     input,
     select {
         width: 100%;
@@ -99,7 +113,6 @@
         border-radius: 5px;
         border: none;
         background-color: #f0f0f0;
-        margin-bottom: 12px;
         font-size: 16px;
         box-sizing: border-box;
     }

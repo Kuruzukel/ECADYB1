@@ -29,11 +29,11 @@
                     </a>
 
                     <a href="addash.php?page=add-new-student" class="tab sub-tab">
-                        <i class="fas fa-user-plus" style="margin-right: 8px;"></i> Add New Student
+                        <i class="fas fa-user-plus"></i> Add New Student
                     </a>
 
                     <a href="addash.php?page=edit-student" class="tab sub-tab">
-                        <i class="fas fa-user-edit" style="margin-right: 8px;"></i> Edit Student Info
+                        <i class="fas fa-user-edit"></i> Edit Student Info
                     </a>
 
                 </div>
@@ -46,11 +46,11 @@
                 <div id="announcement-submenu" class="submenu">
 
                     <a href="addash.php?page=create-announcement" class="tab sub-tab">
-                        <i class="fas fa-mail-bulk" style="margin-right: 8px;"></i> Create Announcement
+                        <i class="fas fa-mail-bulk"></i> Create Announcement
                     </a>
 
                     <a href="addash.php?page=event-schedule" class="tab sub-tab">
-                        <i class="fas fa-calendar-alt" style="margin-right: 8px;"></i> Event Schedules
+                        <i class="fas fa-calendar-alt"></i> Event Schedules
                     </a>
 
                 </div>
@@ -62,31 +62,31 @@
 
                 <div id="yearbook-submenu" class="submenu">
                     <a href="addash.php?page=maritime" class="tab sub-tab">
-                        <i class="fas fa-anchor" style="margin-right: 8px;"></i>Maritime Education
+                        <i class="fas fa-anchor"></i>Maritime Education
                     </a>
 
-                    <a href="addash.php?page=criminology" class="tab sub-tab">
-                        <i class="fa fa-balance-scale" style="margin-right: 8px;"></i>Criminology
+                    <a href=" addash.php?page=criminology" class="tab sub-tab">
+                        <i class="fa fa-balance-scale"></i>Criminology
                     </a>
 
                     <a href="addash.php?page=tourism" class="tab sub-tab">
-                        <i class="fa fa-plane" style="margin-right: 8px;"></i>Tourism Management
+                        <i class="fa fa-plane"></i>Tourism Management
                     </a>
 
                     <a href="addash.php?page=education" class="tab sub-tab">
-                        <i class="fas fa-chalkboard" style="margin-right: 8px;"></i>College of Education
+                        <i class="fas fa-chalkboard"></i>College of Education
                     </a>
 
                     <a href="addash.php?page=nursing" class="tab sub-tab">
-                        <i class="fas fa-first-aid" style="margin-right: 8px;"></i>Nursing
+                        <i class="fas fa-first-aid"></i>Nursing
                     </a>
 
                     <a href="addash.php?page=informationsys" class="tab sub-tab">
-                        <i class="fas fa-laptop-code" style="margin-right: 8px;"></i>Information System
+                        <i class="fas fa-laptop-code"></i>Information System
                     </a>
 
                     <a href="addash.php?page=businessad" class="tab sub-tab">
-                        <i class="fa fa-suitcase" style="margin-right: 8px;"></i>Business Administration
+                        <i class="fa fa-suitcase"></i>Business Administration
                     </a>
                 </div>
 
@@ -103,11 +103,11 @@
 
                 <div id="customize-submenu" class="submenu">
                     <a href="addash.php?page=themes" class="tab sub-tab">
-                        <i class="fas fa-palette" style="margin-right: 8px;"></i>Themes
+                        <i class="fas fa-palette"></i>Themes
                     </a>
 
                     <a href="addash.php?page=template" class="tab sub-tab">
-                        <i class="fas fa-clone" style="margin-right: 8px;"></i>Templates
+                        <i class="fas fa-clone"></i>Templates
                     </a>
 
                 </div>
