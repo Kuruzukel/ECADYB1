@@ -282,13 +282,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <div class="section-header">Personal Information</div>
 
                     <label for="first-name">First Name:</label>
-                    <input type="text" id="first-name" placeholder="First Name" oninput="allowOnlyLetters(this)">
+                    <input type="text" id="first-name" oninput="allowOnlyLetters(this)"
+                        onkeypress="return /[a-zA-Z\s]/.test(event.key)" placeholder="First Name">
+
 
                     <label for="middle-name">Middle Name:</label>
-                    <input type="text" id="middle-name" placeholder="Middle Name" oninput="allowOnlyLetters(this)">
+                    <input type="text" id="middle-name" oninput="allowOnlyLetters(this)"
+                        onkeypress="return /[a-zA-Z\s]/.test(event.key)" placeholder="Middle Name">
+
 
                     <label for="last-name">Last Name:</label>
-                    <input type="text" id="last-name" placeholder="Last Name" oninput="allowOnlyLetters(this)">
+                    <input type="text" id="last-name" oninput="allowOnlyLetters(this)"
+                        onkeypress="return /[a-zA-Z\s]/.test(event.key)" placeholder="Last Name">
+
 
                     <label for="email">Email:</label>
                     <input type="text" id="email" placeholder="Email">
@@ -300,7 +306,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                     <label for="academic-year">Academic Year:</label>
                     <input type="text" id="academic-year" placeholder="0000-0000" maxlength="9"
-                        oninput="formatStudentID(this)">
+                        oninput="formatAcademicYear(this)">
+
 
                     <label for="department">Program:</label>
                     <select id="program">
@@ -442,6 +449,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         sanitized = sanitized.replace(/^\s+|\s+$/g, ''); // trim leading/trailing spaces
         input.value = sanitized;
     }
+
+    function formatStudentID(input) {
+        let value = input.value.replace(/\D/g, ''); // Remove non-digits
+        if (value.length > 10) value = value.slice(0, 10); // Limit to 10 digits total
+
+        if (value.length > 4) {
+            value = value.slice(0, 4) + '-' + value.slice(4);
+        }
+
+        input.value = value;
+    }
+
 
 
     function formatStudentID(input) {
