@@ -7,6 +7,7 @@ $uploadStatus = [
     'student_info' => null
 ];
 
+
 function isValidCSV($fileTmpName) {
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
     $mimeType = finfo_file($finfo, $fileTmpName);
@@ -20,43 +21,12 @@ function isValidCSV($fileTmpName) {
     ]);
 }
 
-function importCSVToMongo($tmpName, $collection) {
-    if (!isValidCSV($tmpName)) return false;
-
-    $header = null;
-    $data = [];
-    if (($handle = fopen($tmpName, 'r')) !== false) {
-        while (($row = fgetcsv($handle, 1000, ',')) !== false) {
-            $row = array_map('trim', $row);
-            if (!$header) {
-                $header = array_map(function($col) {
-                    return match(strtolower($col)) {
-                        'id' => 'id',
-                        'academic year' => 'academic year',
-                        'department section' => 'department section',
-                        'student id' => 'student id',
-                        'last name' => 'last name',
-                        'first name' => 'first name',
-                        'middle name' => 'middle name',
-                        'motto' => 'motto',
-                        'honors' => 'honors',
-                        default => strtolower($col)
-                    };
-                }, $row);
-            } elseif (count($row) === count($header)) {
-                $data[] = array_combine($header, $row);
-            }
-        }
-        fclose($handle);
-    }
-
-    if (!empty($data)) {
-        $collection->drop();
-        $collection->insertMany($data);
-        return true;
-    }
-    return false;
+function cleanHeader($col) {
+    $col = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $col); // Remove non-printable chars
+    $col = str_replace(["\xEF\xBB\xBF"], '', $col); // Remove UTF-8 BOM
+    return strtolower(str_replace(['_', ' '], '', trim($col)));
 }
+
 
 function importCSVToMongoByDepartment($tmpName, $departmentsDB) {
     if (!isValidCSV($tmpName)) return false;
@@ -69,20 +39,20 @@ function importCSVToMongoByDepartment($tmpName, $departmentsDB) {
             $row = array_map('trim', $row);
             if (!$header) {
                 $header = array_map(function($col) {
-                 return match(strtolower(str_replace('_', ' ', $col))) {
-                    'id' => 'id',
-                    'academic year' => 'academic year',
-                    'departament section', 'department section' => 'department section',
-                    'student id' => 'student id',
-                    'last name' => 'last name',
-                    'first name' => 'first name',
-                    'middle name' => 'middle name',
-                    'motto' => 'motto',
-                    'honors' => 'honors',
-                 default => strtolower(str_replace('_', ' ', $col))
-                };
-            }, $row);
-
+                    return match(strtolower(str_replace('_', ' ', $col))) {
+                        'id' => 'id',
+                        'academic year' => 'academic year',
+                        'departament section', 'department section' => 'department section',
+                        'student id' => 'student id',
+                        'last name' => 'last name',
+                        'first name' => 'first name',
+                        'middle name' => 'middle name',
+                        'motto' => 'motto',
+                        'honors' => 'honors',
+                        'email' => 'email',
+                        default => strtolower(str_replace('_', ' ', $col))
+                    };
+                }, $row);
             } elseif (count($row) === count($header)) {
                 $record = array_combine($header, $row);
                 if (!isset($record['department section'])) continue;
@@ -105,22 +75,73 @@ function importCSVToMongoByDepartment($tmpName, $departmentsDB) {
         }
         return true;
     }
-
     return false;
 }
+
+
+function importCSVByMessage($tmpName, $collection) {
+    if (!isValidCSV($tmpName)) return false;
+
+    $header = null;
+    $dataByMessage = [];
+
+    if (($handle = fopen($tmpName, 'r')) !== false) {
+        while (($row = fgetcsv($handle, 1000, ',')) !== false) {
+            $row = array_map('trim', $row);
+            if (!$header) {
+                $header = array_map('cleanHeader', $row);
+            } elseif (count($row) === count($header)) {
+                $dataByMessage[] = array_combine($header, $row);
+            }
+        }
+        fclose($handle);
+    }
+
+    if (!empty($dataByMessage)) {
+        $collection->drop();
+        $collection->insertMany($dataByMessage);
+        return true;
+    }
+    return false;
+}
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $client = new Client("mongodb://localhost:27017");
 
+
     if (!empty($_FILES['top_management_message']['tmp_name'])) {
-        $topManagementDB = $client->Top_Management;
-        $uploadStatus['top_management_message'] = importCSVToMongo($_FILES['top_management_message']['tmp_name'], $topManagementDB->message);
+        $tmpName = $_FILES['top_management_message']['tmp_name'];
+
+        $validTopManagementHeaders = ['name', 'message'];
+        $validTopManagementHeaders = array_map('cleanHeader', $validTopManagementHeaders);
+        $actualHeaders = [];
+
+        if (($handle = fopen($tmpName, 'r')) !== false) {
+            if (($row = fgetcsv($handle, 1000, ',')) !== false) {
+                $actualHeaders = array_map('cleanHeader', $row);
+            }
+            fclose($handle);
+        }
+
+        sort($validTopManagementHeaders);
+        sort($actualHeaders);
+
+
+        if ($actualHeaders === $validTopManagementHeaders) {
+            $topManagementDB = $client->Top_Management;
+            $uploadStatus['top_management_message'] = importCSVByMessage($tmpName, $topManagementDB->message);
+        } else {
+            $uploadStatus['top_management_message'] = false; 
+        }
     }
+
 
     if (!empty($_FILES['student_info']['tmp_name'])) {
         $departmentsDB = $client->Departments;
         $uploadStatus['student_info'] = importCSVToMongoByDepartment($_FILES['student_info']['tmp_name'], $departmentsDB);
     }
+
 
     $resultMsg = null;
     if ($uploadStatus['top_management_message'] || $uploadStatus['student_info']) {
@@ -129,8 +150,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $resultMsg = "One or more uploads failed. Please ensure you're using valid CSV files.";
     }
 }
-
 ?>
+
+
+
+
 
 
 <!DOCTYPE html>
@@ -369,10 +393,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <script>
     const themes = {
+        "Theme 1": {
+            "--primary-bg": "#470a0a",
+            "--header-bg": "#b21c0e",
+            "--accent": "#fcda15",
+            "--section-bg": "#bc4f5e",
+            "--section-header": "#cb5382",
+            "--body-bg": "#470a0a",
+            "--sidebar-bg": "#b21c0e",
+            "--content-bg": "#bc4f5e",
+            "--menu-bg-active": "#cb5382",
+            "--menu-border-active": "#fff176",
+            "--menu-hover-bg": "#cb5382"
+        },
+        "Theme 2": {
+            "--primary-bg": "#12086F",
+            "--header-bg": "#2B35AF",
+            "--accent": "#fcda15",
+            "--section-bg": "#4895EF",
+            "--section-header": "#4CC9F0",
+            "--body-bg": "#12086F",
+            "--sidebar-bg": "#2B35AF",
+            "--content-bg": "#4895EF",
+            "--menu-bg-active": "#4CC9F0",
+            "--menu-border-active": "#ffffff",
+            "--menu-hover-bg": "#4361EE"
+        },
+        "Theme 3": {
+            "--primary-bg": "#0d381e",
+            "--header-bg": "#164f2c",
+            "--accent": "#fcda15",
+            "--section-bg": "#2a834d",
+            "--section-header": "#349e5e",
+            "--body-bg": "#0d381e",
+            "--sidebar-bg": "#164f2c",
+            "--content-bg": "#2a834d",
+            "--menu-bg-active": "#349e5e",
+            "--menu-border-active": "#ffffff",
+            "--menu-hover-bg": "#1f693c"
+        },
+        "Theme 4": {
+            "--primary-bg": "#281E18",
+            "--header-bg": "#572D0C",
+            "--accent": "#fcda15",
+            "--section-bg": "#E3B76A",
+            "--section-header": "#9D9C75",
+            "--body-bg": "#281E18",
+            "--sidebar-bg": "#572D0C",
+            "--content-bg": "#E3B76A",
+            "--menu-bg-active": "#9D9C75",
+            "--menu-border-active": "#ffffff",
+            "--menu-hover-bg": "#C78E3A"
+        },
         "Default": {
             "--primary-bg": "#112d4e",
             "--header-bg": "#0c27be",
-            "--accent": "#0c27be",
+            "--accent": "#fcda15",
             "--section-bg": "#34495e",
             "--section-header": "#217ff7",
             "--body-bg": "#000042",
