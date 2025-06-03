@@ -1,3 +1,68 @@
+<?php
+require __DIR__ . '/../vendor/autoload.php'; // MongoDB library
+
+use MongoDB\Client;
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    header('Content-Type: application/json');
+
+    // Connect to MongoDB
+    $client = new Client("mongodb://localhost:27017");
+    $db = $client->Departments;
+
+    // Map program short codes to full names
+    $programMap = [
+        "bsme" => "BS Marine Engineering",
+        "bsmt" => "BS Marine Transportation",
+        "bscje" => "BS Criminal Justice Education",
+        "bstm" => "BS Tourism Management",
+        "btvted" => "BS Technical-Vocational Teacher Education",
+        "beced" => "BS Early Childhood Education",
+        "bsn" => "BS Nursing",
+        "bsis" => "BS Information System",
+        "bsma" => "BS Management Accounting",
+        "bse" => "BS Entrepreneurship"
+    ];
+
+    $programKey = $_POST["program"] ?? '';
+    $programName = $programMap[$programKey] ?? 'Unknown';
+
+    $section = trim($_POST["section"] ?? '');
+
+    // Prepare student document
+    $student = [
+        "first name" => trim($_POST["first_name"] ?? ''),
+        "middle name" => trim($_POST["middle_name"] ?? ''),
+        "last name" => trim($_POST["last_name"] ?? ''),
+        "email" => trim($_POST["email"] ?? ''),
+        "academic year" => trim($_POST["academic_year"] ?? ''),
+        "student id" => trim($_POST["student_id"] ?? ''),
+        "program" => $programName,
+        "section" => $section,
+        "department section" => $programName . ' - ' . $section,
+        "motto" => trim($_POST["motto"] ?? ''),
+        "honors" => trim($_POST["honors"] ?? ''),
+        "milestone" => trim($_POST["milestone"] ?? '')
+    ];
+
+    // Select the appropriate collection
+    $collection = $db->$programKey;
+
+    // Count existing documents and set custom auto-incremented ID
+    $studentCount = $collection->countDocuments();
+    $student["id"] = $studentCount + 1;
+
+    // Insert student into the collection
+    $collection->insertOne($student);
+
+    echo json_encode([
+        "success" => true,
+        "message" => "Student added successfully to '$programKey' collection with ID {$student['id']}."
+    ]);
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -225,6 +290,9 @@
                     <label for="last-name">Last Name:</label>
                     <input type="text" id="last-name" placeholder="Last Name" oninput="allowOnlyLetters(this)">
 
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" placeholder="Email">
+
                 </div>
 
                 <div class="section">
@@ -234,42 +302,41 @@
                     <input type="text" id="academic-year" placeholder="0000-0000" maxlength="9"
                         oninput="formatStudentID(this)">
 
-                    <label for="program">Program:</label>
+                    <label for="department">Program:</label>
                     <select id="program">
                         <option value="" disabled selected>Select a program</option>
-                        <option value="Maritime Education">BS Marine Engineering</option>
-                        <option value="Maritime Education">BS Marine Transportation</option>
-                        <option value="Criminology">BS Criminal Justice Education</option>
-                        <option value="Tourism Managements">BS Tourism Management</option>
-                        <option value="College of Education">BS Technical-Vocational Teacher Education</option>
-                        <option value="College of Education">BS Early Childhood Education</option>
-                        <option value="Nursing">BS Nursing</option>
-                        <option value="Information System">BS Information System</option>
-                        <option value="Business Administration">BS Management Accounting</option>
-                        <option value="Business Administration">BS Entrepreneurship</option>
+                        <option value="bsme">BS Marine Engineering</option>
+                        <option value="bsmt">BS Marine Transportation</option>
+                        <option value="bscje">BS Criminal Justice Education</option>
+                        <option value="bstm">BS Tourism Management</option>
+                        <option value="btvted">BS Technical-Vocational Teacher Education</option>
+                        <option value="beced">BS Early Childhood Education</option>
+                        <option value="bsn">BS Nursing</option>
+                        <option value="bsis">BS Information System</option>
+                        <option value="bsma">BS Management Accounting</option>
+                        <option value="bse">BS Entrepreneurship</option>
                     </select>
 
 
                     <label for="section">Section:</label>
                     <input type="text" id="section" placeholder="Section" oninput="allowOnlyLetters(this)">
 
-                    <label for="section">Student ID:</label>
-                    <input type="text" id="academic-year" placeholder="0000-000000" maxlength="11"
+                    <label for="student-id">Student ID:</label>
+                    <input type="text" id="student-id" placeholder="0000-000000" maxlength="11"
                         oninput="formatStudentID(this)">
 
                 </div>
 
                 <div class="section">
                     <div class="section-header">Additional Information</div>
-                    <label for="personal-philosophy">Personal Philosophy:</label>
-                    <input type="text" id="personal-philosopjy" placeholder="Personal Philosophy">
+                    <label for="motto">Personal Philosophy:</label>
+                    <input type="text" id="motto" placeholder="Personal Philosophy">
 
-                    <label for="latin-awards">Latin Awards:</label>
-                    <input type="text" id="latin-awards" placeholder="Latin Awards" oninput="allowOnlyLetters(this)">
+                    <label for="honors">Latin Awards:</label>
+                    <input type="text" id="honors" placeholder="Latin Awards" oninput="allowOnlyLetters(this)">
 
-                    <label for="career-highlights">Career Highlights:</label>
-                    <input type="text" id="career-highlights" placeholder="Career Highlights"
-                        oninput="allowOnlyLetters(this)">
+                    <label for="milestone">Career Highlights:</label>
+                    <input type="text" id="milestone" placeholder="Career Highlights" oninput="allowOnlyLetters(this)">
 
                 </div>
             </div>
@@ -370,11 +437,12 @@
     });
 
     function allowOnlyLetters(input) {
-        const sanitized = input.value.replace(/[^a-zA-Z\s]/g, '');
-        if (input.value !== sanitized) {
-            input.value = sanitized;
-        }
+        let sanitized = input.value.replace(/[^a-zA-Z\s]/g, '');
+        sanitized = sanitized.replace(/\s+/g, ' '); // replace multiple spaces with one
+        sanitized = sanitized.replace(/^\s+|\s+$/g, ''); // trim leading/trailing spaces
+        input.value = sanitized;
     }
+
 
     function formatStudentID(input) {
         let value = input.value.replace(/\D/g, '');
@@ -383,6 +451,7 @@
         }
         input.value = value;
     }
+
     const addBtn = document.getElementById('add-student-btn');
     const modalOverlay = document.getElementById('modal-overlay');
     const confirmBtn = document.getElementById('confirm-btn');
@@ -398,10 +467,32 @@
     });
 
     confirmBtn.addEventListener('click', () => {
-        modalOverlay.style.display = 'none';
-        alert("Student successfully added!");
+                modalOverlay.style.display = 'none';
 
-    });
+                const formData = new FormData();
+                formData.append('first name', document.getElementById('first-name').value.trim());
+                formData.append('middle name', document.getElementById('middle-name').value.trim());
+                formData.append('last name', document.getElementById('last-name').value.trim());
+                formData.append('email', document.getElementById('email').value.trim());
+                formData.append('academic year', document.getElementById('academic-year').value.trim());
+                formData.append('program', document.getElementById('program').value);
+                formData.append('section', document.getElementById('section').value.trim());
+                formData.append('student id', document.getElementById('student-id').value.trim());
+                formData.append('motto', document.getElementById('motto').value.trim());
+                formData.append('honors', document.getElementById('honors').value.trim());
+                formData.append('milestone', document.getElementById('milestone').value.trim());
+
+                fetch('', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+                        alert(result.message);
+                        if (result.success) {
+                            window.location.reload();
+                        }
+                    })
     </script>
 </body>
 

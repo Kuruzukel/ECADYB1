@@ -7,7 +7,6 @@ $uploadStatus = [
     'student_info' => null
 ];
 
-
 function isValidCSV($fileTmpName) {
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
     $mimeType = finfo_file($finfo, $fileTmpName);
@@ -22,11 +21,10 @@ function isValidCSV($fileTmpName) {
 }
 
 function cleanHeader($col) {
-    $col = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $col); // Remove non-printable chars
-    $col = str_replace(["\xEF\xBB\xBF"], '', $col); // Remove UTF-8 BOM
-    return strtolower(str_replace(['_', ' '], '', trim($col)));
+    $col = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $col); 
+    $col = str_replace(["\xEF\xBB\xBF"], '', $col); 
+    return strtolower(preg_replace('/[\s_]+/', '', trim($col))); 
 }
-
 
 function importCSVToMongoByDepartment($tmpName, $departmentsDB) {
     if (!isValidCSV($tmpName)) return false;
@@ -39,18 +37,19 @@ function importCSVToMongoByDepartment($tmpName, $departmentsDB) {
             $row = array_map('trim', $row);
             if (!$header) {
                 $header = array_map(function($col) {
-                    return match(strtolower(str_replace('_', ' ', $col))) {
+                    return match(cleanHeader($col)) {
                         'id' => 'id',
-                        'academic year' => 'academic year',
-                        'departament section', 'department section' => 'department section',
-                        'student id' => 'student id',
-                        'last name' => 'last name',
-                        'first name' => 'first name',
-                        'middle name' => 'middle name',
+                        'academicyear' => 'academic year',
+                        'departmentsection', 'departamentsection' => 'department section',
+                        'studentid' => 'student id',
+                        'lastname' => 'last name',
+                        'firstname' => 'first name',
+                        'middlename' => 'middle name',
                         'motto' => 'motto',
                         'honors' => 'honors',
+                        'milestone' => 'milestone',
                         'email' => 'email',
-                        default => strtolower(str_replace('_', ' ', $col))
+                        default => cleanHeader($col)
                     };
                 }, $row);
             } elseif (count($row) === count($header)) {
@@ -78,7 +77,6 @@ function importCSVToMongoByDepartment($tmpName, $departmentsDB) {
     return false;
 }
 
-
 function importCSVByMessage($tmpName, $collection) {
     if (!isValidCSV($tmpName)) return false;
 
@@ -105,7 +103,6 @@ function importCSVByMessage($tmpName, $collection) {
     return false;
 }
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $client = new Client("mongodb://localhost:27017");
 
@@ -127,12 +124,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         sort($validTopManagementHeaders);
         sort($actualHeaders);
 
-
         if ($actualHeaders === $validTopManagementHeaders) {
             $topManagementDB = $client->Top_Management;
             $uploadStatus['top_management_message'] = importCSVByMessage($tmpName, $topManagementDB->message);
         } else {
-            $uploadStatus['top_management_message'] = false; 
+            $uploadStatus['top_management_message'] = false;
         }
     }
 
@@ -142,7 +138,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $uploadStatus['student_info'] = importCSVToMongoByDepartment($_FILES['student_info']['tmp_name'], $departmentsDB);
     }
 
-
     $resultMsg = null;
     if ($uploadStatus['top_management_message'] || $uploadStatus['student_info']) {
         $resultMsg = "Upload successful!";
@@ -151,11 +146,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
