@@ -1,16 +1,16 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php'; // MongoDB library
+require __DIR__ . '/../vendor/autoload.php'; 
 
 use MongoDB\Client;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     header('Content-Type: application/json');
 
-    // Connect to MongoDB
+
     $client = new Client("mongodb://localhost:27017");
     $db = $client->Departments;
 
-    // Map program short codes to full names
+
     $programMap = [
         "bsme" => "BS Marine Engineering",
         "bsmt" => "BS Marine Transportation",
@@ -29,7 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $section = trim($_POST["section"] ?? '');
 
-    // Prepare student document
     $student = [
         "first name" => trim($_POST["first_name"] ?? ''),
         "middle name" => trim($_POST["middle_name"] ?? ''),
@@ -45,14 +44,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         "milestone" => trim($_POST["milestone"] ?? '')
     ];
 
-    // Select the appropriate collection
     $collection = $db->$programKey;
 
-    // Count existing documents and set custom auto-incremented ID
     $studentCount = $collection->countDocuments();
     $student["id"] = $studentCount + 1;
 
-    // Insert student into the collection
     $collection->insertOne($student);
 
     echo json_encode([
@@ -268,6 +264,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     .modal-btn:hover {
         opacity: 0.9;
     }
+
+    .success {
+        color: green;
+        margin-top: 10px;
+        font-weight: bold;
+    }
     </style>
 </head>
 
@@ -276,89 +278,94 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <div class="header-container" style="width: 100%;">
             <h1>Add Student Details</h1>
         </div>
-        <div class="form-content" style="width: 100%;">
-            <div class="form-group">
-                <div class="section">
-                    <div class="section-header">Personal Information</div>
 
-                    <label for="first-name">First Name:</label>
-                    <input type="text" id="first-name" oninput="allowOnlyLetters(this)"
-                        onkeypress="return /[a-zA-Z\s]/.test(event.key)" placeholder="First Name">
+        <form id="addStudentForm">
+            <div class="form-content" style="width: 100%;">
+                <div class="form-group">
+                    <div class="section">
+                        <div class="section-header">Personal Information</div>
 
+                        <label for="first-name">First Name:</label>
+                        <input type="text" id="first-name" name="first_name" oninput="allowOnlyLetters(this)"
+                            onkeypress="return /[a-zA-Z\s]/.test(event.key)" placeholder="First Name">
 
-                    <label for="middle-name">Middle Name:</label>
-                    <input type="text" id="middle-name" oninput="allowOnlyLetters(this)"
-                        onkeypress="return /[a-zA-Z\s]/.test(event.key)" placeholder="Middle Name">
+                        <label for="middle-name">Middle Name:</label>
+                        <input type="text" id="middle-name" name="middle_name" oninput="allowOnlyLetters(this)"
+                            onkeypress="return /[a-zA-Z\s]/.test(event.key)" placeholder="Middle Name">
 
+                        <label for="last-name">Last Name:</label>
+                        <input type="text" id="last-name" name="last_name" oninput="allowOnlyLetters(this)"
+                            onkeypress="return /[a-zA-Z\s]/.test(event.key)" placeholder="Last Name">
 
-                    <label for="last-name">Last Name:</label>
-                    <input type="text" id="last-name" oninput="allowOnlyLetters(this)"
-                        onkeypress="return /[a-zA-Z\s]/.test(event.key)" placeholder="Last Name">
+                        <label for="email">Email:</label>
+                        <input type="text" id="email" name="email" placeholder="Email">
+                    </div>
 
+                    <div class="section">
+                        <div class="section-header">Academic Information</div>
 
-                    <label for="email">Email:</label>
-                    <input type="text" id="email" placeholder="Email">
+                        <label for="academic-year">Academic Year:</label>
+                        <input type="text" id="academic-year" name="academic_year" placeholder="0000-0000" maxlength="9"
+                            oninput="formatAcademicYear(this)">
 
+                        <label for="program">Program:</label>
+                        <select id="program" name="program">
+                            <option value="" disabled selected>Select a program</option>
+                            <option value="bsme">BS Marine Engineering</option>
+                            <option value="bsmt">BS Marine Transportation</option>
+                            <option value="bscje">BS Criminal Justice Education</option>
+                            <option value="bstm">BS Tourism Management</option>
+                            <option value="btvted">BS Technical-Vocational Teacher Education</option>
+                            <option value="beced">BS Early Childhood Education</option>
+                            <option value="bsn">BS Nursing</option>
+                            <option value="bsis">BS Information System</option>
+                            <option value="bsma">BS Management Accounting</option>
+                            <option value="bse">BS Entrepreneurship</option>
+                        </select>
+
+                        <label for="section">Section:</label>
+                        <input type="text" id="section" name="section" placeholder="Section"
+                            oninput="allowOnlyLetters(this)">
+
+                        <label for="student-id">Student ID:</label>
+                        <input type="text" id="student-id" name="student_id" placeholder="0000-000000" maxlength="11"
+                            oninput="formatStudentID(this)">
+                    </div>
+
+                    <div class="section">
+                        <div class="section-header">Additional Information</div>
+
+                        <label for="motto">Personal Philosophy:</label>
+                        <input type="text" id="motto" name="motto" placeholder="Personal Philosophy">
+
+                        <label for="honors">Latin Awards:</label>
+                        <input type="text" id="honors" name="honors" placeholder="Latin Awards"
+                            oninput="allowOnlyLetters(this)">
+
+                        <label for="milestone">Career Highlights:</label>
+                        <input type="text" id="milestone" name="milestone" placeholder="Career Highlights"
+                            oninput="allowOnlyLetters(this)">
+                    </div>
                 </div>
+                <button type="button" class="submit-btn" id="add-student-btn">Add Student</button>
 
-                <div class="section">
-                    <div class="section-header">Academic Information</div>
-
-                    <label for="academic-year">Academic Year:</label>
-                    <input type="text" id="academic-year" placeholder="0000-0000" maxlength="9"
-                        oninput="formatAcademicYear(this)">
+                <p id="responseMessage" class="success" style="text-align: center; margin-top: 10px;"></p>
 
 
-                    <label for="department">Program:</label>
-                    <select id="program">
-                        <option value="" disabled selected>Select a program</option>
-                        <option value="bsme">BS Marine Engineering</option>
-                        <option value="bsmt">BS Marine Transportation</option>
-                        <option value="bscje">BS Criminal Justice Education</option>
-                        <option value="bstm">BS Tourism Management</option>
-                        <option value="btvted">BS Technical-Vocational Teacher Education</option>
-                        <option value="beced">BS Early Childhood Education</option>
-                        <option value="bsn">BS Nursing</option>
-                        <option value="bsis">BS Information System</option>
-                        <option value="bsma">BS Management Accounting</option>
-                        <option value="bse">BS Entrepreneurship</option>
-                    </select>
+            </div>
+        </form>
 
-
-                    <label for="section">Section:</label>
-                    <input type="text" id="section" placeholder="Section" oninput="allowOnlyLetters(this)">
-
-                    <label for="student-id">Student ID:</label>
-                    <input type="text" id="student-id" placeholder="0000-000000" maxlength="11"
-                        oninput="formatStudentID(this)">
-
-                </div>
-
-                <div class="section">
-                    <div class="section-header">Additional Information</div>
-                    <label for="motto">Personal Philosophy:</label>
-                    <input type="text" id="motto" placeholder="Personal Philosophy">
-
-                    <label for="honors">Latin Awards:</label>
-                    <input type="text" id="honors" placeholder="Latin Awards" oninput="allowOnlyLetters(this)">
-
-                    <label for="milestone">Career Highlights:</label>
-                    <input type="text" id="milestone" placeholder="Career Highlights" oninput="allowOnlyLetters(this)">
-
+        <!-- Modal -->
+        <div class="modal-overlay" id="modal-overlay" style="display: none;">
+            <div class="modal" style="font-family: Arial, sans-serif;">
+                <h2>Are you sure you want to add this student?</h2>
+                <div class="modal-buttons">
+                    <button class="modal-btn confirm" id="confirm-btn">Yes, Add</button>
+                    <button class="modal-btn cancel" id="cancel-btn">Cancel</button>
                 </div>
             </div>
-            <button class="submit-btn" id="add-student-btn">Add Student</button>
         </div>
-    </div>
 
-    <div class="modal-overlay" id="modal-overlay">
-        <div class="modal" style="font-family: Arial, sans-serif;">
-            <h2>Are you sure you want to add this student?</h2>
-            <div class="modal-buttons">
-                <button class="modal-btn confirm" id="confirm-btn">Yes, Add</button>
-                <button class="modal-btn cancel" id="cancel-btn">Cancel</button>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -430,6 +437,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     };
 
+    // Apply selected theme
     function applyTheme(themeName) {
         const theme = themes[themeName] || themes["Default"];
         const root = document.documentElement;
@@ -438,81 +446,93 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     }
 
+    // Load saved theme on page load
     window.addEventListener('DOMContentLoaded', () => {
         const savedTheme = localStorage.getItem('dashboard-theme') || 'Default';
         applyTheme(savedTheme);
     });
 
+    // Allow only alphabet characters and single spaces
     function allowOnlyLetters(input) {
-        let sanitized = input.value.replace(/[^a-zA-Z\s]/g, '');
-        sanitized = sanitized.replace(/\s+/g, ' '); // replace multiple spaces with one
-        sanitized = sanitized.replace(/^\s+|\s+$/g, ''); // trim leading/trailing spaces
+        let sanitized = input.value.replace(/[^a-zA-Z\s]/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
         input.value = sanitized;
     }
 
-    function formatStudentID(input) {
-        let value = input.value.replace(/\D/g, ''); // Remove non-digits
-        if (value.length > 10) value = value.slice(0, 10); // Limit to 10 digits total
-
+    // Format academic year as YYYY-YYYY
+    function formatAcademicYear(input) {
+        let value = input.value.replace(/\D/g, '').slice(0, 8);
         if (value.length > 4) {
             value = value.slice(0, 4) + '-' + value.slice(4);
         }
-
         input.value = value;
     }
 
-
-
+    // Format student ID as XXXX-XXXXXX
     function formatStudentID(input) {
-        let value = input.value.replace(/\D/g, '');
+        let value = input.value.replace(/\D/g, '').slice(0, 10);
         if (value.length > 4) {
-            value = value.slice(0, 4) + '-' + value.slice(4, 10);
+            value = value.slice(0, 4) + '-' + value.slice(4);
         }
         input.value = value;
     }
 
+    // Modal form handling
     const addBtn = document.getElementById('add-student-btn');
     const modalOverlay = document.getElementById('modal-overlay');
     const confirmBtn = document.getElementById('confirm-btn');
     const cancelBtn = document.getElementById('cancel-btn');
 
-    addBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        modalOverlay.style.display = 'flex';
-    });
+    if (addBtn && modalOverlay) {
+        addBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            modalOverlay.style.display = 'flex';
+        });
+    }
 
-    cancelBtn.addEventListener('click', () => {
-        modalOverlay.style.display = 'none';
-    });
+    if (cancelBtn && modalOverlay) {
+        cancelBtn.addEventListener('click', () => {
+            modalOverlay.style.display = 'none';
+        });
+    }
 
-    confirmBtn.addEventListener('click', () => {
-                modalOverlay.style.display = 'none';
+    if (confirmBtn) {
+        confirmBtn.addEventListener('click', () => {
+            modalOverlay.style.display = 'none';
 
-                const formData = new FormData();
-                formData.append('first name', document.getElementById('first-name').value.trim());
-                formData.append('middle name', document.getElementById('middle-name').value.trim());
-                formData.append('last name', document.getElementById('last-name').value.trim());
-                formData.append('email', document.getElementById('email').value.trim());
-                formData.append('academic year', document.getElementById('academic-year').value.trim());
-                formData.append('program', document.getElementById('program').value);
-                formData.append('section', document.getElementById('section').value.trim());
-                formData.append('student id', document.getElementById('student-id').value.trim());
-                formData.append('motto', document.getElementById('motto').value.trim());
-                formData.append('honors', document.getElementById('honors').value.trim());
-                formData.append('milestone', document.getElementById('milestone').value.trim());
+            const formData = new FormData();
+            formData.append('first name', document.getElementById('first-name').value.trim());
+            formData.append('middle name', document.getElementById('middle-name').value.trim());
+            formData.append('last name', document.getElementById('last-name').value.trim());
+            formData.append('email', document.getElementById('email').value.trim());
+            formData.append('academic year', document.getElementById('academic-year').value.trim());
+            formData.append('program', document.getElementById('program').value);
+            formData.append('section', document.getElementById('section').value.trim());
+            formData.append('student id', document.getElementById('student-id').value.trim());
+            formData.append('motto', document.getElementById('motto').value.trim());
+            formData.append('honors', document.getElementById('honors').value.trim());
+            formData.append('milestone', document.getElementById('milestone').value.trim());
 
-                fetch('', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        alert(result.message);
-                        if (result.success) {
-                            window.location.reload();
-                        }
-                    })
+            fetch('', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(result => {
+                    alert(result.message);
+                    if (result.success) {
+                        window.location.reload();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    }
     </script>
+
+
 </body>
 
 </html>
