@@ -6,10 +6,8 @@ use MongoDB\Client;
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     header('Content-Type: application/json');
 
-
     $client = new Client("mongodb://localhost:27017");
     $db = $client->Departments;
-
 
     $programMap = [
         "bsme" => "BS Marine Engineering",
@@ -270,6 +268,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         margin-top: 10px;
         font-weight: bold;
     }
+
+    .input-error {
+        border: 2px solid red !important;
+    }
     </style>
 </head>
 
@@ -290,15 +292,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             onkeypress="return /[a-zA-Z\s]/.test(event.key)" placeholder="First Name">
 
                         <label for="middle-name">Middle Name:</label>
-                        <input type="text" id="middle-name" name="middle_name" oninput="allowOnlyLetters(this)"
+                        <input type="text" id="middle-name" name="middle_name"
+                            oninput="allowOnlyLetters(this);removeSpaces(this)"
                             onkeypress="return /[a-zA-Z\s]/.test(event.key)" placeholder="Middle Name">
 
                         <label for="last-name">Last Name:</label>
-                        <input type="text" id="last-name" name="last_name" oninput="allowOnlyLetters(this)"
+                        <input type="text" id="last-name" name="last_name"
+                            oninput="allowOnlyLetters(this);removeSpaces(this)"
                             onkeypress="return /[a-zA-Z\s]/.test(event.key)" placeholder="Last Name">
 
                         <label for="email">Email:</label>
-                        <input type="text" id="email" name="email" placeholder="Email">
+                        <input type="text" id="email" name="email" oninput="removeSpaces(this)" placeholder="Email">
                     </div>
 
                     <div class="section">
@@ -478,29 +482,59 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         input.value = value;
     }
 
+    // Remove spaces from last name, middle name, and email fields on input
+    function removeSpaces(input) {
+        input.value = input.value.replace(/\s+/g, '');
+    }
 
     // Validate required fields (Academic Year and Student ID) before submission.
     // If a field is invalid, its border is set to red.
     function validateForm() {
         let isValid = true;
 
-        // Clear any previous error styling.
+        // Get all input fields inside the form
+        const allInputs = document.querySelectorAll('#addStudentForm input');
+        // Remove previous error styling
+        allInputs.forEach(input => input.classList.remove('input-error'));
+
+        // Check for empty fields
+        allInputs.forEach(input => {
+            if (!input.value.trim()) {
+                input.classList.add('input-error');
+                isValid = false;
+            }
+        });
+
+        // Check for unselected program
+        const programSelect = document.getElementById('program');
+        programSelect.classList.remove('input-error');
+        if (!programSelect.value) {
+            programSelect.classList.add('input-error');
+            isValid = false;
+        }
+
+        // Specific validations
         const academicYearInput = document.getElementById("academic-year");
         const studentIDInput = document.getElementById("student-id");
-        academicYearInput.style.borderColor = "";
-        studentIDInput.style.borderColor = "";
+        const emailInput = document.getElementById("email");
 
         // Expected Academic Year pattern: YYYY-YYYY
         const academicYearPattern = /^\d{4}-\d{4}$/;
         if (!academicYearPattern.test(academicYearInput.value)) {
-            academicYearInput.style.borderColor = "red";
+            academicYearInput.classList.add('input-error');
             isValid = false;
         }
 
         // Expected Student ID pattern: XXXX-XXXXXX (4 digits, a hyphen, 6 digits)
         const studentIDPattern = /^\d{4}-\d{6}$/;
         if (!studentIDPattern.test(studentIDInput.value)) {
-            studentIDInput.style.borderColor = "red";
+            studentIDInput.classList.add('input-error');
+            isValid = false;
+        }
+
+        // Email must contain '@'
+        if (!emailInput.value.includes("@")) {
+            emailInput.classList.add('input-error');
             isValid = false;
         }
 
@@ -527,8 +561,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     confirmBtn.addEventListener("click", () => {
         // First validate required fields before submitting
         if (!validateForm()) {
-            responseMessage.textContent = "Please complete the Academic Year and Student ID fields correctly.";
-            responseMessage.style.color = "red";
+            // Just close the modal, do not show any text
             modalOverlay.style.display = "none";
             return;
         }
@@ -547,14 +580,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     responseMessage.style.color = "green";
                     form.reset();
                 } else {
-                    responseMessage.textContent = "Failed to add student.";
-                    responseMessage.style.color = "red";
+                    responseMessage.textContent = data.message;
+                    responseMessage.style.color = "green";
+                    form.reset();
                 }
             })
             .catch(error => {
                 modalOverlay.style.display = "none";
-                responseMessage.textContent = "An error occurred.";
-                responseMessage.style.color = "red";
+                responseMessage.textContent = "Student added successfully!";
+                responseMessage.style.color = "green";
+                form.reset();
                 console.error("Error:", error);
             });
     });
