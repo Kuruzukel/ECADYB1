@@ -478,60 +478,87 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         input.value = value;
     }
 
-    // Modal form handling
-    const addBtn = document.getElementById('add-student-btn');
-    const modalOverlay = document.getElementById('modal-overlay');
-    const confirmBtn = document.getElementById('confirm-btn');
-    const cancelBtn = document.getElementById('cancel-btn');
 
-    if (addBtn && modalOverlay) {
-        addBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            modalOverlay.style.display = 'flex';
-        });
+    // Validate required fields (Academic Year and Student ID) before submission.
+    // If a field is invalid, its border is set to red.
+    function validateForm() {
+        let isValid = true;
+
+        // Clear any previous error styling.
+        const academicYearInput = document.getElementById("academic-year");
+        const studentIDInput = document.getElementById("student-id");
+        academicYearInput.style.borderColor = "";
+        studentIDInput.style.borderColor = "";
+
+        // Expected Academic Year pattern: YYYY-YYYY
+        const academicYearPattern = /^\d{4}-\d{4}$/;
+        if (!academicYearPattern.test(academicYearInput.value)) {
+            academicYearInput.style.borderColor = "red";
+            isValid = false;
+        }
+
+        // Expected Student ID pattern: XXXX-XXXXXX (4 digits, a hyphen, 6 digits)
+        const studentIDPattern = /^\d{4}-\d{6}$/;
+        if (!studentIDPattern.test(studentIDInput.value)) {
+            studentIDInput.style.borderColor = "red";
+            isValid = false;
+        }
+
+        return isValid;
     }
 
-    if (cancelBtn && modalOverlay) {
-        cancelBtn.addEventListener('click', () => {
-            modalOverlay.style.display = 'none';
-        });
-    }
 
-    if (confirmBtn) {
-        confirmBtn.addEventListener('click', () => {
-            modalOverlay.style.display = 'none';
+    // Handle modal behavior and form submission
+    const modalOverlay = document.getElementById("modal-overlay");
+    const confirmBtn = document.getElementById("confirm-btn");
+    const cancelBtn = document.getElementById("cancel-btn");
+    const addStudentBtn = document.getElementById("add-student-btn");
+    const form = document.getElementById("addStudentForm");
+    const responseMessage = document.getElementById("responseMessage");
 
-            const formData = new FormData();
-            formData.append('first name', document.getElementById('first-name').value.trim());
-            formData.append('middle name', document.getElementById('middle-name').value.trim());
-            formData.append('last name', document.getElementById('last-name').value.trim());
-            formData.append('email', document.getElementById('email').value.trim());
-            formData.append('academic year', document.getElementById('academic-year').value.trim());
-            formData.append('program', document.getElementById('program').value);
-            formData.append('section', document.getElementById('section').value.trim());
-            formData.append('student id', document.getElementById('student-id').value.trim());
-            formData.append('motto', document.getElementById('motto').value.trim());
-            formData.append('honors', document.getElementById('honors').value.trim());
-            formData.append('milestone', document.getElementById('milestone').value.trim());
+    addStudentBtn.addEventListener("click", () => {
+        modalOverlay.style.display = "flex";
+    });
 
-            fetch('', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(result => {
-                    alert(result.message);
-                    if (result.success) {
-                        window.location.reload();
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        });
-    }
+    cancelBtn.addEventListener("click", () => {
+        modalOverlay.style.display = "none";
+    });
+
+    confirmBtn.addEventListener("click", () => {
+        // First validate required fields before submitting
+        if (!validateForm()) {
+            responseMessage.textContent = "Please complete the Academic Year and Student ID fields correctly.";
+            responseMessage.style.color = "red";
+            modalOverlay.style.display = "none";
+            return;
+        }
+
+        const formData = new FormData(form);
+
+        fetch("", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                modalOverlay.style.display = "none";
+                if (data.success) {
+                    responseMessage.textContent = data.message;
+                    responseMessage.style.color = "green";
+                    form.reset();
+                } else {
+                    responseMessage.textContent = "Failed to add student.";
+                    responseMessage.style.color = "red";
+                }
+            })
+            .catch(error => {
+                modalOverlay.style.display = "none";
+                responseMessage.textContent = "An error occurred.";
+                responseMessage.style.color = "red";
+                console.error("Error:", error);
+            });
+    });
     </script>
-
 
 </body>
 
