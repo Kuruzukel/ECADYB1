@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_FILES['top_management_message']['tmp_name'])) {
         $tmpName = $_FILES['top_management_message']['tmp_name'];
 
-        $validTopManagementHeaders = ['name', 'message'];
+        $validTopManagementHeaders = ['name', 'message','batch_name', 'academic_year'];
         $validTopManagementHeaders = array_map('cleanHeader', $validTopManagementHeaders);
         $actualHeaders = [];
 
