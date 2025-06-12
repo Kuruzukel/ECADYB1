@@ -49,6 +49,7 @@ function importCSVToMongoByDepartment($tmpName, $departmentsDB) {
                         'honors' => 'honors',
                         'milestone' => 'milestone',
                         'email' => 'email',
+                        'batchname' => 'batch name',
                         default => cleanHeader($col)
                     };
                 }, $row);

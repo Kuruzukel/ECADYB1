@@ -39,7 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         "department section" => $programName . ' - ' . $section,
         "motto" => trim($_POST["motto"] ?? ''),
         "honors" => trim($_POST["honors"] ?? ''),
-        "milestone" => trim($_POST["milestone"] ?? '')
+        "milestone" => trim($_POST["milestone"] ?? ''),
+        "batch name" => trim($_POST["batch_name"] ?? '')
     ];
 
     $collection = $db->$programKey;
@@ -267,6 +268,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         color: green;
         margin-top: 10px;
         font-weight: bold;
+        opacity: 1;
+    }
+
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
     }
 
     .input-error {
@@ -349,6 +360,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <label for="milestone">Career Highlights:</label>
                         <input type="text" id="milestone" name="milestone" placeholder="Career Highlights"
                             oninput="allowOnlyLetters(this)">
+
+                        <label for="bacth-name">Batch Name:</label>
+                        <input type="text" id="batch-name" name="batch_name" placeholder="Batch Name"
+                            oninput="allowOnlyLetters(this)">
+
                     </div>
                 </div>
                 <button type="button" class="submit-btn" id="add-student-btn">Add Student</button>
@@ -578,10 +594,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 if (data.success) {
                     responseMessage.textContent = data.message;
                     responseMessage.style.color = "green";
+                    responseMessage.style.animation = 'none';
+                    responseMessage.offsetHeight; // Trigger reflow
+                    responseMessage.style.animation = 'fadeOut 3s forwards';
+                    responseMessage.style.animationDelay = '2s';
                     form.reset();
                 } else {
                     responseMessage.textContent = data.message;
                     responseMessage.style.color = "green";
+                    responseMessage.style.animation = 'none';
+                    responseMessage.offsetHeight; // Trigger reflow
+                    responseMessage.style.animation = 'fadeOut 3s forwards';
+                    responseMessage.style.animationDelay = '2s';
                     form.reset();
                 }
             })
@@ -589,6 +613,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 modalOverlay.style.display = "none";
                 responseMessage.textContent = "Student added successfully!";
                 responseMessage.style.color = "green";
+                responseMessage.style.animation = 'none';
+                responseMessage.offsetHeight; // Trigger reflow
+                responseMessage.style.animation = 'fadeOut 3s forwards';
+                responseMessage.style.animationDelay = '2s';
                 form.reset();
                 console.error("Error:", error);
             });
