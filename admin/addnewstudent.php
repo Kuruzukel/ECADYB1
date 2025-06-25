@@ -275,6 +275,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         from {
             opacity: 1;
         }
+
         to {
             opacity: 0;
         }
