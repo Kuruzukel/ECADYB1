@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landing Page</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to bottom right, #e0e7ff, #fff0f5);
+        color: #ffffff;
+        min-height: 100vh;
+        overflow-x: hidden;
+        scrollbar-width: none; /* Firefox */
+      }
+
+      body::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 10;
+        animation: fadeIn 1s ease forwards;
+        transition: transform 0.3s ease;
+        transform: translateY(0);
+        background: rgba(20, 20, 40, 0.9);
+      }
+
+      header.hidden {
+        transform: translateY(-100%);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex: 1;
+      }
+
+      .logo-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .center-nav {
+        display: flex;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .center-nav a {
+        text-decoration: none;
+        color: #ffffff;
+        font-weight: 500;
+        position: relative;
+        padding: 0.5rem 1.2rem;
+        border-radius: 999px;
+        transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+        margin: 0 0.2rem;
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 8px rgba(99, 102, 241, 0.05);
+      }
+
+      .center-nav a:hover,
+      .center-nav a:focus {
+        background: rgba(7, 42, 168, 0.68);
+        color: #fff;
+        box-shadow: 0 4px 16px rgba(99, 102, 241, 0.15);
+        text-shadow: 0 1px 4px rgba(99, 102, 241, 0.15);
+      }
+
+      .center-nav a.active {
+        background: #fff;
+        color: rgba(7, 42, 168, 0.68);
+        font-weight: 600;
+        box-shadow: 0 2px 12px rgba(99, 102, 241, 0.18);
+        border: 2px solid #6366f1;
+      }
+
+      .login-btn {
+        background-color: black;
+        color: white;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .login-btn:hover {
+        background-color: rgba(7, 42, 168, 0.68);
+        transform: scale(1.05);
+      }
+
+      .login-btn:active {
+        transform: scale(0.95);
+      }
+
+      .main-hero {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .main-hero-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: url("img/ECABG.jpg") center center/cover no-repeat;
+        z-index: 1;
+      }
+
+      .main-hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          rgba(20, 20, 40, 0.7) 60%,
+          rgba(20, 20, 40, 0.9) 100%
+        );
+        z-index: 2;
+      }
+
+      .main-hero-text {
+        position: relative;
+        z-index: 3;
+        color: #fff;
+        text-align: left;
+        max-width: 700px;
+        margin-left: 5vw;
+      }
+
+      .hero-category {
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+        color: #e0e7ff;
+        margin-bottom: 1.2rem;
+        opacity: 0.85;
+      }
+
+      .hero-heading {
+        font-size: 3.2rem;
+        font-family: "Georgia", "Times New Roman", serif;
+        font-weight: bold;
+        line-height: 1.1;
+        margin-bottom: 1.2rem;
+        text-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+      }
+
+      .hero-publish-date {
+        font-size: 1.1rem;
+        color: #e0e7ff;
+        opacity: 0.8;
+      }
+
+      .content-sections {
+        position: relative;
+        z-index: 4;
+        background: #fff;
+        color: #333;
+      }
+
+      .section {
+        padding: 4rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 3rem;
+        color: #1e293b;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 4rem;
+      }
+
+      .feature-card {
+        background: #f8fafc;
+        padding: 2rem;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .feature-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 1.5rem;
+        color: white;
+      }
+
+      .feature-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #1e293b;
+      }
+
+      .feature-description {
+        color: #64748b;
+        line-height: 1.6;
+      }
+
+      .about-section {
+        background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+        padding: 4rem 2rem;
+      }
+
+      .about-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .about-text h3 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: #1e293b;
+      }
+
+      .about-text p {
+        color: #64748b;
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+      }
+
+      .about-image {
+        text-align: center;
+      }
+
+      .about-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .cta-section {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        color: white;
+        text-align: center;
+        padding: 4rem 2rem;
+      }
+
+      .cta-content {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .cta-title {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .cta-description {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+
+      .cta-button {
+        background: white;
+        color: #6366f1;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      @media (max-width: 768px) {
+        .hero-heading {
+          font-size: 2rem;
+        }
+
+        .main-hero-text {
+          margin-left: 0;
+          text-align: center;
+        }
+
+        nav {
+          display: none;
+        }
+
+        .about-content {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .cta-title {
+          font-size: 2rem;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <header id="main-header">
+      <div class="logo">
+        <img src="img/ECALOGO.png" alt="Logo" class="logo-img" />
+        <span>EXACT COLLEGES OF ASIA</span>
+      </div>
+      <nav class="center-nav">
+        <a href="#" class="active">Home</a>
+        <a href="#">About</a>
+        <a href="#">Yearbooks</a>
+        <a href="#">Contacts</a>
+      </nav>
+      <button class="login-btn">Log In</button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="main-hero">
+      <div class="main-hero-background"></div>
+      <div class="main-hero-text">
+        <div class="hero-category">NEWS</div>
+        <h1 class="hero-heading">Welcome to the new<br />Alumni Grallery</h1>
+        <div class="hero-publish-date">Published on Jun 25th 2025</div>
+      </div>
+    </section>
+
+    <!-- Content Sections -->
+    <div class="content-sections">
+      <!-- Features, About<!-- Content Sections -->
+      <section class="section">
+        <h2 class="section-title">Why Choose Our Alumni Gallery?</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">📚</div>
+            <h3 class="feature-title">Comprehensive Records</h3>
+            <p class="feature-description">
+              Access complete academic records and achievements of all alumni
+              from different graduating classes.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔍</div>
+            <h3 class="feature-title">Easy Search</h3>
+            <p class="feature-description">
+              Find alumni quickly with our advanced search functionality by
+              name, year, or department.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3 class="feature-title">Mobile Friendly</h3>
+            <p class="feature-description">
+              Access the gallery from any device with our responsive design that
+              works on all platforms.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔄</div>
+            <h3 class="feature-title">Regular Updates</h3>
+            <p class="feature-description">
+              Stay connected with the latest alumni information and achievements
+              as they happen.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3 class="feature-title">Secure Access</h3>
+            <p class="feature-description">
+              Your data is protected with industry-standard security measures
+              and privacy controls.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3 class="feature-title">Analytics Dashboard</h3>
+            <p class="feature-description">
+              View detailed statistics and insights about alumni distribution
+              and achievements.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section class="about-section">
+        <div class="about-content">
+          <div class="about-text">
+            <h3>About Exact Colleges of Asia</h3>
+            <p>
+              Exact Colleges of Asia is committed to excellence in education and
+              fostering strong connections with our alumni community. Our
+              comprehensive alumni gallery serves as a bridge between past and
+              present students, celebrating achievements and maintaining
+              lifelong relationships.
+            </p>
+            <p>
+              With years of educational excellence, we've produced thousands of
+              successful graduates who have made significant contributions to
+              their respective fields. Our alumni gallery is a testament to
+              their success and our institution's commitment to quality
+              education.
+            </p>
+            <p>
+              Whether you're a current student, alumni, or faculty member, our
+              platform provides easy access to connect, collaborate, and
+              celebrate the achievements of our academic community.
+            </p>
+          </div>
+          <div class="about-image">
+            <img src="img/ECALOGO.png" alt="Exact Colleges of Asia Logo" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Call to Action Section -->
+      <section class="cta-section">
+        <div class="cta-content">
+          <h2 class="cta-title">Ready to Explore?</h2>
+          <p class="cta-description">
+            Join thousands of alumni who are already connected through our
+            comprehensive gallery. Discover, connect, and celebrate the
+            achievements of our academic community.
+          </p>
+          <a href="#" class="cta-button">Get Started Today</a>
+        </div>
+      </section>
+      <!-- ... -->
+    </div>
+
+    <!-- Header scroll script -->
+    <script>
+      let lastScrollTop = 0;
+      const header = document.getElementById("main-header");
+
+      window.addEventListener("scroll", function () {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > lastScrollTop) {
+          // scroll down
+          header.classList.add("hidden");
+        } else {
+          // scroll up
+          header.classList.remove("hidden");
+        }
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+      });
+    </script>
+  </body>
+</html>
