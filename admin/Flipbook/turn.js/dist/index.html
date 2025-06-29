@@ -13,6 +13,7 @@
   <div id="viewer">
     <div id="flipbook" class="ui-flipbook">
       <!-- Do not place the content here -->
+       
       <a ignore="1" class="ui-arrow-control ui-arrow-next-page"></a>
       <a ignore="1" class="ui-arrow-control ui-arrow-previous-page"></a>
     </div>
@@ -63,6 +64,33 @@
   <script src='https://code.jquery.com/jquery-2.0.3.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone-min.js'></script><script  src="./script.js"></script>
-
+<script>
+  // Override FlipbookSettings for this example
+  window.FlipbookSettings = {
+    options: {
+      pageWidth: 500,
+      pageHeight: 600,
+      pages: 8,
+      responsive: true,
+      animatedAutoCenter: true,
+      smartFlip: true,
+      autoScaleContent: true,
+      swipe: true
+    },
+    shareMessage: "ECADYB Yearbook 2024 - Turn.js Example",
+    pageFolder: "/YB COVER",
+    loadRegions: true,
+    pageSources: [
+      "/YB COVER/20.png",
+      "/YB COVER/21.png", 
+      "/YB COVER/22.png",
+      "/YB COVER/23.png",
+      "/YB COVER/24.png",
+      "/YB COVER/25.png",
+      "/YB COVER/26.png",
+      "/YB COVER/27.png"
+    ]
+  };
+</script>
 </body>
 </html>

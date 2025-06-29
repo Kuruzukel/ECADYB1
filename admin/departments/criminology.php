@@ -73,8 +73,8 @@
     <div class="container">
         <div class="catalog-root">
             <div class="catalog-app">
-                <iframe src="http://localhost/ECADYB/admin/flipbook/turn.js/dist/index.html#page/1" width="100%"
-                    height="100%" style="border: none;"></iframe>
+                <iframe src="http://localhost/ECADYB/admin/criminology/index.html" width="100%" height="100%"
+                    style="border: none;"></iframe>
             </div>
         </div>
 
