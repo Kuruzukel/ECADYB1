@@ -33,24 +33,6 @@ body {
   display: none;
 }
 
-.magazine .region {
-  position: absolute;
-  overflow: hidden;
-  background: #0066ff;
-  opacity: 0.2;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  -webkit-filter: alpha(opacity=20);
-  filter: alpha(opacity=20);
-}
-
-.magazine .region:hover {
-  opacity: 0.5;
-  -webkit-filter: alpha(opacity=50);
-  filter: alpha(opacity=50);
-}
-
 .magazine .region.zoom {
   opacity: 0.01;
   -webkit-filter: alpha(opacity=1);
@@ -262,7 +244,7 @@ body {
 
 .thumbnails .thumb-hover span {
   position: absolute;
-  bottom: -30px;
+  bottom: -25px;
   left: 0;
   z-index: 2;
   width: 100%;
