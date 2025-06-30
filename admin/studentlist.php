@@ -34,6 +34,7 @@
         background-color: var(--content-bg);
         border-radius: 10px 10px 0 0;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        font-family: Arial, sans-serif;
     }
 
     .header-container {
@@ -56,9 +57,9 @@
         width: 100%;
     }
 
-    .form-content {
-        padding: 20px;
-        box-sizing: border-box;
+    .form-content,
+    .filter-bar {
+        font-family: Arial, sans-serif;
     }
 
     .form-group {
@@ -100,17 +101,185 @@
         margin: 12px 0 6px;
         color: #e0e0e0;
     }
+
+    .filter-bar {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 3px;
+        margin-top: 1px;
+        height: 50px;
+        width: 100%;
+        border-radius: 8px;
+        justify-content: space-between;
+        padding: 10px;
+    }
+
+    .filter-label {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .filter-select {
+        padding: 6px 12px;
+        border-radius: 8px;
+        border: 2px solid #34495e;
+        background: transparent;
+        color: #fff;
+        height: 35px;
+        min-width: 120px;
+        max-width: 100%;
+        width: 100%;
+        font-family: Arial, sans-serif;
+        font-size: .9em;
+        box-sizing: border-box;
+    }
+
+    .filter-select option {
+        background: #112d4e;
+        color: #fff;
+    }
+
+    .select-all-label {
+        display: flex;
+        align-items: center;
+        color: rgb(255, 255, 255);
+        margin-left: auto;
+        height: 20px;
+    }
+
+    .select-all-checkbox {
+        margin-right: 8px;
+        accent-color: #217ff7;
+    }
+
+    .card-header {
+        border-bottom: 2px solid #34495e;
+        font-size: 1.1em;
+        color: #fff;
+    }
+
+    .card {}
+
+    .card-datatable {
+        padding: 20px;
+        min-height: 200px;
+        color: #fff;
+    }
+
+    .student-header-label {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .student-header-checkbox {
+        margin-left: 12px;
+        margin-right: 12px;
+        height: 20px;
+        width: 20px;
+    }
+
+    .student-header-text {
+        margin-left: 25px;
+    }
+
+    .card-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        column-gap: 10px;
+    }
+
+    .datatable-header-student,
+    .datatable-header-id,
+    .datatable-header-year,
+    .datatable-header-status,
+    .datatable-header-actions {
+        flex: 1;
+    }
+
+    .datatable-header-id {
+        flex: 1;
+        margin-left: 65px;
+    }
+
+    .datatable-header-dept {
+        flex: 2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .datatable-header-year {
+        flex: 1;
+        ;
+        margin-right: 65px;
+    }
     </style>
 </head>
 
 <body>
 
-    <div class="container" style="font-family: Arial;">
+    <div class="container">
         <div class="header-container" style="width: 100%;">
             <h1>Student List</h1>
         </div>
-        <div class="form-content" style="width: 100%;">
+        <div class="form-content" style="width: 100%, ">
+            <div class="card">
+                <div class="card-header">
 
+                    <div class="filter-bar">
+                        <label for="entries-count" class="filter-label">
+                            <select id="entries-count" class="filter-select">
+                                <option value="" disabled selected>Show Users</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                            </select>
+                        </label>
+                        <label for="department-filter" class="filter-label">
+                            <select id="department-filter" class="filter-select">
+                                <option value="" disabled selected>Select Department</option>
+                                <option value="maritime">Maritime Education</option>
+                                <option value="criminology">Criminology</option>
+                                <option value="tourism">Tourism Management</option>
+                                <option value="education">College of Education</option>
+                                <option value="nursing">Nursing</option>
+                                <option value="information">Information System</option>
+                                <option value="business">Business Administration</option>
+                                <!-- Add more departments as needed -->
+                            </select>
+                        </label>
+                        <label for="status-filter" class="filter-label">
+                            <select id="status-filter" class="filter-select">
+                                <option value="" disabled selected>Select Status</option>
+                                <option value="active">Active</option>
+                                <option value="pending">Pending</option>
+                            </select>
+                        </label>
+                    </div>
+
+                </div>
+                <div class="card-header">
+                    <div class="card-header-row">
+                        <span class="student-header-label datatable-header-student">
+                            <input type="checkbox" id="select-all-header"
+                                class="select-all-checkbox student-header-checkbox">
+                            <span class="student-header-text">STUDENT</span>
+                        </span>
+                        <span class="datatable-header-id">ID NUMBER</span>
+                        <span class="datatable-header-dept">DEPARTMENT & SECTION</span>
+                        <span class="datatable-header-year">ACADEMIC YEAR</span>
+                        <span class="datatable-header-status">STATUS</span>
+                        <span class="datatable-header-actions">ACTIONS</span>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
     </div>

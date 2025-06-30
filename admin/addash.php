@@ -32,10 +32,6 @@
                         <i class="fas fa-user-plus"></i> Add New Student
                     </a>
 
-                    <a href="addash.php?page=edit-student" class="tab sub-tab">
-                        <i class="fas fa-user-edit"></i> Edit Student Info
-                    </a>
-
                 </div>
 
                 <a class="tab" id="announcement-tab" onclick="toggleSubmenu('announcement-submenu')">
