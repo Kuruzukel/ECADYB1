@@ -296,8 +296,6 @@ header.hidden {
   }
 }
 
-
-
 /* Yearbooks Section */
 .yearbooks-row {
   width: 100%;
@@ -321,8 +319,8 @@ header.hidden {
   text-align: center;
   overflow: hidden;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
- 
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+
   z-index: 3;
 }
 
@@ -444,7 +442,6 @@ header.hidden {
   transition: border 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
-
 .login-dropdown-item {
   display: block;
   padding: 0.7rem 1.2rem;
@@ -496,8 +493,6 @@ header.hidden {
   margin-bottom: 5rem;
 }
 
-
-
 .about-blur-vignette {
   position: absolute;
   top: 0;
@@ -508,9 +503,9 @@ header.hidden {
   z-index: 2;
   background: radial-gradient(
     ellipse at center,
-    rgba(0,0,0,0) 60%,
-    rgba(0,0,0,0.18) 80%,
-    rgba(0,0,0,0.32) 100%
+    rgba(0, 0, 0, 0) 60%,
+    rgba(0, 0, 0, 0.18) 80%,
+    rgba(0, 0, 0, 0.32) 100%
   );
   filter: blur(24px);
   opacity: 0.7;
