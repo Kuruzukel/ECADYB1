@@ -88,23 +88,68 @@
     <section class="section about-section" id="about">
       <div class="about-blur-vignette"></div>
       <div class="grid-overlay"></div>
-      <iframe
-        src="landing page/index.html"
-        width="100%"
-        height="500px"
-        style="border: none"
-      ></iframe>
-      <h2 class="section-title">About</h2>
-      <p class="about-description">
-        Welcome to our Digital Yearbook: Graduation Gallery, a space created to
-        celebrate the incredible journey of our graduates. This virtual gallery
-        captures memories, milestones, and meaningful moments from the academic
-        year. A tribute to the resilience, growth, and achievements of every
-        student. Whether you’re looking back at your own story or exploring the
-        journey of classmates, this digital yearbook is a living reminder that
-        while graduation marks the end of a chapter, the memories last forever.
-      </p>
+      <div style="display: flex; align-items: flex-start; gap: 2rem">
+        <!-- Left: Iframe -->
+        <div>
+          <iframe
+            src="landing page/index.html"
+            width="600px"
+            height="430px"
+            style="border: none; margin-top: 11rem"
+          ></iframe>
+        </div>
+        <!-- Right: About Section -->
+        <div>
+          <h2 class="section-title">About</h2>
+          <p class="about-description">
+            Welcome to our Digital Yearbook: Graduation Gallery, a space created
+            to celebrate the incredible journey of our graduates. This virtual
+            gallery captures memories, milestones, and meaningful moments from
+            the academic year. A tribute to the resilience, growth, and
+            achievements of every student. Whether you’re looking back at your
+            own story or exploring the journey of classmates, this digital
+            yearbook is a living reminder that while graduation marks the end of
+            a chapter, the memories last forever.
+          </p>
+        </div>
+      </div>
+    </section>
 
+    <!-- First curl (renamed) -->
+    <div class="yearbooks-alt-curl">
+      <svg
+        viewBox="0 0 1440 120"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+        style="display: block; width: 100%; height: 60px"
+      >
+        <rect width="100%" height="100%" fill="#021326" />
+        <!-- Back wave -->
+        <path
+          d="M0,40 Q180,100 360,40 T720,40 T1080,40 T1440,40 L1440,120 L0,120 Z"
+          fill="#1a237e"
+          opacity="0.5"
+        />
+        <!-- Middle wave -->
+        <path
+          d="M0,80 Q180,40 360,80 T720,80 T1080,80 T1440,80 L1440,120 L0,120 Z"
+          fill="#112d4e"
+        />
+        <!-- Front wave -->
+        <path
+          d="M0,100 Q180,60 360,100 T720,100 T1080,100 T1440,100 L1440,120 L0,120 Z"
+          fill="#021326"
+        />
+      </svg>
+    </div>
+    <!-- Yearbooks Section -->
+
+    <section
+      class="yearbooks-section"
+      style="position: relative; overflow: hidden"
+    >
+      <div class="grid-overlay"></div>
       <h2 class="section-title">Digital Yearbooks</h2>
       <div class="yearbooks-row">
         <div class="yearbook-card">
