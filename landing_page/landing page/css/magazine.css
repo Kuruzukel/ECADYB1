@@ -8,18 +8,19 @@ body {
 .magazine-viewport .container {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 40px;   /* Adjust this value for your desired left margin */
+  right: auto;  /* Make sure right is not set */
   width: 922px;
   height: 600px;
-  margin: auto;
   background: transparent !important;
+  transform: translateY(-50%);
 }
 
 .magazine-viewport .magazine {
   width: 922px;
   height: 600px;
-  left: -461px;
-  top: -300px;
+  left: 0;
+  top: 0; /* or your desired top offset */
 }
 
 .magazine-viewport .page {
@@ -276,6 +277,7 @@ body {
 
 .magazine-viewport {
   background: transparent !important;
+  position: relative; /* or absolute, depending on your layout */
 }
 .container {
   background: transparent !important;
