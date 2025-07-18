@@ -14,10 +14,10 @@
         <span>EXACT COLLEGES OF ASIA</span>
       </div>
       <nav class="center-nav">
-        <a href="#" class="active">Home</a>
-        <a href="#">About</a>
-        <a href="#" class="dropdown-toggle">Yearbooks</a>
-        <a href="#">Memories</a>
+        <a href="#main-hero">Home</a>
+        <a href="#about">About</a>
+        <a href="#yearbooks">Yearbooks</a>
+        <a href="#captured-moments">Memories</a>
         <a href="#">Contacts</a>
       </nav>
       <div class="login-dropdown">
@@ -30,7 +30,7 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="main-hero">
+    <section class="main-hero" id="main-hero">
       <div class="main_blur_overlay"></div>
       <div class="main-hero-background"></div>
       <div class="main-hero-text">
@@ -51,7 +51,7 @@
         </div>
         <div class="hero-buttons">
           <a href="#yearbooks" class="hero-btn">Explore Yearbooks</a>
-          <a href="#" class="hero-btn hero-btn-secondary">Captured Moments </a>
+          <a href="#captured-moments" class="hero-btn hero-btn-secondary">Captured Moments </a>
         </div>
       </div>
       <!-- Lower Curl SVG Divider -->
@@ -119,8 +119,10 @@
 
     <section
       class="yearbooks-section"
+      id="yearbooks"
       style="position: relative; overflow: hidden"
     >
+    
       <div class="yearbooks-background"></div>
       
       <h2 class="section-title">Digital Yearbooks</h2>
@@ -199,6 +201,14 @@
         </svg>
       </div>
     </section>
+    
+    <!-- Carousel Section -->
+<section class="carousel-section" id="captured-moments">
+  <h2 class="section-title">Captured Moments</h2>
+  <div class="carousel" id="carousel">
+   
+  </div>
+</section>
     
     <script src="landingpage.js"></script>
   </body>
