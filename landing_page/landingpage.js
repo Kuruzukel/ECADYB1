@@ -62,3 +62,99 @@ document.addEventListener("DOMContentLoaded", function () {
     lastScrollY = window.scrollY;
   });
 });
+
+// Carousel Sample Images
+const carouselImages = [
+  '../YB COVER/BUSAD.png',
+  '../YB COVER/BUSAD.png',
+  '../YB COVER/BUSAD.png',
+  '../YB COVER/BUSAD.png',
+  '../YB COVER/BUSAD.png',
+  '../YB COVER/BUSAD.png',
+  '../YB COVER/BUSAD.png',
+  '../YB COVER/BUSAD.png',
+  '../YB COVER/BUSAD.png',
+  '../YB COVER/BUSAD.png',
+  '../YB COVER/BUSAD.png',
+  '../YB COVER/BUSAD.png',
+  '../YB COVER/CRIM.png',
+  '../YB COVER/EDUC.png',
+  '../YB COVER/MARITIME.png',
+];
+
+const track = document.getElementById('carousel-track');
+
+let currentIndex = 0;
+
+function renderImages() {
+  // For infinite effect, clone last and first images
+  const images = [
+    carouselImages[carouselImages.length - 1],
+    ...carouselImages,
+    carouselImages[0],
+  ];
+  track.innerHTML = images
+    .map(
+      (src, i) => `<img src="${src}" class="carousel-img" data-index="${i - 1}" draggable="false" />`
+    )
+    .join('');
+  // Set initial position
+  track.style.transform = `translateX(-${100 * (currentIndex + 1)}%)`;
+}
+
+function moveToIndex(index) {
+  currentIndex = index;
+  track.style.transition = 'transform 0.5s cubic-bezier(0.4,0,0.2,1)';
+  track.style.transform = `translateX(-${100 * (currentIndex + 1)}%)`;
+}
+
+function handleTransitionEnd() {
+  // Looping logic
+  if (currentIndex < 0) {
+    track.style.transition = 'none';
+    currentIndex = carouselImages.length - 1;
+    track.style.transform = `translateX(-${100 * (currentIndex + 1)}%)`;
+  } else if (currentIndex >= carouselImages.length) {
+    track.style.transition = 'none';
+    currentIndex = 0;
+    track.style.transform = `translateX(-${100 * (currentIndex + 1)}%)`;
+  }
+}
+
+function nextImage() {
+  moveToIndex(currentIndex + 1);
+}
+function prevImage() {
+  moveToIndex(currentIndex - 1);
+}
+
+// Event listeners
+track.addEventListener('transitionend', handleTransitionEnd);
+
+// Touch/drag support (optional, basic)
+let startX = 0;
+let isDragging = false;
+track.addEventListener('touchstart', (e) => {
+  startX = e.touches[0].clientX;
+  isDragging = true;
+});
+track.addEventListener('touchmove', (e) => {
+  if (!isDragging) return;
+  const diff = e.touches[0].clientX - startX;
+  track.style.transition = 'none';
+  track.style.transform = `translateX(-${100 * (currentIndex + 1)}% + ${diff}px)`;
+});
+track.addEventListener('touchend', (e) => {
+  isDragging = false;
+  const diff = e.changedTouches[0].clientX - startX;
+  if (diff > 50) {
+    prevImage();
+  } else if (diff < -50) {
+    nextImage();
+  } else {
+    moveToIndex(currentIndex);
+  }
+});
+
+// Initialize
+renderImages();

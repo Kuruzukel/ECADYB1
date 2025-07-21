@@ -495,11 +495,11 @@ header.hidden {
 .about-section .section-title {
   color: white;
   margin-bottom: 0.5rem;
-  margin-top: 16rem;
+  margin-top: 12.5rem;
 }
 
 .about-description {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin: 0 auto;
   line-height: 1.7;
   color: white;
@@ -564,6 +564,8 @@ header.hidden {
 .yearbooks-section .section-title {
   position: relative;
   z-index: 2;
+  margin-bottom: 3.5rem;
+  margin-top: 8rem;
 }
 .yearbooks-section > *:not(.yearbooks-background) {
   position: relative;
@@ -606,6 +608,88 @@ header.hidden {
 }
 
 .carousel-section {
-  margin: 4rem 0;
-  background: #021326; /* Or your preferred color */
+  background: #021326;
+  color: white;
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-position: top center;
+  min-height: 10rem;
+}
+
+@media (max-width: 900px) {
+  .carousel-section {
+    padding: 2rem 1rem;
+    min-height: 350px;
+  }
+}
+
+.carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  width: 100%;
+  animation: carousel-scroll 12s linear infinite;
+}
+
+.carousel-track img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 1rem;
+  margin: 0 1rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  background: #fff;
+}
+
+
+
+.carousel-subtitle {
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 2.5rem;
+  margin-top: 0.5rem;
+  letter-spacing: 1px;
+  font-family: "SF Pro", "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.carousel-section .section-title {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  margin-top: 3.5rem;
+  letter-spacing: 1px;
+  text-shadow: none;
+  font-family: "SF Pro", "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  border-bottom: none;
+  display: block;
+  padding-bottom: 0;
+}
+
+@keyframes carousel-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-60%);
+  }
+}
+
+.carousel-container:hover .carousel-track {
+  animation-play-state: paused;
 }
