@@ -63,35 +63,19 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Carousel Sample Images
-const carouselImages = [
-  "../CAROUSEL/sample1.jpg",
-  "../CAROUSEL/sample2.jpg",
-  "../CAROUSEL/sample3.jpg",
-  "../CAROUSEL/sample4.jpg",
-  "../CAROUSEL/sample5.jpg",
-  "../CAROUSEL/sample6.jpg",
-  "../CAROUSEL/sample7.jpg",
-  "../CAROUSEL/sample8.jpg",
-  "../CAROUSEL/sample9.jpg",
-  "../CAROUSEL/sample10.jpg",
-  "../CAROUSEL/sample11.jpg",
-  "../CAROUSEL/sample12.jpg",
-  "../CAROUSEL/sample13.jpg",
-  "../CAROUSEL/sample14.jpg",
-  "../CAROUSEL/sample15.jpg",
-];
-
+// Carousel logic using images from HTML
 const track = document.getElementById("carousel-track");
+let carouselImageElements = Array.from(track.querySelectorAll(".carousel-img"));
+let carouselImages = carouselImageElements.map((img) => img.src);
 
 let currentIndex = 0;
 
 function renderImages() {
   // For infinite effect, clone last and first images
   const images = [
-    carouselImages[carouselImages.length - 1], // last (sample15)
-    ...carouselImages, // sample1 to sample15
-    carouselImages[0], // first (sample1)
+    carouselImages[carouselImages.length - 1], // last
+    ...carouselImages,
+    carouselImages[0], // first
   ];
 
   track.innerHTML = images
@@ -103,7 +87,10 @@ function renderImages() {
     )
     .join("");
 
-  // Set initial position to the first real image (sample1)
+  // Update carouselImageElements after rendering
+  carouselImageElements = Array.from(track.querySelectorAll(".carousel-img"));
+
+  // Set initial position to the first real image
   track.style.transition = "none";
   track.style.transform = `translateX(-100%)`;
   currentIndex = 0;
@@ -136,7 +123,6 @@ function prevImage() {
   moveToIndex(currentIndex - 1);
 }
 
-// Event listener
 track.addEventListener("transitionend", handleTransitionEnd);
 
 // Touch support
@@ -186,7 +172,6 @@ function stopAutoSlide() {
   clearInterval(autoSlideInterval);
 }
 
-// Reset after 1 minute
 function resetCarouselAfterTimeout() {
   timeoutId = setTimeout(() => {
     stopAutoSlide();

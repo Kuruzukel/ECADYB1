@@ -643,9 +643,9 @@ header.hidden {
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
   width: 100%;
-  animation: carousel-scroll 12s linear infinite;
-  position: relative;
+  animation: carousel-scroll 145s linear infinite;
   z-index: 3;
+  width: max-content;
 }
 
 .carousel-track img {
@@ -655,8 +655,9 @@ header.hidden {
   border-radius: 1rem;
   margin: 0 1rem;
   background: #021326;
-  position: relative;
   z-index: 4;
+  width: max-content;
+  flex-shrink: 0;
 }
 
 .carousel-subtitle {
