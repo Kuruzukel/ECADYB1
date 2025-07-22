@@ -65,86 +65,99 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Carousel Sample Images
 const carouselImages = [
-  '../YB COVER/BUSAD.png',
-  '../YB COVER/BUSAD.png',
-  '../YB COVER/BUSAD.png',
-  '../YB COVER/BUSAD.png',
-  '../YB COVER/BUSAD.png',
-  '../YB COVER/BUSAD.png',
-  '../YB COVER/BUSAD.png',
-  '../YB COVER/BUSAD.png',
-  '../YB COVER/BUSAD.png',
-  '../YB COVER/BUSAD.png',
-  '../YB COVER/BUSAD.png',
-  '../YB COVER/BUSAD.png',
-  '../YB COVER/CRIM.png',
-  '../YB COVER/EDUC.png',
-  '../YB COVER/MARITIME.png',
+  "../CAROUSEL/sample1.jpg",
+  "../CAROUSEL/sample2.jpg",
+  "../CAROUSEL/sample3.jpg",
+  "../CAROUSEL/sample4.jpg",
+  "../CAROUSEL/sample5.jpg",
+  "../CAROUSEL/sample6.jpg",
+  "../CAROUSEL/sample7.jpg",
+  "../CAROUSEL/sample8.jpg",
+  "../CAROUSEL/sample9.jpg",
+  "../CAROUSEL/sample10.jpg",
+  "../CAROUSEL/sample11.jpg",
+  "../CAROUSEL/sample12.jpg",
+  "../CAROUSEL/sample13.jpg",
+  "../CAROUSEL/sample14.jpg",
+  "../CAROUSEL/sample15.jpg",
 ];
 
-const track = document.getElementById('carousel-track');
+const track = document.getElementById("carousel-track");
 
 let currentIndex = 0;
 
 function renderImages() {
   // For infinite effect, clone last and first images
   const images = [
-    carouselImages[carouselImages.length - 1],
-    ...carouselImages,
-    carouselImages[0],
+    carouselImages[carouselImages.length - 1], // last (sample15)
+    ...carouselImages, // sample1 to sample15
+    carouselImages[0], // first (sample1)
   ];
+
   track.innerHTML = images
     .map(
-      (src, i) => `<img src="${src}" class="carousel-img" data-index="${i - 1}" draggable="false" />`
+      (src, i) =>
+        `<img src="${src}" class="carousel-img" data-index="${
+          i - 1
+        }" draggable="false" />`
     )
-    .join('');
-  // Set initial position
-  track.style.transform = `translateX(-${100 * (currentIndex + 1)}%)`;
+    .join("");
+
+  // Set initial position to the first real image (sample1)
+  track.style.transition = "none";
+  track.style.transform = `translateX(-100%)`;
+  currentIndex = 0;
 }
 
 function moveToIndex(index) {
   currentIndex = index;
-  track.style.transition = 'transform 0.5s cubic-bezier(0.4,0,0.2,1)';
-  track.style.transform = `translateX(-${100 * (currentIndex + 1)}%)`;
+  track.style.transition = "transform 0.5s ease";
+  track.style.transform = `translateX(-${(index + 1) * 100}%)`;
 }
 
 function handleTransitionEnd() {
-  // Looping logic
+  // Loop logic
   if (currentIndex < 0) {
-    track.style.transition = 'none';
     currentIndex = carouselImages.length - 1;
-    track.style.transform = `translateX(-${100 * (currentIndex + 1)}%)`;
+    track.style.transition = "none";
+    track.style.transform = `translateX(-${(currentIndex + 1) * 100}%)`;
   } else if (currentIndex >= carouselImages.length) {
-    track.style.transition = 'none';
     currentIndex = 0;
-    track.style.transform = `translateX(-${100 * (currentIndex + 1)}%)`;
+    track.style.transition = "none";
+    track.style.transform = `translateX(-100%)`;
   }
 }
 
 function nextImage() {
   moveToIndex(currentIndex + 1);
 }
+
 function prevImage() {
   moveToIndex(currentIndex - 1);
 }
 
-// Event listeners
-track.addEventListener('transitionend', handleTransitionEnd);
+// Event listener
+track.addEventListener("transitionend", handleTransitionEnd);
 
-// Touch/drag support (optional, basic)
+// Touch support
 let startX = 0;
 let isDragging = false;
-track.addEventListener('touchstart', (e) => {
+
+track.addEventListener("touchstart", (e) => {
   startX = e.touches[0].clientX;
   isDragging = true;
 });
-track.addEventListener('touchmove', (e) => {
+
+track.addEventListener("touchmove", (e) => {
   if (!isDragging) return;
   const diff = e.touches[0].clientX - startX;
-  track.style.transition = 'none';
-  track.style.transform = `translateX(-${100 * (currentIndex + 1)}% + ${diff}px)`;
+  track.style.transition = "none";
+  track.style.transform = `translateX(calc(-${
+    (currentIndex + 1) * 100
+  }% + ${diff}px))`;
 });
-track.addEventListener('touchend', (e) => {
+
+track.addEventListener("touchend", (e) => {
   isDragging = false;
   const diff = e.changedTouches[0].clientX - startX;
   if (diff > 50) {
@@ -158,3 +171,34 @@ track.addEventListener('touchend', (e) => {
 
 // Initialize
 renderImages();
+
+// Auto-slide
+let autoSlideInterval = null;
+let timeoutId = null;
+
+function startAutoSlide() {
+  autoSlideInterval = setInterval(() => {
+    nextImage();
+  }, 3000);
+}
+
+function stopAutoSlide() {
+  clearInterval(autoSlideInterval);
+}
+
+// Reset after 1 minute
+function resetCarouselAfterTimeout() {
+  timeoutId = setTimeout(() => {
+    stopAutoSlide();
+    currentIndex = 0;
+    track.style.transition = "none";
+    track.style.transform = `translateX(-100%)`;
+    setTimeout(() => {
+      startAutoSlide();
+    }, 100);
+    resetCarouselAfterTimeout();
+  }, 60000);
+}
+
+startAutoSlide();
+resetCarouselAfterTimeout();

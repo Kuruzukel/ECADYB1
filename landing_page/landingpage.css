@@ -644,6 +644,8 @@ header.hidden {
   will-change: transform;
   width: 100%;
   animation: carousel-scroll 12s linear infinite;
+  position: relative;
+  z-index: 3;
 }
 
 .carousel-track img {
@@ -652,11 +654,10 @@ header.hidden {
   object-fit: cover;
   border-radius: 1rem;
   margin: 0 1rem;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
-  background: #fff;
+  background: #021326;
+  position: relative;
+  z-index: 4;
 }
-
-
 
 .carousel-subtitle {
   color: white;
@@ -664,7 +665,8 @@ header.hidden {
   margin-bottom: 2.5rem;
   margin-top: 0.5rem;
   letter-spacing: 1px;
-  font-family: "SF Pro", "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: "SF Pro", "SF Pro Display", "SF Pro Text", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 .carousel-section .section-title {
@@ -675,7 +677,8 @@ header.hidden {
   margin-top: 3.5rem;
   letter-spacing: 1px;
   text-shadow: none;
-  font-family: "SF Pro", "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: "SF Pro", "SF Pro Display", "SF Pro Text", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
   border-bottom: none;
   display: block;
   padding-bottom: 0;
@@ -692,4 +695,159 @@ header.hidden {
 
 .carousel-container:hover .carousel-track {
   animation-play-state: paused;
+}
+
+/* Footer Section Styles */
+.footer-section {
+  background: #021326;
+  color: #fff;
+  padding: 2rem 0 1rem 0;
+  text-align: center;
+  border-top: 2px solid #0c27be;
+  margin-top: 0;
+  height: 33%;
+  width: 100%;
+}
+.footer-content {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+.footer-copy {
+  font-size: 1.05rem;
+  color: #bfcfff;
+}
+@media (max-width: 600px) {
+  .footer-content {
+    gap: 0.7rem;
+  }
+  .footer-copy {
+    font-size: 0.95rem;
+  }
+}
+
+.footer-inner-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid #0c27be;
+  border-radius: 18px;
+  max-width: 1490px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+  background: #000042;
+
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+}
+.footer-logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  flex: 0 0 80px;
+}
+.footer-logo-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: none;
+  box-shadow: none;
+}
+.footer-logo-img-left {
+  height: 80px;
+  width: 80px;
+}
+.footer-logo-img-right {
+  height: 120px;
+  width: 120px;
+}
+.footer-logo-container.left {
+  margin-right: 1.5rem;
+}
+.footer-logo-container.right {
+  margin-left: 1.5rem;
+}
+.footer-content {
+  flex: 1 1 auto;
+}
+@media (max-width: 700px) {
+  .footer-inner-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0.5rem;
+    border-radius: 10px;
+  }
+  .footer-logo-container {
+    margin: 0 0 0.7rem 0;
+    min-width: 60px;
+    flex-basis: 60px;
+  }
+  .footer-logo-img {
+    width: 60px;
+    height: 60px;
+  }
+  .footer-logo-img-left {
+    height: 60px;
+    width: 60px;
+  }
+  .footer-logo-img-right {
+    height: 70px;
+    width: 60px;
+  }
+  .footer-logo-container.left,
+  .footer-logo-container.right {
+    margin: 0 0 0.7rem 0;
+  }
+  .footer-content {
+    width: 100%;
+  }
+}
+
+.footer-contact-info {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3rem;
+  margin: 2rem 0 1.2rem 0;
+  flex-wrap: wrap;
+}
+.footer-contact-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 120px;
+}
+.footer-contact-icon {
+  font-size: 2.1rem;
+  color: #bfcfff;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.footer-contact-desc {
+  color: #bfcfff;
+  font-size: 1.05rem;
+  text-align: center;
+  margin-top: 0.1rem;
+  word-break: break-word;
+}
+@media (max-width: 700px) {
+  .footer-contact-info {
+    gap: 1.2rem;
+    margin: 1.2rem 0 0.7rem 0;
+  }
+  .footer-contact-item {
+    min-width: 90px;
+  }
+  .footer-contact-icon {
+    font-size: 1.5rem;
+  }
+  .footer-contact-desc {
+    font-size: 0.95rem;
+  }
 }
