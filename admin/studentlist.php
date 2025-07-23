@@ -248,12 +248,13 @@ usort($allStudents, function($a, $b) {
         color: #fff;
         background-color: var(--content-bg);
         padding: 0 20px;
+        width: 100%;
     }
 
     .card {}
 
     .card-datatable {
-        padding: 20px;
+        padding: 8px;
         min-height: 200px;
         color: #fff;
         width: 100%;
@@ -279,12 +280,19 @@ usort($allStudents, function($a, $b) {
     .card-header-row {
         display: flex;
         align-items: center;
-        padding: 12px 0;
+        padding: 12px 20px;
         border-bottom: 1px solid #34495e;
         background-color: rgba(255, 255, 255, 0.05);
         transition: background-color 0.3s ease;
         width: 100%;
         box-sizing: border-box;
+        font-size: 16px;
+        color: #FFFFFF;
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        justify-content: flex-start;
     }
 
     .card-header-row:hover {
@@ -296,28 +304,37 @@ usort($allStudents, function($a, $b) {
     .datatable-header-year,
     .datatable-header-status,
     .datatable-header-actions {
-        flex: 1;
+        font-size: 16px;
+        font-weight: 500;
+        color: #e0e0e0;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        justify-content: center;
     }
 
     .datatable-header-id {
         flex: 1;
-        margin-left: 65px;
+        text-align: left;
+        justify-content: flex-end;
     }
 
     .datatable-header-dept {
         flex: 2;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        margin-left: 2rem;
+        justify-content: center;
+        align-items: center;
     }
 
     .datatable-header-year {
         flex: 1;
-        ;
-        margin-right: 65px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        justify-content: center;
+        align-items: center;
     }
 
     .datatable-header-password {
@@ -326,6 +343,10 @@ usort($allStudents, function($a, $b) {
         display: flex;
         align-items: center;
         justify-content: flex-start;
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 0;
+        margin-right: 0;
     }
 
     /* Student row styles */
@@ -363,17 +384,28 @@ usort($allStudents, function($a, $b) {
         flex: 1;
         color: #e0e0e0;
         font-weight: 500;
-        margin-right: 5rem;
+
+        text-align: right;
+        justify-content: flex-end;
+        display: flex;
+        align-items: center;
     }
 
     .student-header-text {
         margin-left: 25px;
+        text-align: right;
+        justify-content: flex-end;
+        display: flex;
+        align-items: center;
     }
 
     .student-id {
         flex: 1;
         color: #b0b0b0;
-
+        text-align: left;
+        justify-content: flex-end;
+        display: flex;
+        align-items: center;
     }
 
     .student-dept {
@@ -382,19 +414,39 @@ usort($allStudents, function($a, $b) {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-
-
+        margin-left: 2rem;
+        display: flex;
+        justify-content: center;
+        /* center horizontally */
+        align-items: center;
+        /* center vertically */
     }
+
 
     .student-year {
         flex: 1;
         color: #b0b0b0;
-
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: flex;
+        justify-content: center;
+        /* center horizontally */
+        align-items: center;
+        /* center vertically */
     }
 
     .student-status {
         flex: 1;
         color: #b0b0b0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: flex;
+        justify-content: center;
+        /* center horizontally */
+        align-items: center;
+        /* center vertically */
     }
 
     .student-actions {
@@ -449,28 +501,11 @@ usort($allStudents, function($a, $b) {
         font-style: italic;
     }
 
-    /* Unify header and row text styles */
-    .datatable-header-student,
-    .datatable-header-id,
-    .datatable-header-dept,
-    .datatable-header-year,
-    .datatable-header-status,
-    .datatable-header-actions,
-    .student-name,
-    .student-id,
-    .student-dept,
-    .student-year,
-    .student-status {
-        font-size: 16px;
-        color: #e0e0e0;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-    }
 
     /* Remove any old font-size/color/alignment for header or row columns below */
-    .card-header-row span,
-    .student-row span {
+    .card-header-row span {
+        justify-content: flex-start !important;
+        text-align: left !important;
         font-size: inherit;
         color: inherit;
         font-weight: inherit;
@@ -481,24 +516,57 @@ usort($allStudents, function($a, $b) {
     /* Alignment for student row and header columns */
     .student-header-text {}
 
+    .datatable-header-student {
+        flex: 1;
+        color: #e0e0e0;
+        font-weight: 500;
+        text-align: right;
+        justify-content: flex-end;
+        display: flex;
+        align-items: center;
+    }
+
     .datatable-header-id {
         flex: 1;
         color: #b0b0b0;
+        text-align: left;
+        justify-content: flex-end;
+        display: flex;
+        align-items: center;
+    }
 
+    .datatable-header-dept {
+        flex: 1;
+        color: #b0b0b0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-left: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .datatable-header-year {
         flex: 1;
         color: #b0b0b0;
-
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
-    .datatable-header-dept {
-        flex: 2;
+    .datatable-header-status {
+        flex: 1;
         color: #b0b0b0;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     /* Remove any other font-size/color/alignment for .card-header-row or .student-row columns */
@@ -510,7 +578,10 @@ usort($allStudents, function($a, $b) {
         color: #b0b0b0;
         letter-spacing: 1px;
         text-align: center;
-
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .eyeIcon-list {
@@ -523,6 +594,101 @@ usort($allStudents, function($a, $b) {
     .password-text {
         color: #b0b0b0;
         font-size: 16px;
+        padding-left: 50px;
+    }
+
+    .eyeIcon-list svg path[fill="#000000"] {
+        fill: #FFFFFF !important;
+    }
+
+    .datatable-header-status {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Header row for student table */
+    .student-row.header,
+    .student-row-header {
+        font-weight: bold;
+        color: #fff;
+        background-color: rgba(255, 255, 255, 0.10);
+    }
+
+    .student-row.header .student-name {
+        flex: 1;
+        text-align: right;
+        justify-content: flex-start;
+        display: flex;
+        align-items: center;
+        padding: 0 25px;
+    }
+
+    .student-row.header .student-id {
+        flex: 1;
+        text-align: right;
+        justify-content: flex-start;
+        display: flex;
+        align-items: center;
+        padding: 0 35px;
+
+    }
+
+    .student-row.header .student-dept {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: flex;
+        text-align: right;
+        justify-content: flex-start;
+        align-items: center;
+
+
+    }
+
+    .student-row.header .student-year {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .student-row.header .student-status {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .student-row.header .student-password {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        letter-spacing: 1px;
+        text-align: center;
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .student-row.header .student-actions {
+        flex: 1;
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
     }
     </style>
 </head>
@@ -536,7 +702,6 @@ usort($allStudents, function($a, $b) {
         <div class="form-content" style="width: 100%, ">
             <div class="card">
                 <div class="card-header">
-
                     <div class="filter-bar">
                         <label for="entries-count" class="filter-label">
                             <select id="entries-count" class="filter-select">
@@ -567,28 +732,19 @@ usort($allStudents, function($a, $b) {
                             </select>
                         </label>
                     </div>
-
-                </div>
-                <div class="card-header">
-                    <div class="card-header-row">
-                        <span class="student-header-label datatable-header-student">
-                            <span class="student-header-text">STUDENT</span>
-                        </span>
-                        <span class="datatable-header-id">ID NUMBER</span>
-                        <span class="datatable-header-dept">COURSE & SECTION</span>
-                        <span class="datatable-header-year">ACADEMIC YEAR</span>
-                        <span class="datatable-header-status">STATUS</span>
-                        <span class="datatable-header-password">PASSWORD</span>
-                        <span class="datatable-header-actions">
-                            ACTIONS
-                            <input type="checkbox" id="select-all-header"
-                                class="select-all-checkbox student-header-checkbox">
-                        </span>
-                    </div>
                 </div>
 
                 <!-- Student Data Section -->
                 <div class="card-datatable">
+                    <div class="student-row header">
+                        <span class="student-name">STUDENT</span>
+                        <span class="student-id">ID NUMBER</span>
+                        <span class="student-dept">DEPARTMENT</span>
+                        <span class="student-year">ACADEMIC YEAR</span>
+                        <span class="student-status">STATUS</span>
+                        <span class="student-password">PASSWORD</span>
+                        <div class="student-actions">ACTIONS</div>
+                    </div>
                     <?php if (empty($allStudents)): ?>
                     <div class="no-students">
                         <p>No students found in the database.</p>
