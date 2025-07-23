@@ -93,6 +93,7 @@ usort($allStudents, function($a, $b) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Student Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
     :root {
         --primary-bg: #000042;
@@ -196,8 +197,7 @@ usort($allStudents, function($a, $b) {
         display: flex;
         align-items: center;
         gap: 20px;
-        margin-bottom: 3px;
-        margin-top: 1px;
+        margin-top: 3px;
         height: 50px;
         width: 100%;
         border-radius: 8px;
@@ -243,110 +243,13 @@ usort($allStudents, function($a, $b) {
         accent-color: #217ff7;
     }
 
-    .card-header {
-        font-size: 16px;
-        color: #fff;
-        background-color: var(--content-bg);
-        padding: 0 20px;
-        width: 100%;
-    }
-
-    .card {}
 
     .card-datatable {
         padding: 8px;
         min-height: 200px;
-        color: #fff;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .student-header-label {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        margin-left: 25px;
-    }
-
-    .student-header-checkbox {
-        margin-left: 12px;
-        margin-right: 12px;
-        height: 20px;
-        width: 20px;
-    }
-
-
-    .card-header-row {
-        display: flex;
-        align-items: center;
-        padding: 12px 20px;
-        border-bottom: 1px solid #34495e;
-        background-color: rgba(255, 255, 255, 0.05);
-        transition: background-color 0.3s ease;
-        width: 100%;
-        box-sizing: border-box;
-        font-size: 16px;
-        color: #FFFFFF;
-        font-weight: 500;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        justify-content: flex-start;
-    }
-
-    .card-header-row:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .datatable-header-student,
-    .datatable-header-id,
-    .datatable-header-year,
-    .datatable-header-status,
-    .datatable-header-actions {
-        font-size: 16px;
-        font-weight: 500;
-        color: #e0e0e0;
-        display: flex;
-        align-items: center;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        justify-content: center;
-    }
-
-    .datatable-header-id {
-        flex: 1;
-        text-align: left;
-        justify-content: flex-end;
-    }
-
-    .datatable-header-dept {
-        flex: 2;
-        margin-left: 2rem;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .datatable-header-year {
-        flex: 1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .datatable-header-password {
-        flex: 1;
         color: #b0b0b0;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        padding-left: 0;
-        padding-right: 0;
-        margin-left: 0;
-        margin-right: 0;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     /* Student row styles */
@@ -365,30 +268,44 @@ usort($allStudents, function($a, $b) {
         background-color: rgba(255, 255, 255, 0.1);
     }
 
+    .student-row:nth-child(odd) {
+        background-color: rgba(255, 255, 255, 0.04);
+    }
+
     .student-row:nth-child(even) {
-        background-color: rgba(255, 255, 255, 0.02);
+        background-color: rgba(255, 255, 255, 0.09);
+    }
+
+    .student-row:nth-child(odd):hover {
+        background-color: rgba(255, 255, 255, 0.04);
     }
 
     .student-row:nth-child(even):hover {
-        background-color: rgba(255, 255, 255, 0.08);
+        background-color: rgba(255, 255, 255, 0.16);
+    }
+
+    .student-row.header {
+        background-color: rgba(255, 255, 255, 0.16) !important;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
     }
 
     .student-checkbox {
         height: 18px;
         width: 18px;
-        accent-color: #217ff7;
-        margin-right: 8px;
+        accent-color: rgb(0, 255, 13);
+
     }
 
     .student-name {
         flex: 1;
-        color: #e0e0e0;
         font-weight: 500;
-
-        text-align: right;
-        justify-content: flex-end;
+        color: #fff;
+        text-align: left;
+        justify-content: flex-start;
         display: flex;
         align-items: center;
+        padding-right: 5rem;
     }
 
     .student-header-text {
@@ -397,35 +314,28 @@ usort($allStudents, function($a, $b) {
         justify-content: flex-end;
         display: flex;
         align-items: center;
-    }
+        color: #fff;
 
-    .student-id {
-        flex: 1;
-        color: #b0b0b0;
-        text-align: left;
-        justify-content: flex-end;
-        display: flex;
-        align-items: center;
     }
 
     .student-dept {
         flex: 1;
-        color: #b0b0b0;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        margin-left: 2rem;
+        margin-left: -2rem;
         display: flex;
         justify-content: center;
         /* center horizontally */
         align-items: center;
         /* center vertically */
+        color: #fff;
+
     }
 
 
     .student-year {
         flex: 1;
-        color: #b0b0b0;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -434,11 +344,12 @@ usort($allStudents, function($a, $b) {
         /* center horizontally */
         align-items: center;
         /* center vertically */
+        color: #fff;
+
     }
 
     .student-status {
         flex: 1;
-        color: #b0b0b0;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -447,18 +358,21 @@ usort($allStudents, function($a, $b) {
         /* center horizontally */
         align-items: center;
         /* center vertically */
+        color: #fff;
+        padding-right: 3em;
+        margin-right: -11rem;
     }
 
     .student-actions {
-        flex: 1;
-        display: flex;
-        gap: 8px;
-        justify-content: center;
-        align-items: center;
+        flex: 0 0 120px;
+        max-width: 120px;
+        min-width: 100px;
+        justify-content: left;
+        text-align: left;
+        gap: 5px;
     }
 
     .action-btn {
-        padding: 6px 12px;
         border: none;
         border-radius: 4px;
         cursor: pointer;
@@ -467,25 +381,31 @@ usort($allStudents, function($a, $b) {
     }
 
     .edit-btn {
-        background-color: #217ff7;
-        color: white;
+        background: transparent !important;
+        color: #217ff7;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        transition: color 0.3s ease;
+        display: flex;
     }
 
-    .edit-btn:hover {
-        background-color: #1a6fd8;
-    }
 
     .delete-btn {
-        background-color: #e74c3c;
-        color: white;
+        background: transparent !important;
+        color: #e74c3c;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        transition: all 0.3s ease;
+        display: flex;
+
     }
 
-    .delete-btn:hover {
-        background-color: #c0392b;
-    }
+
 
     .status-active {
-        color: #27ae60;
+        color: rgb(0, 255, 13) !important;
         font-weight: 500;
     }
 
@@ -497,92 +417,13 @@ usort($allStudents, function($a, $b) {
     .no-students {
         text-align: center;
         padding: 40px;
-        color: #b0b0b0;
+        color: #fff;
         font-style: italic;
     }
 
 
-    /* Remove any old font-size/color/alignment for header or row columns below */
-    .card-header-row span {
-        justify-content: flex-start !important;
-        text-align: left !important;
-        font-size: inherit;
-        color: inherit;
-        font-weight: inherit;
-        display: flex;
-        align-items: center;
-    }
 
     /* Alignment for student row and header columns */
-    .student-header-text {}
-
-    .datatable-header-student {
-        flex: 1;
-        color: #e0e0e0;
-        font-weight: 500;
-        text-align: right;
-        justify-content: flex-end;
-        display: flex;
-        align-items: center;
-    }
-
-    .datatable-header-id {
-        flex: 1;
-        color: #b0b0b0;
-        text-align: left;
-        justify-content: flex-end;
-        display: flex;
-        align-items: center;
-    }
-
-    .datatable-header-dept {
-        flex: 1;
-        color: #b0b0b0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin-left: 2rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .datatable-header-year {
-        flex: 1;
-        color: #b0b0b0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .datatable-header-status {
-        flex: 1;
-        color: #b0b0b0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    /* Remove any other font-size/color/alignment for .card-header-row or .student-row columns */
-    .student-password {
-        display: flex;
-        align-items: center;
-        gap: 0.5em;
-        flex: 1;
-        color: #b0b0b0;
-        letter-spacing: 1px;
-        text-align: center;
-        padding-left: 0;
-        padding-right: 0;
-        margin-left: 0;
-        margin-right: 0;
-    }
 
     .eyeIcon-list {
         margin-left: 0.5em;
@@ -592,103 +433,154 @@ usort($allStudents, function($a, $b) {
     }
 
     .password-text {
-        color: #b0b0b0;
-        font-size: 16px;
-        padding-left: 50px;
+        color: #fff;
+        font-size: 14px;
+        text-align: left;
     }
 
     .eyeIcon-list svg path[fill="#000000"] {
         fill: #FFFFFF !important;
     }
 
-    .datatable-header-status {
+
+
+    .student-id,
+    .student-dept,
+    .student-year,
+    .student-status,
+    .student-password,
+    .student-actions {
         flex: 1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        justify-content: center;
+        text-align: left;
+
+        justify-content: flex-start;
+        display: flex;
         align-items: center;
+        padding: 0;
+        color: #fff;
     }
 
-    /* Header row for student table */
-    .student-row.header,
-    .student-row-header {
+
+
+    .student-name-header,
+    .student-id-header,
+    .student-dept-header,
+    .student-year-header,
+    .student-status-header,
+    .student-password-header,
+    .student-actions-header {
+        text-align: left !important;
+        justify-content: flex-start !important;
+    }
+
+
+    .student-name-header {
+        flex: 1;
         font-weight: bold;
         color: #fff;
-        background-color: rgba(255, 255, 255, 0.10);
-    }
-
-    .student-row.header .student-name {
-        flex: 1;
-        text-align: right;
-        justify-content: flex-start;
-        display: flex;
-        align-items: center;
-        padding: 0 25px;
-    }
-
-    .student-row.header .student-id {
-        flex: 1;
-        text-align: right;
-        justify-content: flex-start;
-        display: flex;
-        align-items: center;
-        padding: 0 35px;
-
-    }
-
-    .student-row.header .student-dept {
-        flex: 1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: flex;
-        text-align: right;
-        justify-content: flex-start;
-        align-items: center;
-
-
-    }
-
-    .student-row.header .student-year {
-        flex: 1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .student-row.header .student-status {
-        flex: 1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .student-row.header .student-password {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        gap: 0.5em;
-        letter-spacing: 1px;
         text-align: center;
-        padding-left: 0;
-        padding-right: 0;
-        margin-left: 0;
-        margin-right: 0;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        padding-right: 4.8rem;
     }
 
-    .student-row.header .student-actions {
+    .student-id-header {
+        flex: 1;
+        font-weight: bold;
+        color: #fff;
+        text-align: center;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+
+    }
+
+    .student-dept-header {
+        flex: 1;
+        font-weight: bold;
+        color: #fff;
+        text-align: left;
+        justify-content: flex-start;
+        display: flex;
+        align-items: center;
+    }
+
+    .student-year-header {
+        flex: 1;
+        font-weight: bold;
+        color: #fff;
+        text-align: left;
+        justify-content: flex-start;
+        display: flex;
+        align-items: center;
+    }
+
+    .student-status-header {
+        flex: 1;
+        font-weight: bold;
+        color: #fff;
+        text-align: left;
+        justify-content: flex-start;
+        display: flex;
+        align-items: center;
+    }
+
+    .student-password-header,
+    .student-password {
         flex: 1;
         display: flex;
-        gap: 8px;
-        justify-content: center;
         align-items: center;
+    }
+
+    .student-password-header {
+        flex: 1;
+        font-weight: bold;
+        color: #fff;
+        text-align: left;
+        justify-content: flex-start;
+        display: flex;
+        align-items: center;
+    }
+
+    .student-password-header.student-password {
+        margin-left: 0;
+        padding-left: 7em;
+    }
+
+    .student-password {
+        padding-left: 7em;
+    }
+
+    .student-actions-header {
+        flex: 0 0 120px;
+        max-width: 120px;
+        min-width: 100px;
+        justify-content: left;
+        text-align: left;
+    }
+
+    .student-actions-header.student-actions {
+        padding-left: 0;
+    }
+
+    /* Make the first row of tbody have the same color as even rows */
+
+
+    tr.student-row {
+        padding: 12px 16px;
+    }
+
+    .student-row.header th {
+        font-weight: bold;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        /* Add more styles as needed */
+    }
+
+    table {
+        table-layout: fixed;
+        width: 100%;
     }
     </style>
 </head>
@@ -736,81 +628,90 @@ usort($allStudents, function($a, $b) {
 
                 <!-- Student Data Section -->
                 <div class="card-datatable">
-                    <div class="student-row header">
-                        <span class="student-name">STUDENT</span>
-                        <span class="student-id">ID NUMBER</span>
-                        <span class="student-dept">DEPARTMENT</span>
-                        <span class="student-year">ACADEMIC YEAR</span>
-                        <span class="student-status">STATUS</span>
-                        <span class="student-password">PASSWORD</span>
-                        <div class="student-actions">ACTIONS</div>
-                    </div>
-                    <?php if (empty($allStudents)): ?>
-                    <div class="no-students">
-                        <p>No students found in the database.</p>
-                    </div>
-                    <?php else: ?>
-                    <?php foreach ($allStudents as $student): ?>
-                    <div class="student-row">
-                        <span class="student-name">
-                            <?php echo htmlspecialchars($student['last_name'] . ', ' . $student['first_name'] . ' ' . $student['middle_name']); ?>
-                        </span>
-                        <span class="student-id"><?php echo htmlspecialchars($student['student_id']); ?></span>
-                        <span
-                            class="student-dept"><?php echo htmlspecialchars($student['department_section']); ?></span>
-                        <span class="student-year"><?php echo htmlspecialchars($student['academic_year']); ?></span>
-                        <span
-                            class="student-status status-active"><?php echo htmlspecialchars($student['status']); ?></span>
-                        <span class="student-password">
-                            <span class="password-text"
-                                data-password="<?php echo htmlspecialchars($student['password']); ?>">********</span>
-                        </span>
-                        <div class="student-actions">
-                            <div class="eyeIcon close eyeIcon-list"
-                                style="margin-right:0.5em;display:flex;align-items:center;cursor:pointer;"
-                                onclick="togglePass(this)">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                    style="height: 1.2em; vertical-align: middle;">
-                                    <g fill="none" fill-rule="evenodd">
-                                        <path
-                                            d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
-                                        <path fill="#000000"
-                                            d="M2.5 9a1.5 1.5 0 0 1 2.945-.404c1.947 6.502 11.158 6.503 13.109.005a1.5 1.5 0 1 1 2.877.85a10.1 10.1 0 0 1-1.623 3.236l.96.96a1.5 1.5 0 1 1-2.122 2.12l-1.01-1.01a9.6 9.6 0 0 1-1.67.915l.243.906a1.5 1.5 0 0 1-2.897.776l-.251-.935c-.705.073-1.417.073-2.122 0l-.25.935a1.5 1.5 0 0 1-2.898-.776l.242-.907a9.6 9.6 0 0 1-1.669-.914l-1.01 1.01a1.5 1.5 0 1 1-2.122-2.12l.96-.96a10.1 10.1 0 0 1-1.62-3.23A1.5 1.5 0 0 1 2.5 9" />
-                                    </g>
-                                </svg>
-                            </div>
-                            <div class="eyeIcon open eyeIcon-list"
-                                style="margin-right:0.5em;display:none;align-items:center;cursor:pointer;"
-                                onclick="togglePass(this)">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                    style="height: 1.2em; vertical-align: middle;">
-                                    <g fill="none">
-                                        <path
-                                            d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
-                                        <path fill="#000000"
-                                            d="M12 5c3.679 0 8.162 2.417 9.73 5.901c.146.328.27.71.27 1.099c0 .388-.123.771-.27 1.099C20.161 16.583 15.678 19 12 19s-8.162-2.417-9.73-5.901C2.124 12.77 2 12.389 2 12c0-.388.123-.771.27-1.099C3.839 7.417 8.322 5 12 5m0 3a4 4 0 1 0 0 8a4 4 0 0 0 0-8m0 2a2 2 0 1 1 0 4a2 2 0 0 1 0-4" />
-                                    </g>
-                                </svg>
-                            </div>
-                            <input type="checkbox" class="student-checkbox"
-                                data-student-id="<?php echo htmlspecialchars($student['student_id']); ?>">
-                            <button class="action-btn edit-btn"
-                                onclick="editStudent('<?php echo htmlspecialchars($student['student_id']); ?>', '<?php echo htmlspecialchars($student['collection']); ?>')">
-                                Edit
-                            </button>
-                            <button class="action-btn delete-btn"
-                                onclick="deleteStudent('<?php echo htmlspecialchars($student['student_id']); ?>', '<?php echo htmlspecialchars($student['collection']); ?>')">
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                    <?php endforeach; ?>
-                    <?php endif; ?>
+                    <table style="width:100%; border-collapse:collapse;">
+                        <thead>
+                            <tr class="student-row header">
+                                <th class="student-name-header student-name">STUDENT</th>
+                                <th class="student-id-header student-id">ID NUMBER</th>
+                                <th class="student-dept-header student-dept">DEPARTMENT</th>
+                                <th class="student-year-header student-year">ACADEMIC YEAR</th>
+                                <th class="student-status-header student-status">STATUS</th>
+                                <th class="student-password-header student-password">PASSWORD</th>
+                                <th class="student-actions-header student-actions">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (empty($allStudents)): ?>
+                            <tr class="no-students">
+                                <td colspan="7" style="text-align:center; padding:40px; color:#fff; font-style:italic;">
+                                    No students found in the database.</td>
+                            </tr>
+                            <?php else: ?>
+                            <?php foreach ($allStudents as $student): ?>
+                            <tr class="student-row">
+                                <td class="student-name">
+                                    <?php echo htmlspecialchars($student['last_name'] . ', ' . $student['first_name'] . ' ' . $student['middle_name']); ?>
+                                </td>
+                                <td class="student-id"><?php echo htmlspecialchars($student['student_id']); ?></td>
+                                <td class="student-dept"><?php echo htmlspecialchars($student['department_section']); ?>
+                                </td>
+                                <td class="student-year"><?php echo htmlspecialchars($student['academic_year']); ?></td>
+                                <td class="student-status status-active">
+                                    <?php echo htmlspecialchars($student['status']); ?></td>
+                                <td class="student-password">
+                                    <span class="password-text"
+                                        data-password="<?php echo htmlspecialchars($student['password']); ?>">********</span>
+                                </td>
+                                <td class="student-actions">
+                                    <div class="eyeIcon close eyeIcon-list"
+                                        style="margin-right:0.5em;display:flex;align-items:center;cursor:pointer;"
+                                        onclick="togglePass(this)">
+                                        <!-- SVG for closed eye -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                            style="height: 1.2em; vertical-align: middle;">
+                                            <g fill="none" fill-rule="evenodd">
+                                                <path
+                                                    d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
+                                                <path fill="#000000"
+                                                    d="M2.5 9a1.5 1.5 0 0 1 2.945-.404c1.947 6.502 11.158 6.503 13.109.005a1.5 1.5 0 1 1 2.877.85a10.1 10.1 0 0 1-1.623 3.236l.96.96a1.5 1.5 0 1 1-2.122 2.12l-1.01-1.01a9.6 9.6 0 0 1-1.67.915l.243.906a1.5 1.5 0 0 1-2.897.776l-.251-.935c-.705.073-1.417.073-2.122 0l-.25.935a1.5 1.5 0 0 1-2.898-.776l.242-.907a9.6 9.6 0 0 1-1.669-.914l-1.01 1.01a1.5 1.5 0 1 1-2.122-2.12l.96-.96a10.1 10.1 0 0 1-1.62-3.23A1.5 1.5 0 0 1 2.5 9" />
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <div class="eyeIcon open eyeIcon-list"
+                                        style="margin-right:0.5em;display:none;align-items:center;cursor:pointer;"
+                                        onclick="togglePass(this)">
+                                        <!-- SVG for open eye -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                            style="height: 1.2em; vertical-align: middle;">
+                                            <g fill="none">
+                                                <path
+                                                    d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
+                                                <path fill="#000000"
+                                                    d="M12 5c3.679 0 8.162 2.417 9.73 5.901c.146.328.27.71.27 1.099c0 .388-.123.771-.27 1.099C20.161 16.583 15.678 19 12 19s-8.162-2.417-9.73-5.901C2.124 12.77 2 12.389 2 12c0-.388.123-.771.27-1.099C3.839 7.417 8.322 5 12 5m0 3a4 4 0 1 0 0 8a4 4 0 0 0 0-8m0 2a2 2 0 1 1 0 4a2 2 0 0 1 0-4" />
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <input type="checkbox" class="student-checkbox"
+                                        data-student-id="<?php echo htmlspecialchars($student['student_id']); ?>">
+                                    <button class="action-btn edit-btn"
+                                        onclick="editStudent('<?php echo htmlspecialchars($student['student_id']); ?>', '<?php echo htmlspecialchars($student['collection']); ?>')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn"
+                                        onclick="deleteStudent('<?php echo htmlspecialchars($student['student_id']); ?>', '<?php echo htmlspecialchars($student['collection']); ?>')">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+
                 </div>
 
             </div>
         </div>
-    </div>
     </div>
     </div>
 </body>
@@ -1026,7 +927,7 @@ function togglePass(icon) {
 
         passwordText.textContent = passwordText.getAttribute('data-password');
         passwordText.style.color = '#FFFFFF';
-        passwordText.style.fontSize = '16px';
+        passwordText.style.fontSize = '14px';
         passwordText.style.filter = '';
         eyeClose.style.display = 'none';
         if (eyeOpen) eyeOpen.style.display = 'flex';
@@ -1034,7 +935,7 @@ function togglePass(icon) {
 
         passwordText.textContent = '********';
         passwordText.style.color = '#FFFFFF';
-        passwordText.style.fontSize = '16px';
+        passwordText.style.fontSize = '14px';
         passwordText.style.filter = '';
         if (eyeClose) eyeClose.style.display = 'flex';
         if (eyeOpen) eyeOpen.style.display = 'none';
