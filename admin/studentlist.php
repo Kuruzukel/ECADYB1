@@ -1,3 +1,91 @@
+<?php
+require __DIR__ . '/../vendor/autoload.php'; 
+
+use MongoDB\Client;
+
+// Connect to MongoDB
+$client = new Client("mongodb://localhost:27017");
+$db = $client->Departments;
+
+// Define all program collections
+$collections = [
+    "bsme" => "BS Marine Engineering",
+    "bsmt" => "BS Marine Transportation", 
+    "bscje" => "BS Criminal Justice Education",
+    "bstm" => "BS Tourism Management",
+    "btvted" => "BS Technical-Vocational Teacher Education",
+    "beced" => "BS Early Childhood Education",
+    "bsn" => "BS Nursing",
+    "bsis" => "BS Information System",
+    "bsma" => "BS Management Accounting",
+    "bse" => "BS Entrepreneurship"
+];
+
+$allStudents = [];
+
+// Password generator function
+function generatePassword($length = 8) {
+    $upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $lower = 'abcdefghijklmnopqrstuvwxyz';
+    $digits = '0123456789';
+    $special = '!@#$%^&*()_+-={}[]|:;<>,.?';
+    
+    $password = '';
+    // Ensure at least one uppercase and one special character
+    $password .= $upper[random_int(0, strlen($upper) - 1)];
+    $password .= $special[random_int(0, strlen($special) - 1)];
+    
+    $all = $upper . $lower . $digits . $special;
+    for ($i = 2; $i < $length; $i++) {
+        $password .= $all[random_int(0, strlen($all) - 1)];
+    }
+    // Shuffle to randomize position
+    return str_shuffle($password);
+}
+
+// Fetch students from all collections
+foreach ($collections as $collectionKey => $programName) {
+    try {
+        $collection = $db->$collectionKey;
+        $cursor = $collection->find();
+        
+        foreach ($cursor as $student) {
+            // Check if password exists
+            if (empty($student['password'])) {
+                $password = generatePassword(8);
+                // Update the student document in MongoDB
+                $collection->updateOne(
+                    ['_id' => $student['_id']],
+                    ['$set' => ['password' => $password]]
+                );
+            } else {
+                $password = $student['password'];
+            }
+
+            $allStudents[] = [
+                'id' => $student['id'] ?? '',
+                'student_id' => $student['student id'] ?? '',
+                'first_name' => $student['first name'] ?? '',
+                'middle_name' => $student['middle name'] ?? '',
+                'last_name' => $student['last name'] ?? '',
+                'department_section' => $student['department section'] ?? $programName,
+                'academic_year' => $student['academic year'] ?? '',
+                'status' => 'Active', // Default status
+                'collection' => $collectionKey,
+                'password' => $password // Use the stored/generated password
+            ];
+        }
+    } catch (Exception $e) {
+        // Skip collections that don't exist
+        continue;
+    }
+}
+
+// Sort students by ID
+usort($allStudents, function($a, $b) {
+    return $a['id'] - $b['id'];
+});
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,6 +136,8 @@
         align-items: center;
         justify-content: center;
         border-bottom: 2px solid #fcda15;
+        font-family: "SF Pro", "SF Pro Display", "SF Pro Text", -apple-system,
+            BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
     }
 
     h1 {
@@ -154,9 +244,10 @@
     }
 
     .card-header {
-        border-bottom: 2px solid #34495e;
-        font-size: 1.1em;
+        font-size: 16px;
         color: #fff;
+        background-color: var(--content-bg);
+        padding: 0 20px;
     }
 
     .card {}
@@ -165,6 +256,8 @@
         padding: 20px;
         min-height: 200px;
         color: #fff;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .student-header-label {
@@ -172,6 +265,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
+        margin-left: 25px;
     }
 
     .student-header-checkbox {
@@ -181,17 +275,20 @@
         width: 20px;
     }
 
-    .student-header-text {
-        margin-left: 25px;
-    }
 
     .card-header-row {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        margin-bottom: 10px;
-        margin-top: 10px;
-        column-gap: 10px;
+        padding: 12px 0;
+        border-bottom: 1px solid #34495e;
+        background-color: rgba(255, 255, 255, 0.05);
+        transition: background-color 0.3s ease;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .card-header-row:hover {
+        background-color: rgba(255, 255, 255, 0.1);
     }
 
     .datatable-header-student,
@@ -200,6 +297,9 @@
     .datatable-header-status,
     .datatable-header-actions {
         flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .datatable-header-id {
@@ -218,6 +318,211 @@
         flex: 1;
         ;
         margin-right: 65px;
+    }
+
+    .datatable-header-password {
+        flex: 1;
+        color: #b0b0b0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    /* Student row styles */
+    .student-row {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        border-bottom: 1px solid #34495e;
+        background-color: rgba(255, 255, 255, 0.05);
+        transition: background-color 0.3s ease;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .student-row:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .student-row:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.02);
+    }
+
+    .student-row:nth-child(even):hover {
+        background-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .student-checkbox {
+        height: 18px;
+        width: 18px;
+        accent-color: #217ff7;
+        margin-right: 8px;
+    }
+
+    .student-name {
+        flex: 1;
+        color: #e0e0e0;
+        font-weight: 500;
+        margin-right: 5rem;
+    }
+
+    .student-header-text {
+        margin-left: 25px;
+    }
+
+    .student-id {
+        flex: 1;
+        color: #b0b0b0;
+
+    }
+
+    .student-dept {
+        flex: 1;
+        color: #b0b0b0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+
+    }
+
+    .student-year {
+        flex: 1;
+        color: #b0b0b0;
+
+    }
+
+    .student-status {
+        flex: 1;
+        color: #b0b0b0;
+    }
+
+    .student-actions {
+        flex: 1;
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .action-btn {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .edit-btn {
+        background-color: #217ff7;
+        color: white;
+    }
+
+    .edit-btn:hover {
+        background-color: #1a6fd8;
+    }
+
+    .delete-btn {
+        background-color: #e74c3c;
+        color: white;
+    }
+
+    .delete-btn:hover {
+        background-color: #c0392b;
+    }
+
+    .status-active {
+        color: #27ae60;
+        font-weight: 500;
+    }
+
+    .status-pending {
+        color: #f39c12;
+        font-weight: 500;
+    }
+
+    .no-students {
+        text-align: center;
+        padding: 40px;
+        color: #b0b0b0;
+        font-style: italic;
+    }
+
+    /* Unify header and row text styles */
+    .datatable-header-student,
+    .datatable-header-id,
+    .datatable-header-dept,
+    .datatable-header-year,
+    .datatable-header-status,
+    .datatable-header-actions,
+    .student-name,
+    .student-id,
+    .student-dept,
+    .student-year,
+    .student-status {
+        font-size: 16px;
+        color: #e0e0e0;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Remove any old font-size/color/alignment for header or row columns below */
+    .card-header-row span,
+    .student-row span {
+        font-size: inherit;
+        color: inherit;
+        font-weight: inherit;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Alignment for student row and header columns */
+    .student-header-text {}
+
+    .datatable-header-id {
+        flex: 1;
+        color: #b0b0b0;
+
+    }
+
+    .datatable-header-year {
+        flex: 1;
+        color: #b0b0b0;
+
+    }
+
+    .datatable-header-dept {
+        flex: 2;
+        color: #b0b0b0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Remove any other font-size/color/alignment for .card-header-row or .student-row columns */
+    .student-password {
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        flex: 1;
+        color: #b0b0b0;
+        letter-spacing: 1px;
+        text-align: center;
+
+    }
+
+    .eyeIcon-list {
+        margin-left: 0.5em;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .password-text {
+        color: #b0b0b0;
+        font-size: 16px;
     }
     </style>
 </head>
@@ -267,16 +572,84 @@
                 <div class="card-header">
                     <div class="card-header-row">
                         <span class="student-header-label datatable-header-student">
-                            <input type="checkbox" id="select-all-header"
-                                class="select-all-checkbox student-header-checkbox">
                             <span class="student-header-text">STUDENT</span>
                         </span>
                         <span class="datatable-header-id">ID NUMBER</span>
-                        <span class="datatable-header-dept">DEPARTMENT & SECTION</span>
+                        <span class="datatable-header-dept">COURSE & SECTION</span>
                         <span class="datatable-header-year">ACADEMIC YEAR</span>
                         <span class="datatable-header-status">STATUS</span>
-                        <span class="datatable-header-actions">ACTIONS</span>
+                        <span class="datatable-header-password">PASSWORD</span>
+                        <span class="datatable-header-actions">
+                            ACTIONS
+                            <input type="checkbox" id="select-all-header"
+                                class="select-all-checkbox student-header-checkbox">
+                        </span>
                     </div>
+                </div>
+
+                <!-- Student Data Section -->
+                <div class="card-datatable">
+                    <?php if (empty($allStudents)): ?>
+                    <div class="no-students">
+                        <p>No students found in the database.</p>
+                    </div>
+                    <?php else: ?>
+                    <?php foreach ($allStudents as $student): ?>
+                    <div class="student-row">
+                        <span class="student-name">
+                            <?php echo htmlspecialchars($student['last_name'] . ', ' . $student['first_name'] . ' ' . $student['middle_name']); ?>
+                        </span>
+                        <span class="student-id"><?php echo htmlspecialchars($student['student_id']); ?></span>
+                        <span
+                            class="student-dept"><?php echo htmlspecialchars($student['department_section']); ?></span>
+                        <span class="student-year"><?php echo htmlspecialchars($student['academic_year']); ?></span>
+                        <span
+                            class="student-status status-active"><?php echo htmlspecialchars($student['status']); ?></span>
+                        <span class="student-password">
+                            <span class="password-text"
+                                data-password="<?php echo htmlspecialchars($student['password']); ?>">********</span>
+                        </span>
+                        <div class="student-actions">
+                            <div class="eyeIcon close eyeIcon-list"
+                                style="margin-right:0.5em;display:flex;align-items:center;cursor:pointer;"
+                                onclick="togglePass(this)">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    style="height: 1.2em; vertical-align: middle;">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <path
+                                            d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
+                                        <path fill="#000000"
+                                            d="M2.5 9a1.5 1.5 0 0 1 2.945-.404c1.947 6.502 11.158 6.503 13.109.005a1.5 1.5 0 1 1 2.877.85a10.1 10.1 0 0 1-1.623 3.236l.96.96a1.5 1.5 0 1 1-2.122 2.12l-1.01-1.01a9.6 9.6 0 0 1-1.67.915l.243.906a1.5 1.5 0 0 1-2.897.776l-.251-.935c-.705.073-1.417.073-2.122 0l-.25.935a1.5 1.5 0 0 1-2.898-.776l.242-.907a9.6 9.6 0 0 1-1.669-.914l-1.01 1.01a1.5 1.5 0 1 1-2.122-2.12l.96-.96a10.1 10.1 0 0 1-1.62-3.23A1.5 1.5 0 0 1 2.5 9" />
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="eyeIcon open eyeIcon-list"
+                                style="margin-right:0.5em;display:none;align-items:center;cursor:pointer;"
+                                onclick="togglePass(this)">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    style="height: 1.2em; vertical-align: middle;">
+                                    <g fill="none">
+                                        <path
+                                            d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
+                                        <path fill="#000000"
+                                            d="M12 5c3.679 0 8.162 2.417 9.73 5.901c.146.328.27.71.27 1.099c0 .388-.123.771-.27 1.099C20.161 16.583 15.678 19 12 19s-8.162-2.417-9.73-5.901C2.124 12.77 2 12.389 2 12c0-.388.123-.771.27-1.099C3.839 7.417 8.322 5 12 5m0 3a4 4 0 1 0 0 8a4 4 0 0 0 0-8m0 2a2 2 0 1 1 0 4a2 2 0 0 1 0-4" />
+                                    </g>
+                                </svg>
+                            </div>
+                            <input type="checkbox" class="student-checkbox"
+                                data-student-id="<?php echo htmlspecialchars($student['student_id']); ?>">
+                            <button class="action-btn edit-btn"
+                                onclick="editStudent('<?php echo htmlspecialchars($student['student_id']); ?>', '<?php echo htmlspecialchars($student['collection']); ?>')">
+                                Edit
+                            </button>
+                            <button class="action-btn delete-btn"
+                                onclick="deleteStudent('<?php echo htmlspecialchars($student['student_id']); ?>', '<?php echo htmlspecialchars($student['collection']); ?>')">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
 
             </div>
@@ -366,7 +739,151 @@ function applyTheme(themeName) {
 window.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('dashboard-theme') || 'Default';
     applyTheme(savedTheme);
+
+    // Initialize select all functionality
+    initializeSelectAll();
+
+    // Initialize filters
+    initializeFilters();
 });
+
+// Select all functionality
+function initializeSelectAll() {
+    const selectAllCheckbox = document.getElementById('select-all-header');
+    const studentCheckboxes = document.querySelectorAll('.student-checkbox');
+
+    selectAllCheckbox.addEventListener('change', function() {
+        studentCheckboxes.forEach(checkbox => {
+            checkbox.checked = this.checked;
+        });
+    });
+
+    // Update select all when individual checkboxes change
+    studentCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const allChecked = Array.from(studentCheckboxes).every(cb => cb.checked);
+            const anyChecked = Array.from(studentCheckboxes).some(cb => cb.checked);
+
+            selectAllCheckbox.checked = allChecked;
+            selectAllCheckbox.indeterminate = anyChecked && !allChecked;
+        });
+    });
+}
+
+// Filter functionality
+function initializeFilters() {
+    const entriesCount = document.getElementById('entries-count');
+    const departmentFilter = document.getElementById('department-filter');
+    const statusFilter = document.getElementById('status-filter');
+
+    // Add event listeners for filters
+    [entriesCount, departmentFilter, statusFilter].forEach(filter => {
+        if (filter) {
+            filter.addEventListener('change', function() {
+                applyFilters();
+            });
+        }
+    });
+}
+
+function applyFilters() {
+    const departmentFilter = document.getElementById('department-filter').value;
+    const statusFilter = document.getElementById('status-filter').value;
+    const studentRows = document.querySelectorAll('.student-row');
+
+    studentRows.forEach(row => {
+        let showRow = true;
+
+        // Department filter
+        if (departmentFilter && departmentFilter !== '') {
+            const deptText = row.querySelector('.student-dept').textContent.toLowerCase();
+            if (!deptText.includes(departmentFilter.toLowerCase())) {
+                showRow = false;
+            }
+        }
+
+        // Status filter
+        if (statusFilter && statusFilter !== '') {
+            const statusText = row.querySelector('.student-status').textContent.toLowerCase();
+            if (statusText !== statusFilter.toLowerCase()) {
+                showRow = false;
+            }
+        }
+
+        row.style.display = showRow ? 'flex' : 'none';
+    });
+}
+
+// Edit student function
+function editStudent(studentId, collection) {
+    // Redirect to edit page with student ID and collection
+    window.location.href =
+        `editstudentinfo.php?student_id=${encodeURIComponent(studentId)}&collection=${encodeURIComponent(collection)}`;
+}
+
+// Delete student function
+function deleteStudent(studentId, collection) {
+    if (confirm('Are you sure you want to delete this student? This action cannot be undone.')) {
+        // Send delete request to server
+        fetch('delete_student.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    student_id: studentId,
+                    collection: collection
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Student deleted successfully!');
+                    location.reload(); // Reload the page to update the list
+                } else {
+                    alert('Error deleting student: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error deleting student. Please try again.');
+            });
+    }
+}
+
+
+function togglePass(icon) {
+
+    const studentRow = icon.closest('.student-row');
+    if (!studentRow) return;
+
+
+    const passwordText = studentRow.querySelector('.password-text');
+    if (!passwordText) return;
+
+
+    const eyeOpen = studentRow.querySelector('.eyeIcon.open.eyeIcon-list');
+    const eyeClose = studentRow.querySelector('.eyeIcon.close.eyeIcon-list');
+
+
+    if (eyeClose && eyeClose.style.display !== 'none') {
+
+        passwordText.textContent = passwordText.getAttribute('data-password');
+        passwordText.style.color = '#FFFFFF';
+        passwordText.style.fontSize = '16px';
+        passwordText.style.filter = '';
+        eyeClose.style.display = 'none';
+        if (eyeOpen) eyeOpen.style.display = 'flex';
+    } else {
+
+        passwordText.textContent = '********';
+        passwordText.style.color = '#FFFFFF';
+        passwordText.style.fontSize = '16px';
+        passwordText.style.filter = '';
+        if (eyeClose) eyeClose.style.display = 'flex';
+        if (eyeOpen) eyeOpen.style.display = 'none';
+    }
+}
 </script>
 
 </html>

@@ -57,6 +57,8 @@
         align-items: center;
         justify-content: center;
         border-bottom: 2px solid #fcda15;
+        font-family: "SF Pro", "SF Pro Display", "SF Pro Text", -apple-system,
+            BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
     }
 
     .announcement-header h2 {

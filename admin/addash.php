@@ -25,11 +25,11 @@
                 <div id="dashboard-submenu" class="submenu">
 
                     <a href="addash.php?page=student-list" class="tab sub-tab">
-                        <i class="fas fa-users"></i> Student List
+                        </i> Student List
                     </a>
 
                     <a href="addash.php?page=add-new-student" class="tab sub-tab">
-                        <i class="fas fa-user-plus"></i> Add New Student
+                        </i> Add New Student
                     </a>
 
                 </div>
@@ -42,11 +42,11 @@
                 <div id="announcement-submenu" class="submenu">
 
                     <a href="addash.php?page=create-announcement" class="tab sub-tab">
-                        <i class="fas fa-mail-bulk"></i> Create Announcement
+                        </i> Create Announcement
                     </a>
 
                     <a href="addash.php?page=event-schedule" class="tab sub-tab">
-                        <i class="fas fa-calendar-alt"></i> Event Schedules
+                        </i> Event Schedules
                     </a>
 
                 </div>
@@ -58,31 +58,31 @@
 
                 <div id="yearbook-submenu" class="submenu">
                     <a href="addash.php?page=maritime" class="tab sub-tab">
-                        <i class="fas fa-anchor"></i>Maritime Education
+                        </i>Maritime Education
                     </a>
 
                     <a href=" addash.php?page=criminology" class="tab sub-tab">
-                        <i class="fa fa-balance-scale"></i>Criminology
+                        </i>College of Criminology
                     </a>
 
                     <a href="addash.php?page=tourism" class="tab sub-tab">
-                        <i class="fa fa-plane"></i>Tourism Management
+                        </i>Tourism Management
                     </a>
 
                     <a href="addash.php?page=education" class="tab sub-tab">
-                        <i class="fas fa-chalkboard"></i>College of Education
+                        </i>College of Education
                     </a>
 
                     <a href="addash.php?page=nursing" class="tab sub-tab">
-                        <i class="fas fa-first-aid"></i>Nursing
+                        </i>College of Nursing
                     </a>
 
                     <a href="addash.php?page=informationsys" class="tab sub-tab">
-                        <i class="fas fa-laptop-code"></i>Information System
+                        </i>Information System
                     </a>
 
                     <a href="addash.php?page=businessad" class="tab sub-tab">
-                        <i class="fa fa-suitcase"></i>Business Administration
+                        </i>Business Administration
                     </a>
                 </div>
 
@@ -99,11 +99,11 @@
 
                 <div id="customize-submenu" class="submenu">
                     <a href="addash.php?page=themes" class="tab sub-tab">
-                        <i class="fas fa-palette"></i>Themes
+                        </i>Themes
                     </a>
 
                     <a href="addash.php?page=template" class="tab sub-tab">
-                        <i class="fas fa-clone"></i>Templates
+                        </i>Templates
                     </a>
 
                 </div>
