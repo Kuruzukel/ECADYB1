@@ -13,7 +13,7 @@
 
     <main>
         <div class="sidebar">
-            <img src="../img/GRALLERYLOGO4.0.png" alt="Logo" class="logoadmin">
+            <img src="../img/ADMINGRALLERYLOGO.png" alt="Logo" class="logoadmin">
             <div class="line"></div>
 
             <div class="menu-items" style="font-family: 'Oxygen', sans-serif;">
