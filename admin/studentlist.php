@@ -94,7 +94,7 @@ usort($allStudents, function($a, $b) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Student Details</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="assets/studentlist.css">
+    <link rel="stylesheet" href="./Assets/StudentList.css">
 </head>
 
 <body>
@@ -228,6 +228,6 @@ usort($allStudents, function($a, $b) {
     </div>
 </body>
 </div>
-<script src="assets/studentlist.js"></script>
+<script src="./Assets/StudentList.js"></script>
 
 </html>

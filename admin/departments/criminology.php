@@ -73,7 +73,7 @@
     <div class="container">
         <div class="catalog-root">
             <div class="catalog-app">
-                <iframe src="http://localhost/ECADYB/admin/criminology/index.html" width="100%" height="100%"
+                <iframe src="http://localhost/ECADYB/Admin/CriminologyYB/index.html" width="100%" height="100%"
                     style="border: none;"></iframe>
             </div>
         </div>

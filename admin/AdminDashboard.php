@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="./assets/addash.css" rel="stylesheet">
+    <link href="./Assets/AdminDashboard.css" rel="stylesheet">
 </head>
 
 <body>
@@ -24,11 +24,11 @@
 
                 <div id="dashboard-submenu" class="submenu">
 
-                    <a href="addash.php?page=student-list" class="tab sub-tab">
+                    <a href="AdminDashboard.php?page=student-list" class="tab sub-tab">
                         </i> Student List
                     </a>
 
-                    <a href="addash.php?page=add-new-student" class="tab sub-tab">
+                    <a href="AdminDashboard.php?page=add-new-student" class="tab sub-tab">
                         </i> Add New Student
                     </a>
 
@@ -41,11 +41,11 @@
 
                 <div id="announcement-submenu" class="submenu">
 
-                    <a href="addash.php?page=create-announcement" class="tab sub-tab">
+                    <a href="AdminDashboard.php?page=create-announcement" class="tab sub-tab">
                         </i> Create Announcement
                     </a>
 
-                    <a href="addash.php?page=event-schedule" class="tab sub-tab">
+                    <a href="AdminDashboard.php?page=event-schedule" class="tab sub-tab">
                         </i> Event Schedules
                     </a>
 
@@ -57,36 +57,36 @@
                 </a>
 
                 <div id="yearbook-submenu" class="submenu">
-                    <a href="addash.php?page=maritime" class="tab sub-tab">
+                    <a href="AdminDashboard.php?page=maritime" class="tab sub-tab">
                         </i>Maritime Education
                     </a>
 
-                    <a href=" addash.php?page=criminology" class="tab sub-tab">
+                    <a href="AdminDashboard.php?page=criminology" class="tab sub-tab">
                         </i>College of Criminology
                     </a>
 
-                    <a href="addash.php?page=tourism" class="tab sub-tab">
+                    <a href="AdminDashboard.php?page=tourism" class="tab sub-tab">
                         </i>Tourism Management
                     </a>
 
-                    <a href="addash.php?page=education" class="tab sub-tab">
+                    <a href="AdminDashboard.php?page=education" class="tab sub-tab">
                         </i>College of Education
                     </a>
 
-                    <a href="addash.php?page=nursing" class="tab sub-tab">
+                    <a href="AdminDashboard.php?page=nursing" class="tab sub-tab">
                         </i>College of Nursing
                     </a>
 
-                    <a href="addash.php?page=informationsys" class="tab sub-tab">
+                    <a href="AdminDashboard.php?page=informationsys" class="tab sub-tab">
                         </i>Information System
                     </a>
 
-                    <a href="addash.php?page=businessad" class="tab sub-tab">
+                    <a href="AdminDashboard.php?page=businessad" class="tab sub-tab">
                         </i>Business Administration
                     </a>
                 </div>
 
-                <a href="addash.php?page=batchupload" class="tab" id="batchupload-tab"
+                <a href="AdminDashboard.php?page=batchupload" class="tab" id="batchupload-tab"
                     onclick="setTabActive('batchupload-tab');">
                     <i class="fas fa-cloud-upload-alt"></i> Batch Upload
                 </a>
@@ -98,17 +98,17 @@
                 </a>
 
                 <div id="customize-submenu" class="submenu">
-                    <a href="addash.php?page=themes" class="tab sub-tab">
+                    <a href="AdminDashboard.php?page=themes" class="tab sub-tab">
                         </i>Themes
                     </a>
 
-                    <a href="addash.php?page=template" class="tab sub-tab">
+                    <a href="AdminDashboard.php?page=template" class="tab sub-tab">
                         </i>Templates
                     </a>
 
                 </div>
 
-                <a href="addash.php?page=changepassword" class="tab" id="changepassword-tab"
+                <a href="AdminDashboard.php?page=changepassword" class="tab" id="changepassword-tab"
                     onclick="setTabActive('changepassword-tab');">
                     <i class="fas fa-key"></i> Change my password
                 </a>
@@ -155,58 +155,55 @@
                 switch ($page) {
 
                     case 'student-list':
-                        include('studentlist.php');
+                        include('StudentList.php');
                         break;
                     case 'add-new-student':
-                        include('addnewstudent.php');
+                        include('AddNewStudent.php');
                         break;
                     case 'edit-student':
-                        include('editstudentinfo.php');
-                        break;
-                    case 'announcement':
-                        include('announcement.php');
-                        break;
-                    case 'event-schedule':
-                        include('eventschedules.php');
+                        include('EditStudentInformation.php');
                         break;
                     case 'create-announcement':
-                        include('createannouncement.php');
+                        include('CreateAnnouncement.php');
                         break;
+                    case 'event-schedule':
+                        include('EventSchedules.php');
+                        break;    
                     case 'batchupload': 
-                        include('batchupload.php');
+                        include('BatchUpload.php');
                         break;
                     case 'themes':
-                        include('themes.php');
+                        include('Themes.php');
                         break;    
                     case 'template':
-                        include('template.php');
+                        include('BatchTemplates.php');
                         break;        
                     case 'changepassword':
-                        include('changepassword.php');
+                        include('ChangePassword.php');
                         break;
                     case 'maritime':
-                        include('./departments/maritime.php');
+                        include('./Departments/Maritime.php');
                         break;
                     case 'criminology':
-                        include('./departments/criminology.php');
+                        include('./Departments/Criminology.php');
                         break;
                     case 'tourism':
-                        include('./departments/tourism.php');
+                        include('./Departments/Criminology.php');
                         break;  
                    case 'education':
-                        include('./departments/education.php');
+                        include('./Departments/Education.php');
                         break; 
                     case 'nursing':
-                        include('./departments/nursing.php');
+                        include('./Departments/Nursing.php');
                         break;   
                     case 'informationsys':
-                        include('./departments/informationsys.php');
+                        include('./Departments/InformationSystem.php');
                         break;  
                     case 'businessad':
-                        include('./departments/businessad.php');
+                        include('./Departments/BusinessAdministration.php');
                         break;                    
                     default:
-                        include('studentlist.php');
+                        include('StudentList.php');
                         break;
                 }
                 ?>
@@ -214,7 +211,7 @@
             </div>
 
     </main>
-    <script src="./assets/addash.js">
+    <script src="./Assets/AdminDashbaord.js">
 
     </script>
 </body>
