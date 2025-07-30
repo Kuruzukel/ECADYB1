@@ -23,6 +23,11 @@ $collections = [
 
 $allStudents = [];
 
+// Filter to show only Maritime Education students by default
+$maritimeCollections = [
+    "bsme" => "BS Marine Engineering"
+];
+
 // Password generator function
 function generatePassword($length = 8) {
     $upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -43,8 +48,8 @@ function generatePassword($length = 8) {
     return str_shuffle($password);
 }
 
-// Fetch students from all collections
-foreach ($collections as $collectionKey => $programName) {
+// Fetch students from Maritime Education collections only
+foreach ($maritimeCollections as $collectionKey => $programName) {
     try {
         $collection = $db->$collectionKey;
         $cursor = $collection->find();
@@ -70,7 +75,7 @@ foreach ($collections as $collectionKey => $programName) {
                 'last_name' => $student['last name'] ?? '',
                 'department_section' => $student['department section'] ?? $programName,
                 'academic_year' => $student['academic year'] ?? '',
-                'status' => 'Active', // Default status
+                'status' => $student['status'] ?? 'Pending', // Get status from database or default to Pending
                 'collection' => $collectionKey,
                 'password' => $password // Use the stored/generated password
             ];
@@ -85,6 +90,9 @@ foreach ($collections as $collectionKey => $programName) {
 usort($allStudents, function($a, $b) {
     return $a['id'] - $b['id'];
 });
+
+// Limit to 10 students by default
+$allStudents = array_slice($allStudents, 0, 10);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -118,13 +126,16 @@ usort($allStudents, function($a, $b) {
                         <label for="department-filter" class="filter-label">
                             <select id="department-filter" class="filter-select">
                                 <option value="" disabled selected>Select Department</option>
-                                <option value="maritime">Maritime Education</option>
+                                <option value="maritime">Marine Engineering</option>
+                                <option value="maritime">Marine Transfortation</option>
                                 <option value="criminology">Criminology</option>
                                 <option value="tourism">Tourism Management</option>
-                                <option value="education">College of Education</option>
+                                <option value="education">Technical-Vocational Teacher Education</option>
+                                <option value="education">Early Childhood Education</option>
                                 <option value="nursing">Nursing</option>
                                 <option value="information">Information System</option>
-                                <option value="business">Business Administration</option>
+                                <option value="business">Entrepreneurship</option>
+                                <option value="maritime">Management Accouting</option>
                                 <!-- Add more departments as needed -->
                             </select>
                         </label>
@@ -150,31 +161,43 @@ usort($allStudents, function($a, $b) {
                                 <th class="student-status-header student-status">STATUS</th>
                                 <th class="student-password-header student-password">PASSWORD</th>
                                 <th class="student-actions-header student-actions">ACTIONS</th>
+                                <th class="student-checkbox-header">
+                                    <input type="checkbox" id="select-all-header" title="Select All">
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if (empty($allStudents)): ?>
                             <tr class="no-students">
-                                <td colspan="7" style="text-align:center; padding:40px; color:#fff; font-style:italic;">
+                                <td colspan="8" style="text-align:center; padding:40px; color:#fff; font-style:italic;">
                                     No students found in the database.</td>
                             </tr>
                             <?php else: ?>
                             <?php foreach ($allStudents as $student): ?>
                             <tr class="student-row">
                                 <td class="student-name">
-                                    <?php echo htmlspecialchars($student['last_name'] . ', ' . $student['first_name'] . ' ' . $student['middle_name']); ?>
+                                    <?php 
+                                    // Get the first letter of middle name as initial
+                                    $middleInitial = !empty($student['middle_name']) ? substr($student['middle_name'], 0, 1) . '.' : '';
+                                    echo htmlspecialchars($student['last_name'] . ', ' . $student['first_name'] . ' ' . $middleInitial); 
+                                    ?>
                                 </td>
                                 <td class="student-id"><?php echo htmlspecialchars($student['student_id']); ?></td>
                                 <td class="student-dept"><?php echo htmlspecialchars($student['department_section']); ?>
                                 </td>
                                 <td class="student-year"><?php echo htmlspecialchars($student['academic_year']); ?></td>
-                                <td class="student-status status-active">
+                                <td
+                                    class="student-status <?php echo ($student['status'] === 'Active') ? 'status-active' : 'status-pending'; ?>">
                                     <?php echo htmlspecialchars($student['status']); ?></td>
                                 <td class="student-password">
                                     <span class="password-text"
                                         data-password="<?php echo htmlspecialchars($student['password']); ?>">********</span>
                                 </td>
                                 <td class="student-actions">
+                                    <input type="checkbox" class="student-checkbox"
+                                        data-student-id="<?php echo htmlspecialchars($student['student_id']); ?>"
+                                        data-collection="<?php echo htmlspecialchars($student['collection']); ?>"
+                                        <?php echo ($student['status'] === 'Active') ? 'checked' : ''; ?>>
                                     <div class="eyeIcon close eyeIcon-list"
                                         style="margin-right:0.5em;display:flex;align-items:center;cursor:pointer;"
                                         onclick="togglePass(this)">
@@ -203,8 +226,6 @@ usort($allStudents, function($a, $b) {
                                             </g>
                                         </svg>
                                     </div>
-                                    <input type="checkbox" class="student-checkbox"
-                                        data-student-id="<?php echo htmlspecialchars($student['student_id']); ?>">
                                     <button class="action-btn edit-btn"
                                         onclick="editStudent('<?php echo htmlspecialchars($student['student_id']); ?>', '<?php echo htmlspecialchars($student['collection']); ?>')">
                                         <i class="fas fa-edit"></i>
@@ -228,6 +249,6 @@ usort($allStudents, function($a, $b) {
     </div>
 </body>
 </div>
-<script src="./Assets/StudentList.js"></script>
+<script src="Assets/StudentList.js"></script>
 
 </html>

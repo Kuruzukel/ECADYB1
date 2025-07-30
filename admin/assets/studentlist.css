@@ -189,6 +189,7 @@ label {
   background-color: rgba(255, 255, 255, 0.16);
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
+  height: 3rem;
 }
 
 tr.student-row:nth-child(even):hover {
@@ -300,6 +301,41 @@ tr.student-row:nth-child(even):hover {
 
 .status-pending {
   color: #f39c12;
+  font-weight: 500;
+}
+
+/* Status colors based on checkbox state */
+.student-status.status-pending {
+  color: #ff4444 !important; /* Red when unchecked */
+  font-weight: 500;
+}
+
+.student-status.status-active {
+  color: #00ff00 !important; /* Green when checked */
+  font-weight: 500;
+}
+
+/* Alternative approach using data attributes */
+.student-status[data-checked="false"] {
+  color: #ff4444 !important; /* Red when unchecked */
+  font-weight: 500;
+}
+
+.student-status[data-checked="true"] {
+  color: #00ff00 !important; /* Green when checked */
+  font-weight: 500;
+}
+
+/* Force override for any conflicting styles */
+td.student-status.status-active,
+.student-row .student-status.status-active {
+  color: #00ff00 !important;
+  font-weight: 500;
+}
+
+td.student-status.status-pending,
+.student-row .student-status.status-pending {
+  color: #ff4444 !important;
   font-weight: 500;
 }
 
@@ -444,7 +480,7 @@ tr.student-row:nth-child(even):hover {
 }
 
 tr.student-row {
-  padding: 12px 16px;
+  padding: 3px 16px;
 }
 
 .student-row.header th {
@@ -456,4 +492,73 @@ tr.student-row {
 table {
   table-layout: fixed;
   width: 100%;
+}
+
+/* Table Cell Font Size Controls */
+td {
+  font-size: 14px; /* Default font size - you can adjust this */
+  line-height: 1.4;
+  color: #fff;
+  padding: 8px 12px;
+  vertical-align: middle;
+}
+
+/* Specific table cell classes for different font sizes */
+td.student-name {
+  font-size: 15px; /* Adjust this value as needed */
+  font-weight: 500;
+}
+
+td.student-id {
+  font-size: 15px; /* Adjust this value as needed */
+}
+
+td.student-dept {
+  font-size: 15px; /* Adjust this value as needed */
+}
+
+td.student-year {
+  font-size: 15px; /* Adjust this value as needed */
+}
+
+td.student-status {
+  font-size: 15px; /* Adjust this value as needed */
+}
+
+td.student-password {
+  font-size: 15px; /* Adjust this value as needed */
+}
+
+td.student-actions {
+  font-size: 15px; /* Adjust this value as needed */
+}
+
+/* Header cells */
+th {
+  font-size: 15px; /* Adjust this value as needed */
+  font-weight: bold;
+  color: #fff;
+  padding: 10px 12px;
+  vertical-align: middle;
+}
+
+/* Responsive font sizes */
+@media (max-width: 768px) {
+  td {
+    font-size: 12px;
+  }
+
+  th {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  td {
+    font-size: 11px;
+  }
+
+  th {
+    font-size: 12px;
+  }
 }

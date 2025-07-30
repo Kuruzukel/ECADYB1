@@ -357,12 +357,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <input type="text" id="motto" name="motto" placeholder="Personal Philosophy">
 
                         <label for="honors">Latin Awards:</label>
-                        <input type="text" id="honors" name="honors" placeholder="Latin Awards"
-                            oninput="allowOnlyLetters(this)">
+                        <input type="text" id="honors" name="honors" placeholder="Latin Awards">
 
                         <label for="milestone">Career Highlights:</label>
-                        <input type="text" id="milestone" name="milestone" placeholder="Career Highlights"
-                            oninput="allowOnlyLetters(this)">
+                        <input type="text" id="milestone" name="milestone" placeholder="Career Highlights">
 
                         <label for="bacth-name">Batch Name:</label>
                         <input type="text" id="batch-name" name="batch_name" placeholder="Batch Name"
