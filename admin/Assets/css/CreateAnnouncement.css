@@ -1,0 +1,369 @@
+:root {
+  --primary-bg: #000042;
+  --header-bg: #0c27be;
+  --accent: #0c27be;
+  --section-bg: #34495e;
+  --section-header: #217ff7;
+
+  --body-bg: #000042;
+  --sidebar-bg: #0c27be;
+  --content-bg: #112d4e;
+  --menu-bg-active: #000042;
+  --menu-border-active: #fcda15;
+  --menu-hover-bg: #1c1c84;
+
+  /* Input styling variables */
+  --input-bg: #1e293b;
+  --input-border: #475569;
+  --input-focus: #0c27be;
+  --input-error: #dc2626;
+  --text-primary: #ffffff;
+  --text-secondary: #e2e8f0;
+  --text-muted: #94a3b8;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  width: 100%;
+  background-color: var(--body-bg);
+}
+
+.container {
+  height: 100%;
+  background-color: var(--content-bg);
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.header-container {
+  width: 100%;
+  height: 50px;
+  background-color: var(--header-bg);
+  padding: 20px;
+  border-radius: 8px 8px 0 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid #fcda15;
+  font-family: "SF Pro", "SF Pro Display", "SF Pro Text", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 24px;
+  width: 100%;
+}
+
+.form-content {
+  padding: 25px;
+  box-sizing: border-box;
+  background-color: var(--section-bg);
+  margin: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  min-height: 520px;
+}
+
+label {
+  display: block;
+  margin: 12px 0 6px;
+  color: #e0e0e0;
+  font-weight: bold;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  background: var(--input-bg);
+  border: 2px solid var(--input-border);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* Date and time inputs specific styling */
+input[type="date"],
+input[type="time"] {
+  color: var(--text-secondary);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(12, 39, 190, 0.1);
+  background: var(--input-bg);
+}
+
+/* Specific styling for title and message inputs when being used */
+#title:focus,
+#message:focus {
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(12, 39, 190, 0.1);
+  background: var(--input-bg);
+}
+
+input:invalid,
+textarea:invalid {
+  border-color: var(--input-error);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+.char-counter {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Font Awesome icons styling */
+.fas {
+  color: var(--text-secondary);
+}
+
+/* Button styles */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #475569;
+}
+
+.btn-primary,
+.btn-secondary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: inherit;
+}
+
+.btn-primary {
+  background: #4caf50;
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.btn-primary:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 2px solid #475569;
+}
+
+.btn-secondary .fas {
+  color: var(--text-secondary);
+}
+
+.btn-secondary:hover {
+  background: var(--input-bg);
+  border-color: var(--input-focus);
+  color: var(--text-secondary);
+}
+
+.btn-secondary:hover .fas {
+  color: var(--text-secondary);
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: var(--section-bg);
+  border-radius: 16px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border: 1px solid #475569;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-icon {
+  font-size: 1.5rem;
+  color: #217ff7;
+}
+
+.modal h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.modal-content {
+  margin-bottom: 2rem;
+}
+
+.modal-content p {
+  color: #e0e0e0;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.modal-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.modal-btn.confirm {
+  background: #10b981;
+  color: white;
+}
+
+.modal-btn.confirm:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.modal-btn.cancel {
+  background: #ef4444;
+  color: white;
+}
+
+.modal-btn.cancel:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+/* Responsive design */
+@media (max-width: 1045px) {
+  .container {
+    width: 95%;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  input {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-content {
+    margin: 10px;
+    padding: 20px;
+    min-height: auto;
+  }
+
+  .container {
+    min-height: auto;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .modal {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+  }
+}
+
+/* Animation for form elements */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-content {
+  animation: fadeInUp 0.6s ease-out;
+}

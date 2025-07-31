@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php'; 
+require __DIR__ . '/../../vendor/autoload.php'; 
 
 use MongoDB\Client;
 
@@ -102,7 +102,7 @@ $allStudents = array_slice($allStudents, 0, 10);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Student Details</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="./Assets/StudentList.css">
+    <link rel="stylesheet" href="../Assets/css/StudentList.css">
 </head>
 
 <body>
@@ -249,6 +249,6 @@ $allStudents = array_slice($allStudents, 0, 10);
     </div>
 </body>
 </div>
-<script src="Assets/StudentList.js"></script>
+<script src="../Assets/js/StudentList.js"></script>
 
 </html>

@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="./Assets/AdminDashboard.css" rel="stylesheet">
+    <link href="../Assets/css/AdminDashboard.css" rel="stylesheet">
 </head>
 
 <body>
 
     <main>
         <div class="sidebar">
-            <img src="../img/ADMINGRALLERYLOGO.png" alt="Logo" class="logoadmin">
+            <img src="../../img/ADMINGRALLERYLOGO.png" alt="Logo" class="logoadmin">
             <div class="line"></div>
 
             <div class="menu-items" style="font-family: 'Oxygen', sans-serif;">
@@ -188,7 +188,7 @@
                         include('./Departments/Criminology.php');
                         break;
                     case 'tourism':
-                        include('./Departments/Criminology.php');
+                        include('./Departments/Tourism.php');
                         break;  
                    case 'education':
                         include('./Departments/Education.php');
@@ -211,7 +211,7 @@
             </div>
 
     </main>
-    <script src="./Assets/AdminDashbaord.js">
+    <script src="../Assets/js/AdminDashboard.js">
 
     </script>
 </body>

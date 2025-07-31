@@ -1,0 +1,220 @@
+:root {
+  --primary-bg: #000042;
+  --header-bg: #0c27be;
+  --accent: #0c27be;
+  --section-bg: #34495e;
+  --section-header: #217ff7;
+
+  --body-bg: #000042;
+  --sidebar-bg: #0c27be;
+  --content-bg: #112d4e;
+  --menu-bg-active: #000042;
+  --menu-border-active: #fcda15;
+  --menu-hover-bg: #1c1c84;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  width: 100%;
+  background-color: var(--body-bg);
+}
+
+.container {
+  height: 100%;
+  background-color: var(--content-bg);
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.header-container {
+  width: 100%;
+  height: 50px;
+  background-color: var(--header-bg);
+  padding: 20px;
+  border-radius: 8px 8px 0 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid #fcda15;
+  font-family: "SF Pro", "SF Pro Display", "SF Pro Text", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 24px;
+}
+
+.form-content {
+  padding: 25px;
+  box-sizing: border-box;
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.section {
+  width: 32%;
+  min-width: 250px;
+  background-color: var(--section-bg);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+}
+
+.section-header {
+  width: calc(100% + 40px);
+  height: 50px;
+  background-color: var(--section-header);
+  color: white;
+  padding: 12px;
+  margin: -20px -20px 20px -20px;
+  border-radius: 8px 8px 0 0;
+  text-align: center;
+  font-size: 1.1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+label {
+  display: block;
+  margin: 12px 0 6px;
+  color: #e0e0e0;
+}
+
+.section input,
+.section select,
+.section textarea {
+  margin-bottom: 16px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #f0f0f0;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.submit-btn {
+  width: 200px;
+  height: 45px;
+  display: block;
+  margin: 25px auto 0;
+  padding: 12px 25px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+  .form-group {
+    flex-direction: column;
+  }
+
+  .section {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal {
+  background-color: #fff;
+  color: #000;
+  padding: 30px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+}
+
+.modal h2 {
+  margin-top: 0;
+  font-size: 1.4rem;
+}
+
+.modal-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.modal-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.confirm {
+  background-color: #4caf50;
+  color: white;
+}
+
+.cancel {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.modal-btn:hover {
+  opacity: 0.9;
+}
+
+.success {
+  color: green;
+  margin-top: 10px;
+  font-weight: bold;
+  opacity: 1;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.input-error {
+  border: 2px solid red !important;
+}
