@@ -45,8 +45,8 @@
                         </i> Create Announcement
                     </a>
 
-                    <a href="AdminDashboard.php?page=event-schedule" class="tab sub-tab">
-                        </i> Event Schedules
+                    <a href="AdminDashboard.php?page=event-calendar" class="tab sub-tab">
+                        </i> Event Calendar
                     </a>
 
                 </div>
@@ -166,8 +166,8 @@
                     case 'create-announcement':
                         include('CreateAnnouncement.php');
                         break;
-                    case 'event-schedule':
-                        include('EventSchedules.php');
+                    case 'event-calendar':
+                        include('EventCalendar.php');
                         break;    
                     case 'batchupload': 
                         include('BatchUpload.php');

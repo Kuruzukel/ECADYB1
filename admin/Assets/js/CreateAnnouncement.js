@@ -79,6 +79,11 @@ window.addEventListener("DOMContentLoaded", () => {
   applyTheme(savedTheme);
 });
 
+// Global variable to store original modal content
+let originalModalContent = null;
+let isPreviewMode = false;
+let modalState = 'confirm'; // 'confirm' or 'preview'
+
 // Modern Announcement Form JavaScript
 document.addEventListener("DOMContentLoaded", function () {
   // Initialize current date
@@ -192,14 +197,17 @@ function validateField(field, errorMessage) {
 // Modal functionality
 function initializeModal() {
   const modalOverlay = document.getElementById("modal-overlay");
-  const confirmBtn = document.getElementById("confirm-btn");
-  const cancelBtn = document.getElementById("cancel-btn");
+  const modal = modalOverlay.querySelector(".modal");
   const form = document.getElementById("announcementForm");
 
-  if (modalOverlay && confirmBtn && cancelBtn) {
+  if (modalOverlay && modal) {
+    // Store original modal content
+    originalModalContent = modal.innerHTML;
+
     // Close modal when clicking overlay
     modalOverlay.addEventListener("click", function (e) {
       if (e.target === modalOverlay) {
+        // Just hide the modal - don't restore content to prevent confirm modal from showing
         hideModal();
       }
     });
@@ -207,19 +215,21 @@ function initializeModal() {
     // Close modal with Escape key
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && modalOverlay.style.display === "flex") {
+        // Just hide the modal - don't restore content to prevent confirm modal from showing
         hideModal();
       }
     });
 
-    // Confirm button
-    confirmBtn.addEventListener("click", function () {
-      hideModal();
-      submitForm();
-    });
-
-    // Cancel button
-    cancelBtn.addEventListener("click", function () {
-      hideModal();
+    // Handle all modal buttons dynamically
+    modalOverlay.addEventListener("click", function (e) {
+      if (e.target.id === "confirm-btn") {
+        hideModal();
+        submitForm();
+      } else if (e.target.id === "cancel-btn") {
+        hideModal();
+      } else if (e.target.id === "close-preview-btn") {
+        hideModal();
+      }
     });
   }
 }
@@ -228,6 +238,8 @@ function initializeModal() {
 function showModal() {
   const modalOverlay = document.getElementById("modal-overlay");
   if (modalOverlay) {
+    // Set modal state to confirm
+    modalState = 'confirm';
     modalOverlay.style.display = "flex";
     modalOverlay.style.animation = "fadeIn 0.3s ease-out";
   }
@@ -240,6 +252,15 @@ function hideModal() {
     modalOverlay.style.animation = "fadeOut 0.3s ease-out";
     setTimeout(() => {
       modalOverlay.style.display = "none";
+      // Only restore original modal content if we were in preview mode
+      if (modalState === 'preview') {
+        const modal = modalOverlay.querySelector(".modal");
+        if (modal && originalModalContent) {
+          modal.innerHTML = originalModalContent;
+        }
+        // Reset modal state
+        modalState = 'confirm';
+      }
     }, 300);
   }
 }
@@ -255,10 +276,38 @@ function submitForm() {
       submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
       submitBtn.disabled = true;
 
-      // Simulate form submission (replace with actual submission)
-      setTimeout(() => {
-        form.submit();
-      }, 1000);
+      // Get form data
+      const formData = new FormData(form);
+
+      // Submit via AJAX
+      fetch('submit_announcement.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          showNotification(data.message, "success");
+          // Reset form
+          form.reset();
+          // Reset character counter
+          const charCountElement = document.getElementById("char-count");
+          if (charCountElement) {
+            charCountElement.textContent = "0";
+          }
+        } else {
+          showNotification(data.message, "error");
+        }
+      })
+      .catch(error => {
+        showNotification("An error occurred while posting the announcement", "error");
+        console.error('Error:', error);
+      })
+      .finally(() => {
+        // Restore button state
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      });
     }
   }
 }
@@ -292,8 +341,8 @@ function showPreviewModal(title, message) {
   const modalOverlay = document.getElementById("modal-overlay");
   const modal = modalOverlay.querySelector(".modal");
 
-  // Store original modal content
-  const originalContent = modal.innerHTML;
+  // Set modal state to preview
+  modalState = 'preview';
 
   // Create preview content
   const previewContent = `
@@ -320,16 +369,6 @@ function showPreviewModal(title, message) {
 
   modal.innerHTML = previewContent;
   modalOverlay.style.display = "flex";
-
-  // Handle close preview
-  const closePreviewBtn = document.getElementById("close-preview-btn");
-  if (closePreviewBtn) {
-    closePreviewBtn.addEventListener("click", function () {
-      // Simply hide the modal without restoring original content
-      // This prevents the post announcement modal from appearing
-      hideModal();
-    });
-  }
 }
 
 // Notification system
