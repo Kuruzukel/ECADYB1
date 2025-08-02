@@ -114,7 +114,7 @@ function loadApp() {
 
 			// Elevation from the edge of the flipbook when turning a page
 
-			elevation: 50,
+			elevation: 0,
 
 			// The number of pages
 
@@ -320,16 +320,7 @@ function loadApp() {
 		}
 	});
 
-	$('.thumbnails li').
-		on($.mouseEvents.over, function() {
-			
-			$(this).addClass('thumb-hover');
-
-		}).on($.mouseEvents.out, function() {
-			
-			$(this).removeClass('thumb-hover');
-
-		});
+	/* Removed thumbnail hover effects */
 
 	if ($.isTouch) {
 	
@@ -385,7 +376,7 @@ function loadApp() {
 
 	});
 
-	// Events for the next button
+	// Events for the previous button
 	
 	$('.previous-button').on($.mouseEvents.over, function() {
 		
@@ -418,23 +409,7 @@ function loadApp() {
 
 // Zoom icon
 
- $('.zoom-icon').on('mouseover', function() { 
- 	
- 	if ($(this).hasClass('zoom-icon-in'))
- 		$(this).addClass('zoom-icon-in-hover');
-
- 	if ($(this).hasClass('zoom-icon-out'))
- 		$(this).addClass('zoom-icon-out-hover');
- 
- }).on('mouseout', function() { 
- 	
- 	 if ($(this).hasClass('zoom-icon-in'))
- 		$(this).removeClass('zoom-icon-in-hover');
- 	
- 	if ($(this).hasClass('zoom-icon-out'))
- 		$(this).removeClass('zoom-icon-out-hover');
-
- }).on('click', function() {
+ $('.zoom-icon').on('click', function() {
 
 	if (!document.fullscreenElement) {
 		document.documentElement.requestFullscreen().catch((err) => {

@@ -9,7 +9,7 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 922px;
+  width: 966px;
   height: 600px;
   margin: auto;
   background: transparent !important;
@@ -18,8 +18,7 @@ body {
 .magazine-viewport .magazine {
   width: 922px;
   height: 600px;
-  left: -461px;
-  top: -300px;
+  position: relative;
 }
 
 .magazine-viewport .page {
@@ -40,11 +39,7 @@ body {
   filter: alpha(opacity=1);
 }
 
-.magazine .region.zoom:hover {
-  opacity: 0.2;
-  -webkit-filter: alpha(opacity=20);
-  filter: alpha(opacity=20);
-}
+/* Removed hover effect for zoom regions */
 
 .magazine .page {
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -77,23 +72,28 @@ body {
   height: 600px;
   position: absolute;
   top: 0;
+  cursor: pointer;
 }
 
 .magazine-viewport .next-button {
   right: -22px;
   -webkit-border-radius: 0 15px 15px 0;
   border-radius: 0 15px 15px 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 1000;
 }
 
 .magazine-viewport .previous-button {
   left: -22px;
   -webkit-border-radius: 15px 0 0 15px;
   border-radius: 15px 0 0 15px;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 1000;
 }
 
 .magazine-viewport .previous-button-hover,
 .magazine-viewport .next-button-hover {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .magazine-viewport .previous-button-hover,
@@ -105,7 +105,7 @@ body {
 
 .magazine-viewport .previous-button-down,
 .magazine-viewport .next-button-down {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .magazine-viewport .next-button-hover,
@@ -115,10 +115,7 @@ body {
   background-repeat: no-repeat;
 }
 
-.magazine-viewport .zoom-in .next-button,
-.magazine-viewport .zoom-in .previous-button {
-  display: none;
-}
+/* Removed zoom-in button hiding rule */
 
 .animated {
   -webkit-transition: margin-left 0.5s;
@@ -253,19 +250,13 @@ body {
   cursor: pointer;
 }
 
-.zoom-icon-in.zoom-icon-in-hover {
-  background-position: -22px 0;
-  cursor: pointer;
-}
+/* Removed zoom-icon-in hover effect */
 
 .zoom-icon-out {
   background-position: -44px 0;
 }
 
-.zoom-icon-out.zoom-icon-out-hover {
-  background-position: -66px 0;
-  cursor: pointer;
-}
+/* Removed zoom-icon-out hover effect */
 
 .bottom {
   position: absolute;
@@ -286,4 +277,26 @@ body {
 }
 .page {
   background: transparent !important;
+}
+
+/* Make page 1 solid to hide grid overlay */
+.magazine .page:first-child,
+.magazine .page[data-page="1"] {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+/* Ensure page 1 content is solid */
+.magazine .page:first-child img,
+.magazine .page[data-page="1"] img {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+/* Hide any grid overlay on page 1 */
+.magazine .page:first-child .region,
+.magazine .page[data-page="1"] .region {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
